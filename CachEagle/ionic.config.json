@@ -1,0 +1,7 @@
+{
+  "name": "CachEagle",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
