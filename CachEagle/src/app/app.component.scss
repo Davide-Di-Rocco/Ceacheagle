@@ -118,6 +118,16 @@ ion-item.selected {
   --color: var(--ion-color-primary);
 }
 
-#close-button{
-  color: black;
+#close {
+  margin-left: -10px;
 }
+
+#inbox-list {
+  margin-top: 10%;
+}
+
+ion-img {
+  width: 20%;
+  height: 20%;
+}
+

@@ -10,8 +10,8 @@ import {ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot} from "@angul
 })
 export class AuthenticationService {
 
-  private apiUrl = 'http://localhost:3000/users'; // URL dell'API
-  private sessionTimeout = 3600000;    // Timeout della sessione in millisecondi (1 ora)
+  private apiUrl = 'http://localhost:3000/users' // URL dell'API
+  private sessionTimeout = 43200000    // Timeout della sessione in millisecondi (12 ore)
 
   constructor(
     private http: HttpClient,
@@ -25,30 +25,31 @@ export class AuthenticationService {
 
       if (await this.isLogged()) return true
 
-      const url = `${this.apiUrl}?username=${username}&password=${password}`;
-      const result: number[] = await this.sendRequest<number[]>(url);
+      const url = `${this.apiUrl}?username=${username}&password=${password}`
+      const result: number[] = await this.getRequest<number[]>(url);
       const now = new Date().getTime();
 
       if (result.length === 1) {
-        await Preferences.set({key: "login", value: now.toString()});
+        await Preferences.set({key: "login", value: now.toString()})
+        await Preferences.set({key: "username", value: username})
         return true
       }
       return false
 
     } catch (error) {
-      console.error('Errore durante il login:', error);
+      console.error('Errore durante il login:', error)
       return false
     }
   }
 
   private async isLogged(): Promise<boolean> {
-    const {value} = await Preferences.get({key: "login"});
-    const now = new Date().getTime();
+    const {value} = await Preferences.get({key: "login"})
+    const now = new Date().getTime()
 
     return value != null && now - parseInt(value) < this.sessionTimeout
   }
 
-  private async sendRequest<T>(url: string): Promise<T> {
+  private async getRequest<T>(url: string): Promise<T> {
     const observable = this.http.get<T>(url).pipe(take(1));
     return lastValueFrom(observable);
   }
@@ -59,6 +60,11 @@ export class AuthenticationService {
       return false
     }
     return true
+  }
+
+  async getLoggedUsername() {
+    const username = await Preferences.get({key: "username"})
+    return username.value
   }
 }
 

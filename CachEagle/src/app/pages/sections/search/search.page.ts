@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {MenuController, NavController} from "@ionic/angular";
 
 @Component({
   selector: 'app-search',
@@ -7,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    private navController: NavController,
+    private menuController: MenuController
+  ) {
+    this.menuController.enable(true)
+  }
 
   ngOnInit() {
   }

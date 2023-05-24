@@ -1,4 +1,6 @@
 import {Component} from '@angular/core';
+import {MenuController} from "@ionic/angular";
+import {AuthenticationService} from "./services/authentication.service";
 
 @Component({
   selector: 'app-root',
@@ -7,14 +9,24 @@ import {Component} from '@angular/core';
 })
 export class AppComponent {
   public appPages = [
-    {title: 'Cerca', url: '/pages/sections/search', icon: 'search'},
-    {title: 'Preferiti', url: '/pages/sections/outbox', icon: 'bookmarks'},
-    {title: 'Completate', url: '/pages/sections/favorites', icon: 'checkmark-done-circle'},
-    {title: 'Le mie cache', url: '/pages/folder/archived', icon: 'file-tray-full'},
+    {title: 'Cerca', url: 'sections/search', icon: 'search'},
+    {title: 'Preferiti', url: 'sections/favorites', icon: 'bookmarks'},
+    {title: 'Completate', url: 'sections/completed', icon: 'checkmark-circle'},
+    {title: 'Le mie cache', url: 'sections/mycache', icon: 'file-tray-full'},
   ];
 
-  protected username: string
-  constructor() {
-    this.username = "Pippo"
+  public username: string = ""
+
+  constructor(
+    private menuController: MenuController,
+    private authenticationService: AuthenticationService
+  ) {
+    authenticationService.getLoggedUsername().then(m => {
+      this.username = m as string
+    })
+  }
+
+  closeMenu() {
+    this.menuController.close()
   }
 }

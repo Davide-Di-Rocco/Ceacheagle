@@ -17,6 +17,12 @@
       "username": "Alessio",
       "email": "alessiomartinelli@gmail.com",
       "password": "12345"
+    },
+    {
+      "email": "winiwed114@fsouda.com",
+      "username": "Mario",
+      "password": "12345",
+      "id": 3
     }
   ]
 }
