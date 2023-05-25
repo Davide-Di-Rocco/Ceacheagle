@@ -2,7 +2,7 @@
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
-        <ion-item lines="none">
+        <ion-toolbar>
           <ion-button id="close" slot="end"
                       fill="clear" size="default"
                       (click)="closeMenu()">
@@ -10,7 +10,7 @@
           </ion-button>
           <h5>{{username}}</h5>
           <ion-img src="assets/img/logo.svg" slot="start"/>
-        </ion-item>
+        </ion-toolbar>
 
         <ion-list id="inbox-list">
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
@@ -23,7 +23,6 @@
         </ion-list>
 
         <ion-item lines="none">
-
         </ion-item>
       </ion-content>
     </ion-menu>

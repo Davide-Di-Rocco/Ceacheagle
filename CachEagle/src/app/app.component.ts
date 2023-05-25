@@ -26,7 +26,8 @@ export class AppComponent {
     })
   }
 
-  closeMenu() {
-    this.menuController.close()
+  async closeMenu() {
+    await this.menuController.close()
   }
 }
+
