@@ -1,24 +1,13 @@
 ion-toolbar {
-  padding: 0 3%
-}
-
-ion-button {
-  width: 3em;
-  height: 3em;
-  --border-radius: 30%;
-}
-
-.item {
   padding: 2%;
+  --background: linear-gradient(90deg, #00bf63, #2fdf75);
+}
+
+ion-fab-button::part(native) {
   border-radius: 20%;
-  border-width: 2px;
 }
 
-.item-title {
-  display: inline-block
+ion-popover{
+
 }
 
-ion-img {
-  width: 20%;
-  height: 20%;
-}

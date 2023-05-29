@@ -1,12 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { SearchPageRoutingModule } from './search-routing.module';
+import {SearchPageRoutingModule} from './search-routing.module';
 
-import { SearchPage } from './search.page';
+import {SearchPage} from './search.page';
+import {RatingComponent} from "../../../components/rating/rating.component";
 
 @NgModule({
   imports: [
@@ -15,6 +16,9 @@ import { SearchPage } from './search.page';
     IonicModule,
     SearchPageRoutingModule
   ],
-  declarations: [SearchPage]
+  declarations: [SearchPage, RatingComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class SearchPageModule {}
+export class SearchPageModule {
+
+}

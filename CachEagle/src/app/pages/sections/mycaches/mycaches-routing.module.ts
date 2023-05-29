@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { MycachePage } from './mycache.page';
+import { MycachesPage } from './mycaches.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: MycachePage
+    component: MycachesPage
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class MycachePageRoutingModule {}
+export class MycachesPageRoutingModule {}

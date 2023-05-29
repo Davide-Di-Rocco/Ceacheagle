@@ -1,34 +1,35 @@
-<ion-content [fullscreen]="true">
-  <ion-toolbar color="transparent">
-    <ion-button slot="start" (click)="showMenu()">
-      <ion-icon name="menu"/>
+<!--
+<ion-header>
+  <ion-toolbar>
+    <ion-menu-button slot="start"></ion-menu-button>
+    <ion-title>CHACEALGE</ion-title>
+    <ion-button slot="end" fill="clear" color="dark">
+      <ion-icon name="filter"></ion-icon>
     </ion-button>
-    <ion-button slot="end" (click)="showFilter()">
-      <ion-icon name="filter"/>
-    </ion-button>
-
-    <ion-modal
-      [isOpen]="true"
-      [initialBreakpoint]="0.1"
-      [breakpoints]="[0.1, 0.25, 0.5, 0.75]"
-      [backdropDismiss]="false"
-      [backdropBreakpoint]="0.5">
-      <ng-template>
-        <ion-list>
-          <ion-item *ngFor="let item of findCaches; let i = index">
-            <div class="item">
-              <div class="item-title">
-                <h5>{{item.title}}</h5>
-                <ion-button slot="end" fill="clear">
-                  <ion-icon name="star" *ngIf="item.starred" [hidden]="item.starred"></ion-icon>
-                  <ion-icon name="star-outline" *ngIf="!item.starred" [hidden]="!item.starred"></ion-icon>
-                </ion-button>
-              </div>
-              <ion-img src="assets/img/logo.svg"></ion-img>
-            </div>
-          </ion-item>
-        </ion-list>
-      </ng-template>
-    </ion-modal>
   </ion-toolbar>
+</ion-header>
+-->
+<ion-content [fullscreen]="true">
+  <ion-fab slot="fixed" vertical="top" horizontal="start">
+    <ion-fab-button>
+      <ion-menu-button color="dark"/>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-fab slot="fixed" vertical="top" horizontal="end">
+    <ion-fab-button id="filter-btn">
+      <ion-icon name="filter" color="dark"/>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-popover trigger="filter-btn" triggerAction="click">
+    <ng-template>
+      <ion-header class="ion-padding">
+        <ion-title>Imposta filtri di ricerca</ion-title>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <app-rating></app-rating>
+      </ion-content>
+    </ng-template>
+  </ion-popover>
+  <!-- <capacitor-google-map id="map"></capacitor-google-map> -->
 </ion-content>

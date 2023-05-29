@@ -9,6 +9,7 @@ import {RegistrationService} from "../../services/registration.service";
   styleUrls: ['./registration.page.scss'],
 })
 export class RegistrationPage implements OnInit {
+
   protected registrationFormModule: FormGroup;
 
   constructor(
@@ -64,4 +65,5 @@ export class RegistrationPage implements OnInit {
   onCancel() {
     this.navController.navigateRoot("login")
   }
+
 }

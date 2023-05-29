@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AlertController, MenuController, NavController} from "@ionic/angular";
 import {AuthenticationService} from "../../services/authentication.service";
+import {AlertController, NavController} from "@ionic/angular";
 
 @Component({
   selector: 'app-login',
@@ -17,12 +17,12 @@ export class LoginPage implements OnInit {
     private authService: AuthenticationService,
     private navController: NavController,
     private alert: AlertController,
-    private menuController: MenuController
   ) {
     this.loginFormModule = fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
     });
+    this.authService.logout()
   }
 
   ngOnInit() {
@@ -32,9 +32,10 @@ export class LoginPage implements OnInit {
     let username = this.loginFormModule.value.username
     let password = this.loginFormModule.value.password
     if (await this.authService.login(username, password))
-      await this.navController.navigateRoot("sections/search")
+      await this.navController.navigateRoot("section/search")
     else await this.onWrongCredentials()
   }
+
 
   async onWrongCredentials() {
     const popup = await this.alert.create({
@@ -48,4 +49,5 @@ export class LoginPage implements OnInit {
   async onRegister() {
     await this.navController.navigateRoot("registration")
   }
+
 }

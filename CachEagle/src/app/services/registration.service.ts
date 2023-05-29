@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
 import {lastValueFrom, take} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +46,4 @@ export class RegistrationService {
       return false; // Si è verificato un errore durante l'operazione POST
     }
   }
-
-
 }

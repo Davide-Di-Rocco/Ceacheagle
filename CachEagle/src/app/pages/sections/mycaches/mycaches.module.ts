@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MycachePageRoutingModule } from './mycache-routing.module';
+import { MycachesPageRoutingModule } from './mycaches-routing.module';
 
-import { MycachePage } from './mycache.page';
+import { MycachesPage } from './mycaches.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MycachePageRoutingModule
+    MycachesPageRoutingModule
   ],
-  declarations: [MycachePage]
+  declarations: [MycachesPage]
 })
-export class MycachePageModule {}
+export class MycachesPageModule {}

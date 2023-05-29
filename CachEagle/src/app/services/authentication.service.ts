@@ -1,10 +1,10 @@
 import {inject, Injectable} from '@angular/core';
-import {NavController} from "@ionic/angular";
+import {User} from "../models/user.model";
 import {HttpClient} from "@angular/common/http";
-import {Preferences} from "@capacitor/preferences";
+import {NavController} from "@ionic/angular";
 import {firstValueFrom} from "rxjs";
+import {Preferences} from "@capacitor/preferences";
 import {ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot} from "@angular/router";
-import {User} from "../model/user.model";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,6 @@ export class AuthenticationService {
     private http: HttpClient,
     private navController: NavController
   ) {
-
   }
 
   async login(username: string, password: string): Promise<boolean> {
@@ -27,16 +26,24 @@ export class AuthenticationService {
       // Costruisci l'URL con i parametri username e password
       const url = `${this.apiUrl}?username=${username}&password=${password}`
       const user = await firstValueFrom(await this.http.get<User[]>(url))
-      if (!user) return false
+
+      if (!user[0]) return false
+
       await Preferences.set({key: 'user', value: JSON.stringify(user[0])})
       const now = new Date().getTime();
       await Preferences.set({key: "loginTime", value: now.toString()})
       this.loggedUser = user[0]
       return true
+
     } catch (error) {
       console.error("Erorre in fase di autenticazione:", error)
       return false
     }
+  }
+
+  async logout() {
+    await Preferences.clear()
+    await this.navController.navigateRoot("login")
   }
 
   private async isLogged(): Promise<boolean> {
@@ -48,7 +55,6 @@ export class AuthenticationService {
   async getLoggedUser(): Promise<User> {
     let data = await Preferences.get({key: "user"})
     this.loggedUser = JSON.parse(data.value!)
-    console.log(this.loggedUser)
     return this.loggedUser
   }
 
@@ -58,11 +64,6 @@ export class AuthenticationService {
       return false
     }
     return true
-  }
-
-  async logout() {
-    await Preferences.clear()
-    await this.navController.navigateRoot("login")
   }
 }
 

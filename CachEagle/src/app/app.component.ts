@@ -1,9 +1,7 @@
 import {Component} from '@angular/core';
 import {MenuController} from "@ionic/angular";
 import {AuthenticationService} from "./services/authentication.service";
-import {NavigationStart, Router} from "@angular/router";
-import {User} from "./model/user.model";
-
+import {User} from "./models/user.model";
 
 @Component({
   selector: 'app-root',
@@ -12,10 +10,10 @@ import {User} from "./model/user.model";
 })
 export class AppComponent {
   public appPages = [
-    {title: 'Cerca', url: 'sections/search', icon: 'search'},
-    {title: 'Preferiti', url: 'sections/favorites', icon: 'bookmarks'},
-    {title: 'Completate', url: 'sections/completed', icon: 'checkmark-circle'},
-    {title: 'Le mie cache', url: 'sections/mycache', icon: 'file-tray-full'},
+    {title: 'Cerca', url: 'section/search', icon: 'search'},
+    {title: 'Preferiti', url: 'section/favorites', icon: 'bookmarks'},
+    {title: 'Completate', url: 'section/completed', icon: 'checkmark-circle'},
+    {title: 'Le mie cache', url: 'section/mycache', icon: 'file-tray-full'},
   ]
 
   public logout_button = {title: 'Logout', icon: 'log-out'}
@@ -25,15 +23,8 @@ export class AppComponent {
 
   constructor(
     private menuController: MenuController,
-    private authenticationService: AuthenticationService,
-    private router: Router
+    private authenticationService: AuthenticationService
   ) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        const shouldHideMenu = this.hideMenuPages.some((page) => event.url.includes(page))
-        this.menuController.enable(!shouldHideMenu)
-      }
-    })
   }
 
   ngOnInit() {
@@ -48,4 +39,3 @@ export class AppComponent {
     await this.authenticationService.logout()
   }
 }
-
