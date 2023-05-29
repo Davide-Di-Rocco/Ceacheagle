@@ -44,12 +44,11 @@ export class RegistrationPage implements OnInit {
         await this.navController.navigateRoot("login")
         await this.popup("UTENTE CREATO", "Registrazione effettuata con successo")
       } else {
-        await this.popup("ERRORE", "Connessione con il server fallita. Controlla la connessione e riprova")
+        await this.popup("ERRORE", "Dati non validi. Username e/o password già esistenti")
       }
     } else {
       await this.popup("ERRORE", "Le password inserite devono coincidere")
     }
-    // await this.navController.navigateRoot("login")
   }
 
   async popup(title: string, message: string) {

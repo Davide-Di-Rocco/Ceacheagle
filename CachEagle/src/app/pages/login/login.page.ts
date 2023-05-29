@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AuthenticationService} from "../../services/authentication.service";
 import {AlertController, MenuController, NavController} from "@ionic/angular";
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
   selector: 'app-login',
@@ -23,7 +23,6 @@ export class LoginPage implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required],
     });
-    this.menuController.enable(false)
   }
 
   ngOnInit() {

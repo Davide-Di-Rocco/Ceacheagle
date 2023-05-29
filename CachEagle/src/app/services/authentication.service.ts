@@ -2,8 +2,9 @@ import {inject, Injectable} from '@angular/core';
 import {NavController} from "@ionic/angular";
 import {HttpClient} from "@angular/common/http";
 import {Preferences} from "@capacitor/preferences";
-import {lastValueFrom, take} from "rxjs";
+import {firstValueFrom} from "rxjs";
 import {ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot} from "@angular/router";
+import {User} from "../model/user.model";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class AuthenticationService {
 
   private apiUrl = 'http://localhost:3000/users' // URL dell'API
   private sessionTimeout = 43200000    // Timeout della sessione in millisecondi (12 ore)
+  private loggedUser!: User
 
   constructor(
     private http: HttpClient,
@@ -22,36 +24,32 @@ export class AuthenticationService {
 
   async login(username: string, password: string): Promise<boolean> {
     try {
-
-      if (await this.isLogged()) return true
-
+      // Costruisci l'URL con i parametri username e password
       const url = `${this.apiUrl}?username=${username}&password=${password}`
-      const result: number[] = await this.getRequest<number[]>(url);
+      const user = await firstValueFrom(await this.http.get<User[]>(url))
+      if (!user) return false
+      await Preferences.set({key: 'user', value: JSON.stringify(user[0])})
       const now = new Date().getTime();
-
-      if (result.length === 1) {
-        await Preferences.set({key: "login", value: now.toString()})
-        await Preferences.set({key: "username", value: username})
-        return true
-      }
-      return false
-
+      await Preferences.set({key: "loginTime", value: now.toString()})
+      this.loggedUser = user[0]
+      return true
     } catch (error) {
-      console.error('Errore durante il login:', error)
+      console.error("Erorre in fase di autenticazione:", error)
       return false
     }
   }
 
   private async isLogged(): Promise<boolean> {
-    const {value} = await Preferences.get({key: "login"})
+    const {value} = await Preferences.get({key: "loginTime"})
     const now = new Date().getTime()
-
     return value != null && now - parseInt(value) < this.sessionTimeout
   }
 
-  private async getRequest<T>(url: string): Promise<T> {
-    const observable = this.http.get<T>(url).pipe(take(1));
-    return lastValueFrom(observable);
+  async getLoggedUser(): Promise<User> {
+    let data = await Preferences.get({key: "user"})
+    this.loggedUser = JSON.parse(data.value!)
+    console.log(this.loggedUser)
+    return this.loggedUser
   }
 
   async canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
@@ -62,9 +60,9 @@ export class AuthenticationService {
     return true
   }
 
-  async getLoggedUsername() {
-    const username = await Preferences.get({key: "username"})
-    return username.value
+  async logout() {
+    await Preferences.clear()
+    await this.navController.navigateRoot("login")
   }
 }
 

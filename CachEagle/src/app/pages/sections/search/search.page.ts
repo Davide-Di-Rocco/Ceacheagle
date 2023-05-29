@@ -16,7 +16,6 @@ export class SearchPage implements OnInit {
     private navController: NavController,
     private menuController: MenuController
   ) {
-    this.menuController.enable(true)
   }
 
   ngOnInit() {

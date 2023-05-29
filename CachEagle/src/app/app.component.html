@@ -2,28 +2,42 @@
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
-        <ion-toolbar>
+        <div class="menu-header-bg">
           <ion-button id="close" slot="end"
                       fill="clear" size="default"
                       (click)="closeMenu()">
             <ion-icon name="close-sharp"></ion-icon>
           </ion-button>
-          <h5>{{username}}</h5>
-          <ion-img src="assets/img/logo.svg" slot="start"/>
-        </ion-toolbar>
+          <div class="header-content">
+            <div *ngIf="(user|async) as loggedUser">
+              <h5>{{loggedUser.username | uppercase}}</h5>
+              <p>{{loggedUser.email}}</p>
+            </div>
+            <ion-img src="assets/img/named_logo.svg" slot="end"/>
+          </div>
+        </div>
+        <div class="menu-body">
+          <ion-list id="inbox-list">
+            <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+              <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
+                        routerLinkActive="selected">
+                <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'"
+                          [md]="p.icon + '-sharp'"></ion-icon>
+                <ion-label>{{ p.title }}</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+            <ion-menu-toggle auto-hide="false" (click)="logout()">
+              <ion-item lines="none" detail="false">
+                <ion-icon aria-hidden="true" slot="start" [ios]="logout_button.icon +'-outline'"
+                          [md]="logout_button.icon +'-sharp'"></ion-icon>
+                <ion-label>{{logout_button.title}}</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+          </ion-list>
 
-        <ion-list id="inbox-list">
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
-                      routerLinkActive="selected">
-              <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-              <ion-label>{{ p.title }}</ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
-
-        <ion-item lines="none">
-        </ion-item>
+          <ion-item lines="none">
+          </ion-item>
+        </div>
       </ion-content>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
