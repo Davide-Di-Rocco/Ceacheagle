@@ -21,15 +21,22 @@
     </ion-fab-button>
   </ion-fab>
 
-  <ion-popover trigger="filter-btn" triggerAction="click">
+  <ion-popover trigger="filter-btn" triggerAction="click" [isOpen]="isOpen">
     <ng-template>
       <ion-header class="ion-padding">
-        <ion-title>Imposta filtri di ricerca</ion-title>
+        <ion-title>Imposta filtri</ion-title>
       </ion-header>
       <ion-content class="ion-padding">
         <app-rating></app-rating>
+        <div class="filter-btns">
+          <ion-button>Applica</ion-button>
+          <ion-button fill="outline" (click)="isOpen=false; console.log('cancella')">Cancella</ion-button>
+        </div>
       </ion-content>
     </ng-template>
   </ion-popover>
-  <!-- <capacitor-google-map id="map"></capacitor-google-map> -->
+
+  <div class="map-container">
+    <capacitor-google-map #map></capacitor-google-map>
+  </div>
 </ion-content>

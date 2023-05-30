@@ -1,13 +1,37 @@
+/*
 ion-toolbar {
   padding: 2%;
   --background: linear-gradient(90deg, #00bf63, #2fdf75);
 }
+ */
 
 ion-fab-button::part(native) {
   border-radius: 20%;
 }
 
-ion-popover{
+ion-popover {
 
+  --width: 96vw;
+  --offset-y: -7vh;
+  --offset-x: 1vw;
+
+  ion-title {
+    text-align: center;
+  }
+
+  .filter-btns {
+    display: flex;
+  }
+}
+
+.map-container {
+  display: inline;
+  width: 100%;
+  height: 100%;
+}
+
+.md body,
+ion-content {
+  --background: none;
 }
 
