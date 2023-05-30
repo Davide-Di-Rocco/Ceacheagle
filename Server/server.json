@@ -9,7 +9,7 @@
     {
       "id": 1,
       "username": "Davide",
-      "email": "davidedirocco@gmail.com",
+      "email": "davidedirocco88@gmail.com",
       "password": "12345"
     },
     {
@@ -17,12 +17,6 @@
       "username": "Alessio",
       "email": "alessiomartinelli@gmail.com",
       "password": "12345"
-    },
-    {
-      "email": "tatonimatteo@gmail.",
-      "username": "Matteo9",
-      "password": "12345",
-      "id": 3
     }
   ]
 }

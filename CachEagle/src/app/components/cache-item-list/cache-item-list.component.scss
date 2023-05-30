@@ -1,0 +1,44 @@
+.container {
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+  padding-bottom: 5px;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.buttons {
+  display: flex;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+ion-avatar {
+  width: 4em;
+  height: 4em;
+  margin-right: 10px;
+  --border-radius: 10%;
+}
+
+.details p {
+  font-size: 12px;
+
+  .line {
+    padding: 10%;
+    display: flex;
+  }
+}

@@ -1,5 +1,5 @@
 <ion-app>
-  <ion-menu contentId="main-content" type="overlay">
+  <ion-menu contentId="main-content" type="overlay" swipe-gesture="false" (ionWillOpen)="setUser()">
     <ion-content>
       <div class="menu-header-bg">
         <ion-button slot="end" color="dark"

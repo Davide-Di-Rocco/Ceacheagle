@@ -1,0 +1,21 @@
+ion-fab-button::part(native) {
+  border-radius: 20%;
+  width: 70%;
+  height: 70%;
+}
+
+ion-toolbar {
+  padding-top: 0.5vh;
+  padding-left: 10vw;
+  margin-bottom: 3vh;
+}
+
+ion-item {
+  padding-left: 5vw;
+  padding-right: 5vw;
+}
+
+ion-avatar {
+  margin-right: 4vw;
+  --border-radius: 4px;
+}

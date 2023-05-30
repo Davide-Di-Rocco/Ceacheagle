@@ -1,16 +1,5 @@
-<!--
-<ion-header>
-  <ion-toolbar>
-    <ion-menu-button slot="start"></ion-menu-button>
-    <ion-title>CHACEALGE</ion-title>
-    <ion-button slot="end" fill="clear" color="dark">
-      <ion-icon name="filter"></ion-icon>
-    </ion-button>
-  </ion-toolbar>
-</ion-header>
--->
 <ion-content [fullscreen]="true">
-  <ion-fab slot="fixed" vertical="top" horizontal="start">
+  <ion-fab slot="fixed" vertical="top" horizontal="start" #menu>
     <ion-fab-button>
       <ion-menu-button color="dark"/>
     </ion-fab-button>
@@ -21,22 +10,58 @@
     </ion-fab-button>
   </ion-fab>
 
-  <ion-popover trigger="filter-btn" triggerAction="click" [isOpen]="isOpen">
+  <ion-popover trigger="filter-btn" triggerAction="click" #filter_popover>
     <ng-template>
       <ion-header class="ion-padding">
-        <ion-title>Imposta filtri</ion-title>
+        <ion-title><strong>Imposta filtri di ricerca</strong></ion-title>
       </ion-header>
       <ion-content class="ion-padding">
-        <app-rating></app-rating>
-        <div class="filter-btns">
-          <ion-button>Applica</ion-button>
-          <ion-button fill="outline" (click)="isOpen=false; console.log('cancella')">Cancella</ion-button>
+        <ion-item lines="none">
+          <ion-label>Valutazione minima</ion-label>
+          <app-rating [rating]="ratingValue" (ratingChange)="onRatingChange($event)" [icon_name]="'star'"></app-rating>
+        </ion-item>
+        <ion-item>
+          <ion-label>Difficoltà</ion-label>
+          <ion-range aria-label=""
+                     [dualKnobs]="true"
+                     [value]="difficultValue"
+                     [ticks]="true"
+                     [snaps]="true"
+                     [min]="1"
+                     [max]="5"
+                     [pin]="true" [pinFormatter]="pinFormatter"
+                     (ionChange)="onIonChange($event)">
+          </ion-range>
+        </ion-item>
+        <div class="filter-btn">
+          <ion-button fill="outline" (click)="filter_popover.dismiss()">Cancella</ion-button>
+          <div id="space"></div>
+          <ion-button (click)="filter_popover.dismiss(); onFilterSubmit()">Applica</ion-button>
         </div>
       </ion-content>
     </ng-template>
   </ion-popover>
-
-  <div class="map-container">
-    <capacitor-google-map #map></capacitor-google-map>
-  </div>
+  <capacitor-google-map #map></capacitor-google-map>
+  <ion-modal
+    #bottom_list
+    [isOpen]="true"
+    [initialBreakpoint]="0.1"
+    [breakpoints]="[0.1, 0.25, 0.5, 0.75, 0.90]"
+    [backdropDismiss]="false"
+    [backdropBreakpoint]="0.5">
+    <ng-template>
+      <ion-content class="ion-padding">
+        <ion-list *ngFor="let cache of cacheList; let i = index">
+          <ion-item lines="none">
+            <app-cache-item-list
+              [title]="cache.title"
+              [rate]="cache.rate"
+              [difficulty]="cache.difficulty"
+              [starred]="cache.starred">
+            </app-cache-item-list>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

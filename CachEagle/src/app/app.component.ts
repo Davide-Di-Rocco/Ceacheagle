@@ -13,12 +13,10 @@ export class AppComponent {
     {title: 'Cerca', url: 'section/search', icon: 'search'},
     {title: 'Preferiti', url: 'section/favorites', icon: 'bookmarks'},
     {title: 'Completate', url: 'section/completed', icon: 'checkmark-circle'},
-    {title: 'Le mie cache', url: 'section/mycache', icon: 'file-tray-full'},
+    {title: 'Le mie cache', url: 'section/mycaches', icon: 'file-tray-full'},
   ]
 
   public logout_button = {title: 'Logout', icon: 'log-out'}
-
-  public hideMenuPages = ['/login', '/registration']
   protected user!: Promise<User | undefined>
 
   constructor(
@@ -27,15 +25,15 @@ export class AppComponent {
   ) {
   }
 
-  ngOnInit() {
-    this.user = this.authenticationService.getLoggedUser()
-  }
-
   async closeMenu() {
     await this.menuController.close()
   }
 
   async logout() {
     await this.authenticationService.logout()
+  }
+
+  setUser() {
+    this.user = this.authenticationService.getLoggedUser()
   }
 }

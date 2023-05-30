@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-mycaches',
@@ -7,7 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MycachesPage implements OnInit {
 
-  constructor() { }
+  cachesList = [
+    {title: "Cache 1"},
+    {title: "Cache 2"},
+    {title: "Cache 3"},
+    {title: "Cache 4"},
+  ]
+
+  constructor() {
+  }
 
   ngOnInit() {
   }
