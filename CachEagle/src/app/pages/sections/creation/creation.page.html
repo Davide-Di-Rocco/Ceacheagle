@@ -22,6 +22,14 @@
                   fill="outline"
                   formControlName="description"
                   class="formItem"/>
+    <div class="border">
+      <ion-label>Difficoltà</ion-label>
+      <div></div>
+      <app-rating [rating]="3" [icon_name]="'ellipse'"></app-rating>
+      <div></div>
+      <!--(ratingChange)=""-->
+    </div>
+
     <ion-textarea id="hint1" type="text"
                   label="Suggerimento 1" label-placement="floating"
                   fill="outline"

@@ -30,13 +30,26 @@ form {
 
   ion-textarea {
     margin: 1vh 0;
-    height: 10vh;
+    height: 9.5vh;
+  }
+
+  .border {
+    padding: 1.5vh;
+    display: flex;
+    height: 5vh;
+    border-radius: 2px;
+    border: solid 0.5px #b3b3b3;
+
+    div {
+      margin: auto;
+      visibility: hidden;
+    }
   }
 }
 
 #buttons {
   display: flex;
-  padding: 0 4%;
+  padding: 0 4vw;
 
   div {
     margin: auto;

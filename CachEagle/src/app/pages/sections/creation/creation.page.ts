@@ -3,6 +3,7 @@ import {PhotoService} from "../../../services/photo.service";
 import {Photo} from "@capacitor/camera";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {NavController} from "@ionic/angular";
+import {ellipse} from "ionicons/icons";
 
 @Component({
   selector: 'app-creation',
@@ -35,4 +36,5 @@ export class CreationPage implements OnInit {
     this.photo = await this.photoService.takeNewPhoto()
   }
 
+  protected readonly ellipse = ellipse;
 }
