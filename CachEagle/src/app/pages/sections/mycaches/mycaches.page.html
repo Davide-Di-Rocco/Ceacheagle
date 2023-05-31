@@ -10,7 +10,7 @@
   </ion-fab>
 
   <ion-fab slot="fixed" vertical="top" horizontal="end">
-    <ion-fab-button>
+    <ion-fab-button (click)="this.navController.navigateForward('section/creation')">
       <ion-icon name="add-outline" color="dark"/>
     </ion-fab-button>
   </ion-fab>

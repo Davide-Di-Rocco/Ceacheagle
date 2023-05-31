@@ -1,0 +1,45 @@
+#space {
+  width: 3vw;
+  visibility: hidden;
+}
+
+ion-title {
+  text-align: center;
+  width: 100%;
+  font-weight: bold;
+}
+
+form {
+  padding: 0 4vw;
+
+  ion-input {
+    margin: 0 0 1vh;
+  }
+
+  ion-thumbnail {
+    aspect-ratio: 16/9;
+    width: 100%;
+    height: auto;
+  }
+
+  ion-img {
+    aspect-ratio: 16/9;
+    width: 100%;
+    height: auto;
+  }
+
+  ion-textarea {
+    margin: 1vh 0;
+    height: 10vh;
+  }
+}
+
+#buttons {
+  display: flex;
+  padding: 0 4%;
+
+  div {
+    margin: auto;
+    visibility: hidden;
+  }
+}

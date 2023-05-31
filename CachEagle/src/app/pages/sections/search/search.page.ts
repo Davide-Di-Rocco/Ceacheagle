@@ -1,9 +1,8 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {GoogleMap} from "@capacitor/google-maps";
 import {environment} from "../../../../environments/environment";
-import {RangeCustomEvent} from "@ionic/angular";
+import {ModalController, RangeCustomEvent} from "@ionic/angular";
 import {RangeValue} from '@ionic/core';
-import {star} from "ionicons/icons";
 
 @Component({
   selector: 'app-search',
@@ -25,14 +24,21 @@ export class SearchPage implements OnInit {
     {title: "Cache title 3", rate: 4, difficulty: 2, starred: false},
     {title: "Cache title 4", rate: 1, difficulty: 5, starred: true},
     {title: "Cache title 5", rate: 5, difficulty: 1, starred: true},
+    {title: "Cache title 5", rate: 5, difficulty: 1, starred: true},
+    {title: "Cache title 5", rate: 5, difficulty: 1, starred: true},
   ]
 
-  constructor() {
+  constructor(
+    private modalController: ModalController,
+  ) {
 
   }
 
   ngOnInit() {
+  }
 
+  async ionViewWillLeave() {
+    await this.closeBottomList()
   }
 
   async ionViewDidEnter() {
@@ -72,5 +78,8 @@ export class SearchPage implements OnInit {
     this.ratingValue = rate
   }
 
-  protected readonly star = star;
+  async closeBottomList() {
+    if (await this.modalController.getTop())
+      await this.modalController.dismiss()
+  }
 }

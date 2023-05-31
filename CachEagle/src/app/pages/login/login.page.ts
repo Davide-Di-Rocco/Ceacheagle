@@ -21,7 +21,7 @@ export class LoginPage implements OnInit {
     this.loginFormModule = fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
-    });
+    })
     this.authService.logout()
   }
 

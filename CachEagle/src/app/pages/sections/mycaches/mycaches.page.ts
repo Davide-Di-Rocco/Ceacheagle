@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {NavController} from "@ionic/angular";
 
 @Component({
   selector: 'app-mycaches',
@@ -14,7 +15,9 @@ export class MycachesPage implements OnInit {
     {title: "Cache 4"},
   ]
 
-  constructor() {
+  constructor(
+    protected navController: NavController
+  ) {
   }
 
   ngOnInit() {
