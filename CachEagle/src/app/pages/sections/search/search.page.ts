@@ -70,7 +70,7 @@ export class SearchPage implements OnInit {
     console.log(this.ratingValue)
   }
 
-  onIonChange(e: Event) {
+  onDifficultyChange(e: Event) {
     this.difficultValue = (e as RangeCustomEvent).detail.value
   }
 
