@@ -12,7 +12,7 @@ export class RatingComponent implements OnInit {
   @Input() rating!: number
   @Output() ratingChange: EventEmitter<number> = new EventEmitter()
 
-  
+
   constructor() {
   }
 
@@ -49,7 +49,7 @@ export class RatingComponent implements OnInit {
 
 enum Colors {
   GREY = "#E0E0E0",
-  GREEN = "#76FF03",
+  GREEN = "#00BF63",
   YELLOW = "#FFCA28",
   RED = "#DD2C00"
 }

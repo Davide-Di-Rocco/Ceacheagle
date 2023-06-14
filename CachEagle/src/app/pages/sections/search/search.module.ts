@@ -5,18 +5,18 @@ import {FormsModule} from '@angular/forms';
 import {IonicModule} from '@ionic/angular';
 
 import {SearchPage} from './search.page';
-import {RatingComponent} from "../../../components/rating/rating.component";
 import {SearchPageRoutingModule} from "./search-routing.module";
+import {AppComponentsModule} from "../../../components/app.components.module";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SearchPageRoutingModule
+    SearchPageRoutingModule,
+    AppComponentsModule
   ],
-  declarations: [SearchPage, RatingComponent],
-  exports: [RatingComponent],
+  declarations: [SearchPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SearchPageModule {

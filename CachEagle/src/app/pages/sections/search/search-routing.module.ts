@@ -2,9 +2,9 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
 import {SearchPage} from './search.page';
-import {CacheItemListComponent} from "../../../components/cache-item-list/cache-item-list.component";
 import {IonicModule} from "@ionic/angular";
 import {NgIf} from "@angular/common";
+import {AppComponentsModule} from "../../../components/app.components.module";
 
 
 const routes: Routes = [
@@ -15,9 +15,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes), IonicModule, NgIf],
-  exports: [RouterModule, CacheItemListComponent],
-  declarations: [CacheItemListComponent]
+  imports: [RouterModule.forChild(routes), IonicModule, NgIf, AppComponentsModule],
+  exports: [RouterModule],
+  declarations: []
 })
 export class SearchPageRoutingModule {
 }
