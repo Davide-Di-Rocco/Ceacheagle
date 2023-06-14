@@ -3,9 +3,9 @@ import {GoogleMap} from "@capacitor/google-maps";
 import {environment} from "../../../../environments/environment";
 import {ModalController, RangeCustomEvent} from "@ionic/angular";
 import {RangeValue} from '@ionic/core';
-import {CacheService} from "../../../services/cache.service";
 import {Observable} from "rxjs";
 import {MyCache} from "../../../models/cache.model";
+import {CacheService} from "../../../services/cache.service";
 
 @Component({
   selector: 'app-search',
@@ -60,6 +60,8 @@ export class SearchPage implements OnInit {
       forceCreate: false
     })
 
+    this.showCurrentLocation()
+
     console.log(new MyCache());
     await this.cacheList.forEach((list) => {
       for (let c of list) {
@@ -69,7 +71,9 @@ export class SearchPage implements OnInit {
           coordinate: {
             lat: c.latitude,
             lng: c.longitude,
-          }
+          },
+          title: c.title,
+          snippet: c.description
         });
       }
     })
@@ -96,5 +100,8 @@ export class SearchPage implements OnInit {
   async closeBottomList() {
     if (await this.modalController.getTop())
       await this.modalController.dismiss()
+  }
+
+  showCurrentLocation() {
   }
 }
