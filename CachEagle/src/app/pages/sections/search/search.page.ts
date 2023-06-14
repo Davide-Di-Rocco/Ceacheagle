@@ -3,6 +3,9 @@ import {GoogleMap} from "@capacitor/google-maps";
 import {environment} from "../../../../environments/environment";
 import {ModalController, RangeCustomEvent} from "@ionic/angular";
 import {RangeValue} from '@ionic/core';
+import {CacheService} from "../../../services/cache.service";
+import {Observable} from "rxjs";
+import {MyCache} from "../../../models/cache.model";
 
 @Component({
   selector: 'app-search',
@@ -12,29 +15,25 @@ import {RangeValue} from '@ionic/core';
 export class SearchPage implements OnInit {
 
   @ViewChild('map')
-  mapRef!: ElementRef<HTMLElement>
-  map!: GoogleMap
+  mapRef!: ElementRef<HTMLElement>;
+  map!: GoogleMap;
 
   difficultValue: RangeValue = {lower: 0, upper: 5}
   ratingValue: number = 3;
 
-  cacheList = [
-    {title: "Cache title 1", rate: 2, difficulty: 4, starred: false},
-    {title: "Cache title 2", rate: 3, difficulty: 3, starred: true},
-    {title: "Cache title 3", rate: 4, difficulty: 2, starred: false},
-    {title: "Cache title 4", rate: 1, difficulty: 5, starred: true},
-    {title: "Cache title 5", rate: 5, difficulty: 1, starred: true},
-    {title: "Cache title 5", rate: 5, difficulty: 1, starred: true},
-    {title: "Cache title 5", rate: 5, difficulty: 1, starred: true},
-  ]
+
+  protected cacheList!: Observable<MyCache[]>
 
   constructor(
     private modalController: ModalController,
+    private cacheService: CacheService
   ) {
 
   }
 
   ngOnInit() {
+    this.cacheList = this.cacheService.getCaches()
+
   }
 
   async ionViewWillLeave() {
@@ -50,15 +49,31 @@ export class SearchPage implements OnInit {
       id: "my-map",
       apiKey: environment.mapsKey,
       element: this.mapRef.nativeElement,
-      forceCreate: true,
       config: {
         center: {
           lat: environment.latAquila,
           lng: environment.lngAquila,
         },
         zoom: environment.defaultZoom,
+
       },
+      forceCreate: false
     })
+
+    console.log(new MyCache());
+    await this.cacheList.forEach((list) => {
+      for (let c of list) {
+        console.log(c);
+        console.log(c.getRating)
+        this.map.addMarker({
+          coordinate: {
+            lat: c.latitude,
+            lng: c.longitude,
+          }
+        });
+      }
+    })
+
   }
 
   pinFormatter(value: number) {

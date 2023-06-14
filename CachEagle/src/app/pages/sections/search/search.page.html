@@ -24,7 +24,7 @@
       <ion-content class="ion-padding">
         <ion-item lines="none">
           <ion-label>Valutazione minima</ion-label>
-          <app-rating [rating]="ratingValue" (ratingChange)="onRatingChange($event)" [icon_name]="'star'"></app-rating>
+          <app-rating [rating]="ratingValue" (ratingChange)="onRatingChange($event)" [icon_name]="'star'"/>
         </ion-item>
         <ion-item>
           <ion-label>Difficoltà</ion-label>
@@ -51,19 +51,20 @@
   <ion-modal
     trigger="list-btn"
     [isOpen]="false"
-    [breakpoints]="[0.25, 0.5, 0.75, 0.90, 1]"
+    [breakpoints]="[0, 0.25, 0.5, 0.75, 0.90, 1]"
     [backdropDismiss]="true"
     [initialBreakpoint]="0.25"
     [backdropBreakpoint]="0.5">
     <ng-template>
       <ion-content class="ion-padding">
-        <ion-list *ngFor="let cache of cacheList; let i = index">
+        <ion-list *ngFor="let cache of cacheList | async; let i = index">
           <ion-item lines="none">
             <app-cache-item-list
               [title]="cache.title"
-              [rate]="cache.rate"
+              [rate]="2"
               [difficulty]="cache.difficulty"
-              [starred]="cache.starred">
+              [starred]="false"
+              [photo]="cache.photo">
             </app-cache-item-list>
           </ion-item>
         </ion-list>

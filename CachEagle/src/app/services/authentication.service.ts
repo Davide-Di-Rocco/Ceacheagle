@@ -5,13 +5,14 @@ import {NavController} from "@ionic/angular";
 import {firstValueFrom} from "rxjs";
 import {Preferences} from "@capacitor/preferences";
 import {ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot} from "@angular/router";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  private apiUrl = 'http://localhost:3000/users' // URL dell'API
+  private usersUrl = environment.hostname + environment.userDir // URL dell'API
   private sessionTimeout = 43200000    // Timeout della sessione in millisecondi (12 ore)
   private loggedUser!: User
 
@@ -24,7 +25,7 @@ export class AuthenticationService {
   async login(username: string, password: string): Promise<boolean> {
     try {
       // Costruisci l'URL con i parametri username e password
-      const url = `${this.apiUrl}?username=${username}&password=${password}`
+      const url = `${this.usersUrl}?username=${username}&password=${password}`
       const user = await firstValueFrom(await this.http.get<User[]>(url))
 
       if (!user[0]) return false
