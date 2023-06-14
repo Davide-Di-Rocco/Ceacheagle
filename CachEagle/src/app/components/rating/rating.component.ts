@@ -7,11 +7,12 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class RatingComponent implements OnInit {
 
+  @Input() editable: boolean = true
   @Input() icon_name!: string;
   @Input() rating!: number
   @Output() ratingChange: EventEmitter<number> = new EventEmitter()
 
-
+  
   constructor() {
   }
 

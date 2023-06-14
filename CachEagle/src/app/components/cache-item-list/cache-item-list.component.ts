@@ -11,6 +11,7 @@ export class CacheItemListComponent implements OnInit {
   @Input() starred!: boolean
   @Input() rate!: number
   @Input() difficulty!: number
+  @Input() photo!: string
 
   constructor() {
   }

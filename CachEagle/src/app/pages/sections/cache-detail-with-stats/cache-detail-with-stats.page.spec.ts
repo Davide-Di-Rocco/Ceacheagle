@@ -5,7 +5,7 @@ describe('CacheDetailWithStatsPage', () => {
   let component: CacheDetailWithStatsPage;
   let fixture: ComponentFixture<CacheDetailWithStatsPage>;
 
-  beforeEach(async(() => {
+  beforeEach((() => {
     fixture = TestBed.createComponent(CacheDetailWithStatsPage);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -42,15 +42,15 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'cache-detail-with-review',
+    path: 'cacheDetailWithReview',
     loadChildren: () => import('./pages/sections/cache-detail-with-review/cache-detail-with-review.module').then( m => m.CacheDetailWithReviewPageModule)
   },
   {
-    path: 'cache-detail-with-hints',
+    path: 'cacheDetailWithHints',
     loadChildren: () => import('./pages/sections/cache-detail-with-hints/cache-detail-with-hints.module').then( m => m.CacheDetailWithHintsPageModule)
   },
   {
-    path: 'cache-detail-with-stats',
+    path: 'cacheDetailWithStats',
     loadChildren: () => import('./pages/sections/cache-detail-with-stats/cache-detail-with-stats.module').then( m => m.CacheDetailWithStatsPageModule)
   },
   {

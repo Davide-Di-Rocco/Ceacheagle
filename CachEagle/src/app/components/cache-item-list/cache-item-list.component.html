@@ -14,15 +14,28 @@
 
   <div class="content">
     <ion-avatar>
-      <img alt="Silhouette of a person's head"
-           src="https://ionicframework.com/docs/img/demos/avatar.svg"/>
+      <ion-img *ngIf="!photo" alt="Silhouette of a person's head"
+               src="https://ionicframework.com/docs/img/demos/avatar.svg"/>
+      <ion-img class="photo" *ngIf="photo" [src]="'data:image/jpeg;base64,' + photo"/>
     </ion-avatar>
     <div class="details">
       <div class="line">
         <p>Valutazione</p>
+        <!--
+       <app-rating
+         [editable]="false"
+         [rating]="rate"
+         [icon_name]="'start'"/>
+         -->
       </div>
       <div class="line">
         <p>Difficoltà</p>
+        <!--
+        <app-rating
+          [editable]="false"
+          [rating]="difficulty"
+          [icon_name]="'ellipse'"/>
+          -->
       </div>
     </div>
   </div>
