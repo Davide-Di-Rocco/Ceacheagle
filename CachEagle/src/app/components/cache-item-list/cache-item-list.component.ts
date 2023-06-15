@@ -1,4 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ColorSchemaType} from "../rating/rating.component";
 
 @Component({
   selector: 'app-cache-item-list',
@@ -12,11 +13,24 @@ export class CacheItemListComponent implements OnInit {
   @Input() rate!: number
   @Input() difficulty!: number
   @Input() photo!: string
+  @Output() locateClick: EventEmitter<void> = new EventEmitter<void>();
+  @Output() starClick: EventEmitter<void> = new EventEmitter<void>();
+
+  protected readonly ColorSchemaType = ColorSchemaType;
 
   constructor() {
   }
 
   ngOnInit() {
+  }
+
+  emitLocateClickEvent() {
+    this.locateClick.emit();
+  }
+
+  emitStarClickEvent() {
+    this.starred = !this.starred
+    this.starClick.emit();
   }
 
 }

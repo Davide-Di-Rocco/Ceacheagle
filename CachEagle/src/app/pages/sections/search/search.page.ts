@@ -19,7 +19,7 @@ export class SearchPage implements OnInit {
   map!: GoogleMap;
 
   difficultValue: RangeValue = {lower: 0, upper: 5}
-  ratingValue: number = 3;
+  ratingValue = 3;
 
 
   protected cacheList!: Observable<MyCache[]>
@@ -62,11 +62,8 @@ export class SearchPage implements OnInit {
 
     this.showCurrentLocation()
 
-    console.log(new MyCache());
     await this.cacheList.forEach((list) => {
       for (let c of list) {
-        console.log(c);
-        console.log(c.getRating)
         this.map.addMarker({
           coordinate: {
             lat: c.latitude,
@@ -103,5 +100,19 @@ export class SearchPage implements OnInit {
   }
 
   showCurrentLocation() {
+  }
+
+  async onLocateClick(latitude: number, longitude: number) {
+    await this.modalController.dismiss()
+    await this.map.setCamera({
+        coordinate: {
+          lat: latitude,
+          lng: longitude
+        },
+        zoom: 22,
+        animate: true,
+        animationDuration: 200
+      }
+    )
   }
 }

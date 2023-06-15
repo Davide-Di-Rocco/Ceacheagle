@@ -10,7 +10,7 @@
     </ion-fab-button>
   </ion-fab>
 
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <ion-fab slot="fixed" vertical="bottom" horizontal="start">
     <ion-fab-button id="list-btn">
       <ion-icon name="list-outline" color="dark"/>
     </ion-fab-button>
@@ -61,10 +61,12 @@
           <ion-item lines="none">
             <app-cache-item-list
               [title]="cache.title"
-              [rate]="2"
+              [rate]="cache.getRating()"
               [difficulty]="cache.difficulty"
               [starred]="false"
-              [photo]="cache.photo">
+              [photo]="cache.photo"
+              (locateClick)="onLocateClick(cache.latitude, cache.longitude)"
+              (starClick)="{}">
             </app-cache-item-list>
           </ion-item>
         </ion-list>

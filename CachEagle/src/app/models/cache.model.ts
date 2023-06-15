@@ -13,7 +13,19 @@ export class MyCache {
   longitude!: number
   reviews!: Review[]
 
-  constructor() {
+  constructor(cache?: MyCache) {
+    if (cache) {
+      this.id = cache.id
+      this.title = cache.title
+      this.description = cache.description
+      this.difficulty = cache.difficulty
+      this.hints = cache.hints
+      this.photo = cache.photo
+      this.creatorId = cache.creatorId
+      this.latitude = cache.latitude
+      this.longitude = cache.longitude
+      this.reviews = cache.reviews
+    }
   }
 
   public getRating() {

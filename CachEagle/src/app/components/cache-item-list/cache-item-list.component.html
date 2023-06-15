@@ -2,11 +2,11 @@
   <div class="header">
     <div class="title">{{title}}</div>
     <div class="buttons">
-      <ion-button fill="clear" color="dark">
+      <ion-button fill="clear" color="dark" (click)="emitStarClickEvent()">
         <ion-icon *ngIf="!starred" [hidden]="!starred" name="star-outline"></ion-icon>
         <ion-icon *ngIf="starred" [hidden]="starred" name="star"></ion-icon>
       </ion-button>
-      <ion-button fill="clear" color="dark">
+      <ion-button fill="clear" color="dark" (click)="emitLocateClickEvent()">
         <ion-icon name="location-outline"></ion-icon>
       </ion-button>
     </div>
@@ -24,14 +24,16 @@
         <app-rating
           [editable]="false"
           [rating]="rate"
-          [icon_name]="'star'"/>
+          [icon_name]="'star'"
+          [colorSchema]="ColorSchemaType.GRYG"/>
       </div>
       <div class="line">
         <p>Difficoltà</p>
         <app-rating
           [editable]="false"
           [rating]="difficulty"
-          [icon_name]="'ellipse'"/>
+          [icon_name]="'ellipse'"
+          [colorSchema]="ColorSchemaType.GGYR"/>
       </div>
     </div>
   </div>

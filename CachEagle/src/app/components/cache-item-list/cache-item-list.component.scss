@@ -13,7 +13,7 @@
 }
 
 .title {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
 }
 
@@ -34,11 +34,25 @@ ion-avatar {
   --border-radius: 10%;
 }
 
-.details p {
-  font-size: 12px;
+.details {
+  width: 100%;
+
+  p {
+    font-size: 14px;
+    text-align: left;
+    width: 20vw;
+  }
 
   .line {
-    padding-left: 10%;
+    padding-left: 2vw;
     display: flex;
+    width: 100%;
   }
+
+  app-rating {
+    margin: auto 1vh;
+  }
+
 }
+
+
