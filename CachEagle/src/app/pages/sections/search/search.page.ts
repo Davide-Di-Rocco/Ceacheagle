@@ -6,6 +6,8 @@ import {RangeValue} from '@ionic/core';
 import {Observable} from "rxjs";
 import {MyCache} from "../../../models/cache.model";
 import {CacheService} from "../../../services/cache.service";
+import {Geolocation, Position} from "@capacitor/geolocation";
+import {LatLng} from "@capacitor/google-maps/dist/typings/definitions";
 
 @Component({
   selector: 'app-search',
@@ -21,6 +23,8 @@ export class SearchPage implements OnInit {
   difficultValue: RangeValue = {lower: 0, upper: 5}
   ratingValue = 3;
 
+  private watchPositionListener: any
+  private currentLocationMarker: any
 
   protected cacheList!: Observable<MyCache[]>
 
@@ -38,10 +42,12 @@ export class SearchPage implements OnInit {
 
   async ionViewWillLeave() {
     await this.closeBottomList()
+    this.stopWatchingPosition()
   }
 
   async ionViewDidEnter() {
     await this.createMap()
+    this.startWatchingPosition()
   }
 
   async createMap() {
@@ -55,12 +61,14 @@ export class SearchPage implements OnInit {
           lng: environment.lngAquila,
         },
         zoom: environment.defaultZoom,
+        streetViewControl: false
 
       },
       forceCreate: false
     })
 
-    this.showCurrentLocation()
+    await this.map.enableClustering(2)
+    await this.showCurrentLocation()
 
     await this.cacheList.forEach((list) => {
       for (let c of list) {
@@ -71,7 +79,8 @@ export class SearchPage implements OnInit {
           },
           title: c.title,
           snippet: c.description
-        });
+        })
+        ;
       }
     })
 
@@ -99,9 +108,6 @@ export class SearchPage implements OnInit {
       await this.modalController.dismiss()
   }
 
-  showCurrentLocation() {
-  }
-
   async onLocateClick(latitude: number, longitude: number) {
     await this.modalController.dismiss()
     await this.map.setCamera({
@@ -111,8 +117,67 @@ export class SearchPage implements OnInit {
         },
         zoom: 22,
         animate: true,
-        animationDuration: 200
+        animationDuration: 2000
       }
     )
+  }
+
+  async getCurrentCoordinates(): Promise<LatLng | null> {
+    try {
+      const position = await Geolocation.getCurrentPosition();
+      return {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      }
+    } catch (error) {
+      console.error("Error getting current location:", error);
+      return null;
+    }
+  }
+
+  async startWatchingPosition() {
+    this.watchPositionListener = Geolocation.watchPosition({}, (position: Position | null) => {
+      if (!position) this.updateCurrentLocationMarker(null);
+      else
+        this.updateCurrentLocationMarker(
+          {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          }
+        );
+    });
+  }
+
+  stopWatchingPosition() {
+    if (this.watchPositionListener) {
+      this.watchPositionListener.remove();
+      this.watchPositionListener = null;
+    }
+  }
+
+  async showCurrentLocation() {
+    const coordinates = await this.getCurrentCoordinates();
+    if (coordinates) {
+      await this.updateCurrentLocationMarker(coordinates)
+    }
+  }
+
+  async updateCurrentLocationMarker(coordinates: LatLng | null) {
+    if (coordinates) {
+      if (!this.currentLocationMarker) {
+        this.currentLocationMarker = await this.map.addMarker({
+          coordinate: coordinates,
+          title: "Current Location",
+          tintColor: {
+            r: 35,
+            g: 168,
+            b: 242,
+            a: 255
+          },
+        });
+      } else {
+        await this.currentLocationMarker.setPosition(coordinates);
+      }
+    }
   }
 }
