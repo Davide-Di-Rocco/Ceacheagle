@@ -1,6 +1,6 @@
 <div class="container">
   <div class="header">
-    <div class="title">{{title}}</div>
+    <div class="title" (click)="emitElementClickEvent()">{{title}}</div>
     <div class="buttons">
       <ion-button fill="clear" color="dark" (click)="emitStarClickEvent()">
         <ion-icon *ngIf="!starred" [hidden]="!starred" name="star-outline"></ion-icon>

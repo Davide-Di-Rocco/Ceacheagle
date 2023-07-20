@@ -15,6 +15,7 @@ export class CacheItemListComponent implements OnInit {
   @Input() photo!: string
   @Output() locateClick: EventEmitter<void> = new EventEmitter<void>();
   @Output() starClick: EventEmitter<void> = new EventEmitter<void>();
+  @Output() elementClick: EventEmitter<void> = new EventEmitter<void>();
 
   protected readonly ColorSchemaType = ColorSchemaType;
 
@@ -26,6 +27,10 @@ export class CacheItemListComponent implements OnInit {
 
   emitLocateClickEvent() {
     this.locateClick.emit();
+  }
+
+  emitElementClickEvent() {
+    this.elementClick.emit();
   }
 
   emitStarClickEvent() {

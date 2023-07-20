@@ -29,8 +29,7 @@ export class UserService {
     } else {
       loggedUser.favorites.push(cacheID);
     }
-    let response = await this.updateUser(loggedUser)
-    console.log(response)
+    await this.updateUser(loggedUser)
   }
 
   private async updateUser(user: User) {

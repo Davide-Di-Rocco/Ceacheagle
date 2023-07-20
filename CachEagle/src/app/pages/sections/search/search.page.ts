@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {GoogleMap} from "@capacitor/google-maps";
 import {environment} from "../../../../environments/environment";
-import {ModalController, RangeCustomEvent} from "@ionic/angular";
+import {ModalController, NavController, RangeCustomEvent} from "@ionic/angular";
 import {RangeValue} from '@ionic/core';
 import {Observable} from "rxjs";
 import {MyCache} from "../../../models/cache.model";
@@ -27,7 +27,7 @@ export class SearchPage implements OnInit {
   ratingValue = 3;
 
   private watchPositionListener: any
-  private currentLocationMarker: any
+  private currentLocationMarker!: string
 
   protected loggedUser!: User
 
@@ -37,7 +37,8 @@ export class SearchPage implements OnInit {
     private modalController: ModalController,
     private cacheService: CacheService,
     private authService: AuthenticationService,
-    private userService: UserService
+    private userService: UserService,
+    private navController: NavController,
   ) {
   }
 
@@ -86,7 +87,7 @@ export class SearchPage implements OnInit {
             },
             title: c.title,
             snippet: c.description,
-            iconUrl: '../../../../assets/img/pin.png',
+            iconUrl: this.loggedUser.favorites.includes(c.id) ? '../../../../assets/img/cross.png' : '../../../../assets/img/pin.png',
             iconSize: {
               height: 60,
               width: 40
@@ -96,9 +97,19 @@ export class SearchPage implements OnInit {
               y: 60
             }
           })
-          ;
         }
       }
+    })
+    await this.map.setOnMarkerClickListener(async marker => {
+      let markerId: number = -1
+      await this.cacheList.forEach(list => {
+        list.forEach(m => {
+          if (m.title == marker.title) {
+            markerId = m.id;
+          }
+        })
+      })
+      console.log(markerId)
     })
   }
 
@@ -133,13 +144,17 @@ export class SearchPage implements OnInit {
         },
         zoom: 22,
         animate: true,
-        animationDuration: 2000
       }
     )
   }
 
   async onStarClick(id: number) {
     await this.userService.editFavorite(id)
+  }
+
+  async openDetail(id: number) {
+    console.log("CLICCCATO :", id)
+    await this.navController.navigateRoot("section/creation")
   }
 
 
@@ -185,23 +200,20 @@ export class SearchPage implements OnInit {
 
   async updateCurrentLocationMarker(coordinates: LatLng | null) {
     if (coordinates) {
-      if (!this.currentLocationMarker) {
-        this.currentLocationMarker = await this.map.addMarker({
-          coordinate: coordinates,
-          title: "Current Location",
-          iconUrl: '../../../../assets/img/current.png',
-          iconSize: {
-            height: 40,
-            width: 40
-          },
-          iconAnchor: {
-            x: 20,
-            y: 20
-          }
-        });
-      } else {
-        await this.currentLocationMarker.setPosition(coordinates);
-      }
+      if (this.currentLocationMarker) await this.map.removeMarker(this.currentLocationMarker)
+      this.currentLocationMarker = await this.map.addMarker({
+        coordinate: coordinates,
+        title: "Current Location",
+        iconUrl: '../../../../assets/img/current.png',
+        iconSize: {
+          height: 40,
+          width: 40
+        },
+        iconAnchor: {
+          x: 20,
+          y: 20
+        }
+      });
     }
   }
 }
