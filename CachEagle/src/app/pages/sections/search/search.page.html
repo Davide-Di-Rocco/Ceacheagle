@@ -58,15 +58,15 @@
     <ng-template>
       <ion-content class="ion-padding">
         <ion-list *ngFor="let cache of cacheList | async; let i = index">
-          <ion-item lines="none">
+          <ion-item *ngIf="loggedUser.id !== cache.creatorId" lines="none">
             <app-cache-item-list
               [title]="cache.title"
               [rate]="cache.getRating()"
               [difficulty]="cache.difficulty"
-              [starred]="false"
+              [starred]="loggedUser.favorites.includes(cache.id)"
               [photo]="cache.photo"
               (locateClick)="onLocateClick(cache.latitude, cache.longitude)"
-              (starClick)="{}">
+              (starClick)="onStarClick(cache.id)">
             </app-cache-item-list>
           </ion-item>
         </ion-list>

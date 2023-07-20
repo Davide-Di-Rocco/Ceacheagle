@@ -8,6 +8,9 @@ import {MyCache} from "../../../models/cache.model";
 import {CacheService} from "../../../services/cache.service";
 import {Geolocation, Position} from "@capacitor/geolocation";
 import {LatLng} from "@capacitor/google-maps/dist/typings/definitions";
+import {AuthenticationService} from "../../../services/authentication.service";
+import {User} from "../../../models/user.model";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-search',
@@ -26,18 +29,21 @@ export class SearchPage implements OnInit {
   private watchPositionListener: any
   private currentLocationMarker: any
 
+  protected loggedUser!: User
+
   protected cacheList!: Observable<MyCache[]>
 
   constructor(
     private modalController: ModalController,
-    private cacheService: CacheService
+    private cacheService: CacheService,
+    private authService: AuthenticationService,
+    private userService: UserService
   ) {
-
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.cacheList = this.cacheService.getCaches()
-
+    this.loggedUser = await this.authService.getLoggedUser()
   }
 
   async ionViewWillLeave() {
@@ -47,7 +53,7 @@ export class SearchPage implements OnInit {
 
   async ionViewDidEnter() {
     await this.createMap()
-    this.startWatchingPosition()
+    await this.startWatchingPosition()
   }
 
   async createMap() {
@@ -72,18 +78,28 @@ export class SearchPage implements OnInit {
 
     await this.cacheList.forEach((list) => {
       for (let c of list) {
-        this.map.addMarker({
-          coordinate: {
-            lat: c.latitude,
-            lng: c.longitude,
-          },
-          title: c.title,
-          snippet: c.description
-        })
-        ;
+        if (c.creatorId != this.loggedUser.id) {
+          this.map.addMarker({
+            coordinate: {
+              lat: c.latitude,
+              lng: c.longitude,
+            },
+            title: c.title,
+            snippet: c.description,
+            iconUrl: '../../../../assets/img/pin.png',
+            iconSize: {
+              height: 60,
+              width: 40
+            },
+            iconAnchor: {
+              x: 20,
+              y: 60
+            }
+          })
+          ;
+        }
       }
     })
-
   }
 
   pinFormatter(value: number) {
@@ -121,6 +137,11 @@ export class SearchPage implements OnInit {
       }
     )
   }
+
+  async onStarClick(id: number) {
+    await this.userService.editFavorite(id)
+  }
+
 
   async getCurrentCoordinates(): Promise<LatLng | null> {
     try {
@@ -168,12 +189,15 @@ export class SearchPage implements OnInit {
         this.currentLocationMarker = await this.map.addMarker({
           coordinate: coordinates,
           title: "Current Location",
-          tintColor: {
-            r: 35,
-            g: 168,
-            b: 242,
-            a: 255
+          iconUrl: '../../../../assets/img/current.png',
+          iconSize: {
+            height: 40,
+            width: 40
           },
+          iconAnchor: {
+            x: 20,
+            y: 20
+          }
         });
       } else {
         await this.currentLocationMarker.setPosition(coordinates);
