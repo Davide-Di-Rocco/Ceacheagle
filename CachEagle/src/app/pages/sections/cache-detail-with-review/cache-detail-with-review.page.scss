@@ -1,5 +1,3 @@
-/* cache-detail-with-review.page.scss */
-
 ion-content {
   --background: transparent; /* Rimuovi il background predefinito per un aspetto più pulito */
   overflow: hidden;
@@ -32,8 +30,6 @@ ion-img {
   padding: 10px 0;
   border-top: 1px solid #ddd; /* Aggiungi una sottile linea superiore per separare i dettagli dalla descrizione */
 }
-
-/* Resto del codice SCSS */
 
 /* Aggiungi margini al pulsante per spazio extra */
 ion-button {
