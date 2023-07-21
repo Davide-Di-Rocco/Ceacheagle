@@ -52,32 +52,33 @@ export class SearchPage implements OnInit {
 
   async ionViewWillLeave() {
     await this.closeBottomList()
-    await this.stopWatchingPosition()
+    if (this.permission) await this.stopWatchingPosition()
   }
 
   async ionViewDidEnter() {
     this.cacheList = await this.cacheService.getCaches()
     this.loggedUser = await this.authService.getLoggedUser()
     await this.createMap()
-    await this.startWatchingPosition()
+    if (this.permission) await this.startWatchingPosition()
   }
 
   async createMap() {
-    this.map = await GoogleMap.create({
-      id: "my-map",
-      apiKey: environment.mapsKey,
-      element: this.mapRef.nativeElement,
-      config: {
-        center: {
-          lat: environment.latAquila,
-          lng: environment.lngAquila,
-        },
-        zoom: environment.defaultZoom,
-        streetViewControl: false
+    if (!this.map)
+      this.map = await GoogleMap.create({
+        id: "my-map",
+        apiKey: environment.mapsKey,
+        element: this.mapRef.nativeElement,
+        config: {
+          center: {
+            lat: environment.latAquila,
+            lng: environment.lngAquila,
+          },
+          zoom: environment.defaultZoom,
+          streetViewControl: false
 
-      },
-      forceCreate: false
-    })
+        },
+        forceCreate: false
+      })
     await this.addMarkerToMap(this.cacheList)
     await this.map.setOnMarkerClickListener(async marker => {
       let markerId: number = -1
@@ -90,7 +91,7 @@ export class SearchPage implements OnInit {
         //mostra Modal con dettagli
         console.log(markerId)
     })
-    if (this.permission) await this.showCurrentLocation()
+    //if (this.permission) await this.showCurrentLocation()
   }
 
   pinFormatter(value: number) {
@@ -141,20 +142,20 @@ export class SearchPage implements OnInit {
     });
   }
 
-
-  async getCurrentCoordinates(): Promise<LatLng | null> {
-    try {
-      const position = await Geolocation.getCurrentPosition();
-      return {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
+  /*
+    async getCurrentCoordinates(): Promise<LatLng | null> {
+      try {
+        const position = await Geolocation.getCurrentPosition();
+        return {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }
+      } catch (error) {
+        console.error("Error getting current location:", error);
+        return null;
       }
-    } catch (error) {
-      console.error("Error getting current location:", error);
-      return null;
     }
-  }
-
+  */
   async startWatchingPosition() {
     this.watchPositionListener = Geolocation.watchPosition({enableHighAccuracy: true}, (position: Position | null) => {
       if (!position) this.updateCurrentLocationMarker(null);
@@ -175,12 +176,15 @@ export class SearchPage implements OnInit {
     }
   }
 
-  async showCurrentLocation() {
-    const coordinates = await this.getCurrentCoordinates();
-    if (coordinates) {
-      await this.updateCurrentLocationMarker(coordinates)
+  /*
+    async showCurrentLocation() {
+      const coordinates = await this.getCurrentCoordinates();
+      if (coordinates) {
+        await this.updateCurrentLocationMarker(coordinates)
+      }
     }
-  }
+
+  */
 
   async updateCurrentLocationMarker(coordinates: LatLng | null) {
     if (coordinates) {

@@ -1,17 +1,12 @@
-ion-content {
-  --background: transparent; /* Rimuovi il background predefinito per un aspetto più pulito */
-  overflow: hidden;
-}
-
 .container {
   padding: 0 20px;
   border-radius: 10px;
 }
 
 ion-img {
-  max-width: 100%;
+  width: 100%;
   border-radius: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .description {
@@ -21,6 +16,8 @@ ion-img {
   border: 1px solid #ddd; /* Aggiungi una sottile bordatura intorno alla descrizione */
   padding: 5px; /* Aggiungi spazio interno alla descrizione per un aspetto migliore */
   border-radius: 10px;
+  vertical-align: top;
+  font-size: 14px;
 }
 
 .details {
@@ -46,8 +43,6 @@ ion-button {
 ion-title {
   font-size: 24px;
   font-weight: bold;
-  margin: 15px 0;
-  text-align: center;
   word-break: break-word;
 }
 
@@ -57,16 +52,39 @@ ion-back-button {
   --back-button-bezier: ease-in-out; /* Funzione di easing dell'animazione */
 }
 
-/* Aggiungi un po' di spazio tra la freccia e il titolo nella barra del titolo */
-ion-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-  padding: 10px;
-}
-
 ion-fab-button::part(native) {
   border-radius: 20%;
-  width: 50px;
-  height: 50px;
+  margin-top: 10px;
+  width: 30px;
+  height: 30px;
+}
+
+ion-header {
+  ion-toolbar {
+    display: flex;
+    justify-content: space-between; /* Allinea titolo e pulsanti verticalmente */
+    align-items: center;
+
+    ion-buttons {
+      ion-back-button {
+        --icon-color: black; /* Colore nero per la freccia di ritorno */
+        --color: black; /* Colore nero per il testo */
+      }
+
+      ion-button {
+        --color: black; /* Colore nero per il testo dei pulsanti */
+        margin-left: 8px; /* Aggiungi margine sinistro tra i pulsanti */
+      }
+    }
+
+    ion-title {
+      font-size: 20px; /* Dimensione del carattere del titolo */
+      font-weight: bold; /* Grassetto per il titolo */
+      color: black; /* Colore nero per il titolo */
+      max-width: 70%; /* Larghezza massima del titolo per garantire che il testo non superi i pulsanti */
+      word-break: break-word; /* Va a capo se necessario */
+    }
+  }
+
+  margin-bottom: 10px;
 }

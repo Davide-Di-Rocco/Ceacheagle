@@ -2,10 +2,20 @@
   <!-- cache-detail-with-review.page.html -->
 
   <ion-header>
-    <ion-fab-button>
-      <ion-back-button defaultHref="/"></ion-back-button>
-    </ion-fab-button>
-    <ion-title size="large">{{ c.title }}</ion-title>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/"></ion-back-button>
+      </ion-buttons>
+      <ion-title>{{ c.title }}</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="onStarClick()">
+          <ion-icon name="star"></ion-icon>
+        </ion-button>
+        <ion-button (click)="onMapClick()">
+          <ion-icon name="map"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
   </ion-header>
 
   <ion-content>
@@ -34,7 +44,7 @@
           ></app-rating>
         </div>
       </div>
-      <ion-button>MODIFICA CACHE</ion-button>
+      <ion-button>{{c.creatorId === user.id ? 'MODIFICA CACHE' : 'ATTIVA CACHE'}}</ion-button>
     </div>
   </ion-content>
 
