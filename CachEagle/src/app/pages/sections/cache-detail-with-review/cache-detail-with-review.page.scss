@@ -1,0 +1,76 @@
+/* cache-detail-with-review.page.scss */
+
+ion-content {
+  --background: transparent; /* Rimuovi il background predefinito per un aspetto più pulito */
+  overflow: hidden;
+}
+
+.container {
+  padding: 0 20px;
+  border-radius: 10px;
+}
+
+ion-img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.description {
+  height: 150px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  border: 1px solid #ddd; /* Aggiungi una sottile bordatura intorno alla descrizione */
+  padding: 5px; /* Aggiungi spazio interno alla descrizione per un aspetto migliore */
+  border-radius: 10px;
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-top: 1px solid #ddd; /* Aggiungi una sottile linea superiore per separare i dettagli dalla descrizione */
+}
+
+/* Resto del codice SCSS */
+
+/* Aggiungi margini al pulsante per spazio extra */
+ion-button {
+  width: 100%;
+  margin-top: 20px;
+  --border-radius: 10px;
+  --padding-start: 10px;
+  --padding-end: 10px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+}
+
+/* Aggiungi un po' di spazio sopra al titolo */
+ion-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 15px 0;
+  text-align: center;
+  word-break: break-word;
+}
+
+/* Aggiungi animazione leggera al pulsante di ritorno */
+ion-back-button {
+  --back-button-duration: 200ms; /* Velocità dell'animazione */
+  --back-button-bezier: ease-in-out; /* Funzione di easing dell'animazione */
+}
+
+/* Aggiungi un po' di spazio tra la freccia e il titolo nella barra del titolo */
+ion-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+ion-fab-button::part(native) {
+  border-radius: 20%;
+  width: 50px;
+  height: 50px;
+}

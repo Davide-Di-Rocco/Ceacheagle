@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { CacheDetailWithReviewPageRoutingModule } from './cache-detail-with-review-routing.module';
 
 import { CacheDetailWithReviewPage } from './cache-detail-with-review.page';
+import {AppComponentsModule} from "../../../components/app.components.module";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    CacheDetailWithReviewPageRoutingModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        CacheDetailWithReviewPageRoutingModule,
+        AppComponentsModule
+    ],
   declarations: [CacheDetailWithReviewPage]
 })
 export class CacheDetailWithReviewPageModule {}

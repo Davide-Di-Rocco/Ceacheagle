@@ -30,11 +30,11 @@ export class MyCache {
 
   public getRating() {
     if (this.reviews.length === 0) {
-      return 0;
+      return 0
     }
     const totalRating = this.reviews.reduce(
       (sum, review) => sum + review.rating, 0
-    );
+    )
     return Math.round(totalRating / this.reviews.length)
   }
 }

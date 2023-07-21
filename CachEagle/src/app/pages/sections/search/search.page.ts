@@ -3,7 +3,7 @@ import {GoogleMap} from "@capacitor/google-maps";
 import {environment} from "../../../../environments/environment";
 import {ModalController, NavController, RangeCustomEvent} from "@ionic/angular";
 import {RangeValue} from '@ionic/core';
-import {Observable} from "rxjs";
+import {of} from "rxjs";
 import {MyCache} from "../../../models/cache.model";
 import {CacheService} from "../../../services/cache.service";
 import {Geolocation, Position} from "@capacitor/geolocation";
@@ -12,12 +12,14 @@ import {AuthenticationService} from "../../../services/authentication.service";
 import {User} from "../../../models/user.model";
 import {UserService} from "../../../services/user.service";
 
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.page.html',
   styleUrls: ['./search.page.scss'],
 })
 export class SearchPage implements OnInit {
+  protected readonly of = of;
 
   @ViewChild('map')
   mapRef!: ElementRef<HTMLElement>;
@@ -28,10 +30,11 @@ export class SearchPage implements OnInit {
 
   private watchPositionListener: any
   private currentLocationMarker!: string
+  private markers: string[] = []
 
   protected loggedUser!: User
-
-  protected cacheList!: Observable<MyCache[]>
+  protected cacheList!: MyCache[]
+  private permission: boolean = false
 
   constructor(
     private modalController: ModalController,
@@ -40,19 +43,21 @@ export class SearchPage implements OnInit {
     private userService: UserService,
     private navController: NavController,
   ) {
+
   }
 
   async ngOnInit() {
-    this.cacheList = this.cacheService.getCaches()
-    this.loggedUser = await this.authService.getLoggedUser()
+    await this.requestGeolocationPermissions()
   }
 
   async ionViewWillLeave() {
     await this.closeBottomList()
-    this.stopWatchingPosition()
+    await this.stopWatchingPosition()
   }
 
   async ionViewDidEnter() {
+    this.cacheList = await this.cacheService.getCaches()
+    this.loggedUser = await this.authService.getLoggedUser()
     await this.createMap()
     await this.startWatchingPosition()
   }
@@ -73,53 +78,29 @@ export class SearchPage implements OnInit {
       },
       forceCreate: false
     })
-
-    await this.map.enableClustering(2)
-    await this.showCurrentLocation()
-
-    await this.cacheList.forEach((list) => {
-      for (let c of list) {
-        if (c.creatorId != this.loggedUser.id) {
-          this.map.addMarker({
-            coordinate: {
-              lat: c.latitude,
-              lng: c.longitude,
-            },
-            title: c.title,
-            snippet: c.description,
-            iconUrl: this.loggedUser.favorites.includes(c.id) ? '../../../../assets/img/cross.png' : '../../../../assets/img/pin.png',
-            iconSize: {
-              height: 60,
-              width: 40
-            },
-            iconAnchor: {
-              x: 20,
-              y: 60
-            }
-          })
-        }
-      }
-    })
+    await this.addMarkerToMap(this.cacheList)
     await this.map.setOnMarkerClickListener(async marker => {
       let markerId: number = -1
-      await this.cacheList.forEach(list => {
-        list.forEach(m => {
-          if (m.title == marker.title) {
-            markerId = m.id;
-          }
-        })
+      await this.cacheList.forEach(m => {
+        if (m.title == marker.title) {
+          markerId = m.id;
+        }
       })
-      console.log(markerId)
+      if (markerId != -1)
+        //mostra Modal con dettagli
+        console.log(markerId)
     })
+    if (this.permission) await this.showCurrentLocation()
   }
 
   pinFormatter(value: number) {
     return `${value}`;
   }
 
-  onFilterSubmit() {
-    console.log(this.difficultValue)
-    console.log(this.ratingValue)
+  async onFilterSubmit() {
+    if (typeof this.difficultValue !== "number")
+      this.cacheList = await this.cacheService.getFilteredCaches(this.ratingValue, this.difficultValue.upper, this.difficultValue.lower)
+    await this.addMarkerToMap(this.cacheList)
   }
 
   onDifficultyChange(e: Event) {
@@ -153,8 +134,11 @@ export class SearchPage implements OnInit {
   }
 
   async openDetail(id: number) {
-    console.log("CLICCCATO :", id)
-    await this.navController.navigateRoot("section/creation")
+    await this.navController.navigateForward(['cacheDetailWithReview'], {
+      queryParams: {
+        id: id
+      }
+    });
   }
 
 
@@ -172,7 +156,7 @@ export class SearchPage implements OnInit {
   }
 
   async startWatchingPosition() {
-    this.watchPositionListener = Geolocation.watchPosition({}, (position: Position | null) => {
+    this.watchPositionListener = Geolocation.watchPosition({enableHighAccuracy: true}, (position: Position | null) => {
       if (!position) this.updateCurrentLocationMarker(null);
       else
         this.updateCurrentLocationMarker(
@@ -184,9 +168,9 @@ export class SearchPage implements OnInit {
     });
   }
 
-  stopWatchingPosition() {
+  async stopWatchingPosition() {
     if (this.watchPositionListener) {
-      this.watchPositionListener.remove();
+      await Geolocation.clearWatch({id: this.watchPositionListener});
       this.watchPositionListener = null;
     }
   }
@@ -215,5 +199,50 @@ export class SearchPage implements OnInit {
         }
       });
     }
+  }
+
+  async addMarkerToMap(caches: MyCache[]) {
+    if (this.markers) {
+      const length = this.markers.length;
+      for (let i = 0; i < length; i++) {
+        const id = this.markers.pop()
+        await this.map.removeMarker(<string>id);
+      }
+    }
+
+    for (const c of caches) {
+      this.markers.push(
+        await this.map.addMarker({
+          coordinate: {
+            lat: c.latitude,
+            lng: c.longitude,
+          },
+          title: c.title,
+          snippet: c.description,
+          iconUrl: this.loggedUser.favorites.includes(c.id) ? '../../../../assets/img/cross.png' : '../../../../assets/img/pin.png',
+          iconSize: {
+            height: 60,
+            width: 40
+          },
+          iconAnchor: {
+            x: 20,
+            y: 60
+          }
+        })
+      )
+    }
+  }
+
+  async requestGeolocationPermissions() {
+    const permissionState = await Geolocation.checkPermissions();
+    if (permissionState.location !== "granted") {
+      const permissionRequestResult = await Geolocation.requestPermissions();
+      if (permissionRequestResult.location !== "granted") {
+        console.error('Autorizzazioni di geolocalizzazione negate')
+        this.permission = false
+        return
+      }
+    }
+    this.permission = true
   }
 }
