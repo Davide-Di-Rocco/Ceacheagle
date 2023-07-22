@@ -8,7 +8,7 @@
       </ion-buttons>
       <ion-title>{{ c.title }}</ion-title>
       <ion-buttons slot="end">
-        <ion-button (click)="onStarClick()">
+        <ion-button (click)="onStarClick(c.id)">
           <ion-icon *ngIf="user.favorites.includes(c.id)" name="star"></ion-icon>
           <ion-icon *ngIf="!user.favorites.includes(c.id)" name="star-outline"></ion-icon>
         </ion-button>

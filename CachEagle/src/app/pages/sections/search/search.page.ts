@@ -132,6 +132,8 @@ export class SearchPage implements OnInit {
 
   async onStarClick(id: number) {
     await this.userService.editFavorite(id)
+    this.loggedUser = await this.authService.getLoggedUser()
+    await this.addMarkerToMap(this.cacheList)
   }
 
   async openDetail(id: number) {

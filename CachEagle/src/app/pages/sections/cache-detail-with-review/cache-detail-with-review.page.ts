@@ -34,16 +34,19 @@ export class CacheDetailWithReviewPage implements OnInit {
     this.user = await this.authService.getLoggedUser()
   }
 
-  onStarClick() {
-
-  }
-
   onMapClick() {
 
   }
 
-  async getUserName(id:number){
-    return (await this.userService.getUserById(id)).username;
+  getUserName(id: number) {
+    console.log("Prendi utente numero", id)
+    return ('utente ' + id);
+    //return (await this.userService.getUserById(id)).username;
+  }
+
+  async onStarClick(id: number) {
+    await this.userService.editFavorite(id)
+    this.user = await this.authService.getLoggedUser()
   }
 }
 
