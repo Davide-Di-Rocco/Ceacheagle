@@ -57,7 +57,7 @@
     [backdropBreakpoint]="0.5">
     <ng-template>
       <ion-content class="ion-padding">
-        <ion-list *ngFor="let cache of of(cacheList) | async; let i = index">
+        <ion-list *ngFor="let cache of cacheList; let i = index">
           <ion-item *ngIf="loggedUser.id !== cache.creatorId" lines="none">
             <app-cache-item-list
               [title]="cache.title"

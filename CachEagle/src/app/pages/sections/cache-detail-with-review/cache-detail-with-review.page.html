@@ -1,19 +1,18 @@
-<ion-content [fullscreen]="true" *ngIf="cache as c">
-  <!-- cache-detail-with-review.page.html -->
-
+<ion-content *ngIf="ready">
   <ion-header>
     <ion-toolbar>
       <ion-buttons slot="start">
         <ion-back-button defaultHref="/"></ion-back-button>
       </ion-buttons>
-      <ion-title>{{ c.title }}</ion-title>
+      <ion-title>{{ cache.title }}</ion-title>
       <ion-buttons slot="end">
-        <ion-button (click)="onStarClick(c.id)">
-          <ion-icon *ngIf="user.favorites.includes(c.id)" name="star"></ion-icon>
-          <ion-icon *ngIf="!user.favorites.includes(c.id)" name="star-outline"></ion-icon>
+        <ion-button (click)="onStarClick(cache.id)">
+          <ion-icon *ngIf="user.favorites.includes(cache.id)" name="star"></ion-icon>
+          <ion-icon *ngIf="!user.favorites.includes(cache.id)" name="star-outline"></ion-icon>
         </ion-button>
-        <ion-button (click)="onMapClick()">
-          <ion-icon name="map-outline"></ion-icon>
+        <ion-button (click)="onMapClick()" id="map-btn">
+          <ion-icon *ngIf="showMap" name="map"></ion-icon>
+          <ion-icon *ngIf="!showMap" name="map-outline"></ion-icon>
         </ion-button>
       </ion-buttons>
     </ion-toolbar>
@@ -21,16 +20,16 @@
 
   <ion-content>
     <div class="container">
-      <ion-img [src]="'data:image/jpeg;base64,' + c.photo"></ion-img>
+      <ion-img [src]="'data:image/jpeg;base64,' + cache.photo"></ion-img>
       <div class="description">
-        <p>{{ c.description }}</p>
+        <p>{{ cache.description }}</p>
       </div>
       <div class="details">
         <div class="column">
           <p style="padding-right: 10px">Valutazione</p>
           <app-rating
             [editable]="false"
-            [rating]="c.getRating()"
+            [rating]="cache.getRating()"
             [icon_name]="'star'"
             [colorSchema]="ColorSchemaType.GRYG">
           </app-rating>
@@ -39,7 +38,7 @@
           <p>Difficoltà</p>
           <app-rating
             [editable]="false"
-            [rating]="c.difficulty"
+            [rating]="cache.difficulty"
             [icon_name]="'ellipse'"
             [colorSchema]="ColorSchemaType.GGYR">
           </app-rating>
@@ -47,7 +46,7 @@
       </div>
       <div class="reviews">
         <ion-list *ngFor="let r of cache.reviews">
-          <ion-item class="review-item">
+          <ion-item class="review-item" lines="none">
             <div class="review-container">
               <h5 class="review-title">{{getUserName(r.userId)}}
                 <app-rating
@@ -60,10 +59,13 @@
             </div>
           </ion-item>
         </ion-list>
-
       </div>
       <ion-button>ATTIVA CACHE</ion-button>
     </div>
   </ion-content>
+
+  <div class="mappa" [ngClass]="{'visible': showMap}">
+    <capacitor-google-map #mapRef></capacitor-google-map>
+  </div>
 
 </ion-content>

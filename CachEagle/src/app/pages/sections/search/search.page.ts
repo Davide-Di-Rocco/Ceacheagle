@@ -3,7 +3,6 @@ import {GoogleMap} from "@capacitor/google-maps";
 import {environment} from "../../../../environments/environment";
 import {ModalController, NavController, RangeCustomEvent} from "@ionic/angular";
 import {RangeValue} from '@ionic/core';
-import {of} from "rxjs";
 import {MyCache} from "../../../models/cache.model";
 import {CacheService} from "../../../services/cache.service";
 import {Geolocation, Position} from "@capacitor/geolocation";
@@ -19,7 +18,6 @@ import {UserService} from "../../../services/user.service";
   styleUrls: ['./search.page.scss'],
 })
 export class SearchPage implements OnInit {
-  protected readonly of = of;
 
   @ViewChild('map')
   mapRef!: ElementRef<HTMLElement>;
@@ -91,7 +89,6 @@ export class SearchPage implements OnInit {
         //mostra Modal con dettagli
         console.log(markerId)
     })
-    //if (this.permission) await this.showCurrentLocation()
   }
 
   pinFormatter(value: number) {

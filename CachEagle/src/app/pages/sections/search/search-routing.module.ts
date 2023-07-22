@@ -16,8 +16,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes), IonicModule, NgIf, AppComponentsModule],
-  exports: [RouterModule],
-  declarations: []
+  exports: [RouterModule]
 })
 export class SearchPageRoutingModule {
 }

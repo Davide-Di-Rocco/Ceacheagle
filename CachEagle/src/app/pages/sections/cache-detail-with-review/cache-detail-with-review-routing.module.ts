@@ -1,7 +1,10 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 
-import { CacheDetailWithReviewPage } from './cache-detail-with-review.page';
+import {CacheDetailWithReviewPage} from './cache-detail-with-review.page';
+import {IonicModule} from "@ionic/angular";
+import {NgIf} from "@angular/common";
+import {AppComponentsModule} from "../../../components/app.components.module";
 
 const routes: Routes = [
   {
@@ -11,7 +14,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(routes), IonicModule, NgIf, AppComponentsModule],
   exports: [RouterModule],
 })
-export class CacheDetailWithReviewPageRoutingModule {}
+export class CacheDetailWithReviewPageRoutingModule {
+}
