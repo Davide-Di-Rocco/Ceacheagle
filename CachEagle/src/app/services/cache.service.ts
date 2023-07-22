@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {firstValueFrom, map} from "rxjs";
+import {firstValueFrom, map, Observable} from "rxjs";
 import {MyCache} from "../models/cache.model";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
@@ -56,4 +56,16 @@ export class CacheService {
       )
     )
   }
+  async getUserCaches(userId: number): Promise<MyCache[]> {
+    const url = `${this.cacheUrl}?creatorId=${userId}`
+    return firstValueFrom(await this.http.get<MyCache[]>(url)
+      .pipe(
+        map(
+          cacheList => cacheList.map(
+            cache => new MyCache(cache)
+          )
+        )
+      ))
+  }
+
 }

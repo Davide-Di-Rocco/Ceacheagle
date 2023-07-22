@@ -15,14 +15,15 @@
     </ion-fab-button>
   </ion-fab>
 
-  <ion-list *ngFor="let cache of cachesList; let i = index">
-    <ion-item>
+  <ion-list *ngFor="let cache of cacheList; let i = index">
+    <ion-item (click)="openDetail(cache.id)">
       <ion-avatar>
-        <img alt="Silhouette of a person's head"
-             src="https://ionicframework.com/docs/img/demos/avatar.svg"/>
+        <ion-img *ngIf="!cache.photo" alt="Silhouette of a person's head"
+                 src="https://ionicframework.com/docs/img/demos/avatar.svg"/>
+        <ion-img class="photo" *ngIf="cache.photo" [src]="'data:image/jpeg;base64,' + cache.photo"/>
       </ion-avatar>
       <ion-label>{{cache.title}}</ion-label>
-      <ion-button fill="clear">
+      <ion-button fill="clear" (click)="openDetail(cache.id)">
         <ion-icon name="information-circle-outline" color="dark"></ion-icon>
       </ion-button>
     </ion-item>
