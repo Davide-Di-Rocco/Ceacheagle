@@ -31,21 +31,25 @@ export class RegistrationPage implements OnInit {
   }
 
   async onCreate() {
-    let email = this.registrationFormModule.value.email
-    let username = this.registrationFormModule.value.username
-    let password = this.registrationFormModule.value.password
-    let passwordControl = this.registrationFormModule.value.passwordControl
+    let email: string = this.registrationFormModule.value.email
+    let username: string = this.registrationFormModule.value.username
+    let password: string = this.registrationFormModule.value.password
+    let passwordControl: string = this.registrationFormModule.value.passwordControl
 
     console.log("email = '" + email + "'")
     console.log("username = '" + username + "'")
     console.log("password = '" + password + "'")
     console.log("password control = '" + passwordControl + "'")
     if (password === passwordControl) {
-      if (await this.registrationService.register(username, email, password)) {
-        await this.navController.navigateRoot("login")
-        await this.popup("UTENTE CREATO", "Registrazione effettuata con successo")
+      if (!(this.isBlanck(email) || this.isBlanck(username) || this.isBlanck(password))) {
+        if (await this.registrationService.register(username, email, password)) {
+          await this.navController.navigateRoot("login")
+          await this.popup("UTENTE CREATO", "Registrazione effettuata con successo")
+        } else {
+          await this.popup("ERRORE", "Dati non validi. Username e/o email già esistenti")
+        }
       } else {
-        await this.popup("ERRORE", "Dati non validi. Username e/o password già esistenti")
+        await this.popup("ERRORE", "Dati non validi. Riempire tutti i campi correttamente")
       }
     } else {
       await this.popup("ERRORE", "Le password inserite devono coincidere")
@@ -64,6 +68,10 @@ export class RegistrationPage implements OnInit {
 
   onCancel() {
     this.navController.navigateRoot("login")
+  }
+
+  isBlanck(string: string) {
+    return string.trim().length == 0
   }
 
 }

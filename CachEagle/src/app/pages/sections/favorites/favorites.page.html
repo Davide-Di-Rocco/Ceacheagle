@@ -9,12 +9,13 @@
   </ion-fab>
   <ion-list *ngFor="let cache of cachesList; let i = index">
     <ion-item>
-      <ion-avatar>
-        <img alt="Silhouette of a person's head"
-             src="https://ionicframework.com/docs/img/demos/avatar.svg"/>
+      <ion-avatar (click)="openDetail(cache.id)">
+        <ion-img *ngIf="!cache.photo" alt="Silhouette of a person's head"
+                 src="https://ionicframework.com/docs/img/demos/avatar.svg"/>
+        <ion-img class="photo" *ngIf="cache.photo" [src]="'data:image/jpeg;base64,' + cache.photo"/>
       </ion-avatar>
-      <ion-label>{{cache.title}}</ion-label>
-      <ion-button fill="clear">
+      <ion-label (click)="openDetail(cache.id)">{{cache.title}}</ion-label>
+      <ion-button fill="clear" (click)="removeFavorite(cache.id)">
         <ion-icon name="trash-bin-outline" color="dark"></ion-icon>
       </ion-button>
     </ion-item>

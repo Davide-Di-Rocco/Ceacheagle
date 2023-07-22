@@ -6,9 +6,9 @@
       "email": "tatonimatteo@gmail.com",
       "password": "12345",
       "favorites": [
-        1,
         2,
-        4
+        4,
+        5
       ]
     },
     {
@@ -48,10 +48,12 @@
       "longitude": 13.449442,
       "reviews": [
         {
+          "userId": 0,
           "rating": 4,
           "comment": "Un luogo incantevole per una caccia al tesoro!"
         },
         {
+          "userId": 2,
           "rating": 5,
           "comment": "Abbiamo avuto un sacco di divertimento a cercare questa cache!"
         }
@@ -82,10 +84,12 @@
       "longitude": 13.343041,
       "reviews": [
         {
+          "userId": 1,
           "rating": 3,
           "comment": "Una cache interessante, ma un po' difficile da raggiungere."
         },
         {
+          "userId": 0,
           "rating": 5,
           "comment": "Le viste panoramiche rendono questa caccia al tesoro unica!"
         }
@@ -116,10 +120,12 @@
       "longitude": 13.416103,
       "reviews": [
         {
+          "userId": 1,
           "rating": 5,
           "comment": "Una delle migliori cache che abbiamo trovato!"
         },
         {
+          "userId": 2,
           "rating": 4,
           "comment": "Un'esperienza avventurosa nel cuore della storia!"
         }
@@ -150,10 +156,12 @@
       "longitude": 13.396636,
       "reviews": [
         {
+          "userid": 0,
           "rating": 5,
           "comment": "Una cache avvincente in una foresta magica!"
         },
         {
+          "userId": 2,
           "rating": 4,
           "comment": "Una grande avventura tra gli alberi!"
         }
@@ -180,10 +188,12 @@
       "longitude": 13.376366,
       "reviews": [
         {
+          "userId": 0,
           "rating": 3,
           "comment": "Una cache affascinante per un'intrigante passeggiata sulla spiaggia."
         },
         {
+          "userId": 1,
           "rating": 4,
           "comment": "Un luogo tranquillo per una caccia al tesoro!"
         }

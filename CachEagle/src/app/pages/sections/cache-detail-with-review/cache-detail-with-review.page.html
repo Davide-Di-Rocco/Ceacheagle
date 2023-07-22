@@ -9,10 +9,11 @@
       <ion-title>{{ c.title }}</ion-title>
       <ion-buttons slot="end">
         <ion-button (click)="onStarClick()">
-          <ion-icon name="star"></ion-icon>
+          <ion-icon *ngIf="user.favorites.includes(c.id)" name="star"></ion-icon>
+          <ion-icon *ngIf="!user.favorites.includes(c.id)" name="star-outline"></ion-icon>
         </ion-button>
         <ion-button (click)="onMapClick()">
-          <ion-icon name="map"></ion-icon>
+          <ion-icon name="map-outline"></ion-icon>
         </ion-button>
       </ion-buttons>
     </ion-toolbar>
@@ -25,26 +26,43 @@
         <p>{{ c.description }}</p>
       </div>
       <div class="details">
-        <div class="line">
-          <p>Valutazione</p>
+        <div class="column">
+          <p style="padding-right: 10px">Valutazione</p>
           <app-rating
             [editable]="false"
             [rating]="c.getRating()"
             [icon_name]="'star'"
-            [colorSchema]="ColorSchemaType.GRYG"
-          ></app-rating>
+            [colorSchema]="ColorSchemaType.GRYG">
+          </app-rating>
         </div>
-        <div class="line">
+        <div class="column">
           <p>Difficoltà</p>
           <app-rating
             [editable]="false"
             [rating]="c.difficulty"
             [icon_name]="'ellipse'"
-            [colorSchema]="ColorSchemaType.GGYR"
-          ></app-rating>
+            [colorSchema]="ColorSchemaType.GGYR">
+          </app-rating>
         </div>
       </div>
-      <ion-button>{{c.creatorId === user.id ? 'MODIFICA CACHE' : 'ATTIVA CACHE'}}</ion-button>
+      <div class="reviews">
+        <ion-list *ngFor="let r of cache.reviews">
+          <ion-item class="review-item">
+            <div class="review-container">
+              <h5 class="review-title">{{getUserName(r.userId)}}
+                <app-rating
+                  [editable]="false"
+                  [rating]="r.rating"
+                  [icon_name]="'star'"
+                  [colorSchema]="ColorSchemaType.GRYG"></app-rating>
+              </h5>
+              <p class="review-comment">{{ r.comment }}</p>
+            </div>
+          </ion-item>
+        </ion-list>
+
+      </div>
+      <ion-button>ATTIVA CACHE</ion-button>
     </div>
   </ion-content>
 

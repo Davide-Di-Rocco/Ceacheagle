@@ -56,8 +56,8 @@ export class SearchPage implements OnInit {
   }
 
   async ionViewDidEnter() {
-    this.cacheList = await this.cacheService.getCaches()
     this.loggedUser = await this.authService.getLoggedUser()
+    this.cacheList = await this.cacheService.getCaches(this.loggedUser.id)
     await this.createMap()
     if (this.permission) await this.startWatchingPosition()
   }
@@ -100,7 +100,7 @@ export class SearchPage implements OnInit {
 
   async onFilterSubmit() {
     if (typeof this.difficultValue !== "number")
-      this.cacheList = await this.cacheService.getFilteredCaches(this.ratingValue, this.difficultValue.upper, this.difficultValue.lower)
+      this.cacheList = await this.cacheService.getFilteredCaches(this.ratingValue, this.difficultValue.upper, this.difficultValue.lower, this.loggedUser.id)
     await this.addMarkerToMap(this.cacheList)
   }
 
@@ -142,20 +142,6 @@ export class SearchPage implements OnInit {
     });
   }
 
-  /*
-    async getCurrentCoordinates(): Promise<LatLng | null> {
-      try {
-        const position = await Geolocation.getCurrentPosition();
-        return {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        }
-      } catch (error) {
-        console.error("Error getting current location:", error);
-        return null;
-      }
-    }
-  */
   async startWatchingPosition() {
     this.watchPositionListener = Geolocation.watchPosition({enableHighAccuracy: true}, (position: Position | null) => {
       if (!position) this.updateCurrentLocationMarker(null);
@@ -175,16 +161,6 @@ export class SearchPage implements OnInit {
       this.watchPositionListener = null;
     }
   }
-
-  /*
-    async showCurrentLocation() {
-      const coordinates = await this.getCurrentCoordinates();
-      if (coordinates) {
-        await this.updateCurrentLocationMarker(coordinates)
-      }
-    }
-
-  */
 
   async updateCurrentLocationMarker(coordinates: LatLng | null) {
     if (coordinates) {
