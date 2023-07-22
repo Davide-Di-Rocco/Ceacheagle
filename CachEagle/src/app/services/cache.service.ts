@@ -3,7 +3,6 @@ import {firstValueFrom, map, Observable} from "rxjs";
 import {MyCache} from "../models/cache.model";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {AuthenticationService} from "./authentication.service";
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +12,12 @@ export class CacheService {
   private cacheUrl = environment.hostname + environment.cacheDir
 
   constructor(
-    private http: HttpClient,
-    private authService: AuthenticationService,
+    private http: HttpClient
   ) {
   }
 
-  async getCaches(): Promise<MyCache[]> {
-    const url = `${this.cacheUrl}?creatorId_ne=${(await this.authService.getLoggedUser()).id}`
+  async getCaches(userId: number): Promise<MyCache[]> {
+    const url = `${this.cacheUrl}?creatorId_ne=${userId}`
     return firstValueFrom(await this.http.get<MyCache[]>(url)
       .pipe(
         map(
@@ -30,8 +28,8 @@ export class CacheService {
       ))
   }
 
-  async getFilteredCaches(minRating: number, maxDifficulty: number, minDifficulty: number) {
-    const url = `${this.cacheUrl}?difficulty_lte=${maxDifficulty}&difficulty_gte=${minDifficulty}&creatorId_ne=${(await this.authService.getLoggedUser()).id}`;
+  async getFilteredCaches(minRating: number, maxDifficulty: number, minDifficulty: number, userId: number) {
+    const url = `${this.cacheUrl}?difficulty_lte=${maxDifficulty}&difficulty_gte=${minDifficulty}&creatorId_ne=${userId}`;
     return firstValueFrom(await this.http.get<MyCache[]>(url)
       .pipe(
         map(cacheList => {
@@ -56,6 +54,7 @@ export class CacheService {
       )
     )
   }
+
   async getUserCaches(userId: number): Promise<MyCache[]> {
     const url = `${this.cacheUrl}?creatorId=${userId}`
     return firstValueFrom(await this.http.get<MyCache[]>(url)
@@ -68,4 +67,17 @@ export class CacheService {
       ))
   }
 
+  async getFavoritesCaches(favorites: number[]) {
+    const url = `${this.cacheUrl}`;
+    return firstValueFrom(await this.http.get<MyCache[]>(url)
+      .pipe(
+        map(cacheList => {
+          const list = cacheList.map(cache => new MyCache(cache));
+          return list.filter(cache => {
+            return favorites.includes(cache.id)
+          })
+        })
+      )
+    )
+  }
 }

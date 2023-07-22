@@ -3,7 +3,7 @@ import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {AuthenticationService} from "./authentication.service";
 import {User} from "../models/user.model";
-import {firstValueFrom} from "rxjs";
+import {firstValueFrom, map} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +35,15 @@ export class UserService {
   private async updateUser(user: User) {
     const url = `${this.usersUrl}/${user.id}`;
     return firstValueFrom(await this.http.put(url, user));
+  }
+
+  async getUserById(id: number): Promise<User> {
+    return firstValueFrom(await this.http.get<User>(`${this.usersUrl}\\${id}`)
+      .pipe(
+        map(
+          user => new User(user)
+        )
+      )
+    )
   }
 }
