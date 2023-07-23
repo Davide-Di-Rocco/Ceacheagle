@@ -29,21 +29,22 @@ export class LoginPage implements OnInit {
   }
 
   async onSubmit() {
-    let username = this.loginFormModule.value.username
-    let password = this.loginFormModule.value.password
-    if (await this.authService.login(username, password))
-      await this.navController.navigateRoot("section/search")
-    else await this.onWrongCredentials()
+    if (this.loginFormModule.valid) {
+      let username = this.loginFormModule.value.username
+      let password = this.loginFormModule.value.password
+      if (await this.authService.login(username, password))
+        await this.navController.navigateRoot("section/search")
+      else await this.popup("Impossibile accedere", "Credenziali sbagliate! Controlla le credenziali e riprova")
+    } else await this.popup("Impossibile accedere", "Compila correttamente tutti campi e riprova")
   }
 
-
-  async onWrongCredentials() {
+  async popup(title: string, message: string) {
     const popup = await this.alert.create({
-      header: "ERRORE",
-      message: "Username e/o password errati",
+      header: title,
+      message: message,
       buttons: ["OK"]
-    })
-    await popup.present()
+    });
+    await popup.present();
   }
 
   async onRegister() {

@@ -33,6 +33,16 @@ ion-popover {
     margin: auto;
     visibility: hidden;
   }
+
+  ion-header {
+    display: flex;
+
+    ion-button {
+      aspect-ratio: 1/1;
+      font-size: 10px;
+    }
+  }
+
 }
 
 capacitor-google-map {

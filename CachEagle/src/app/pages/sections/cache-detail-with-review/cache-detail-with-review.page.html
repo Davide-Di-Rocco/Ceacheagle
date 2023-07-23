@@ -18,7 +18,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
+  <div>
     <div class="container">
       <ion-img [src]="'data:image/jpeg;base64,' + cache.photo"></ion-img>
       <div class="description">
@@ -62,7 +62,7 @@
       </div>
       <ion-button>ATTIVA CACHE</ion-button>
     </div>
-  </ion-content>
+  </div>
 
   <div class="mappa" [ngClass]="{'visible': showMap}">
     <capacitor-google-map #mapRef></capacitor-google-map>

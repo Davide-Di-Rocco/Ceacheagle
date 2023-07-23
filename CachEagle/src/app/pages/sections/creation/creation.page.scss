@@ -20,12 +20,17 @@ form {
     aspect-ratio: 16/9;
     width: 100%;
     height: auto;
+    --border-radius: 10px;
   }
 
   ion-img {
     aspect-ratio: 16/9;
     width: 100%;
     height: auto;
+  }
+
+  ion-img::part(image) {
+    border-radius: 10px;
   }
 
   ion-textarea {
@@ -47,7 +52,11 @@ form {
   }
 }
 
-#buttons {
+#photoBtn {
+  margin-bottom: 5px;
+}
+
+.buttons {
   display: flex;
   padding: 0 4vw;
 
@@ -56,3 +65,4 @@ form {
     visibility: hidden;
   }
 }
+

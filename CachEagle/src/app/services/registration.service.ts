@@ -13,23 +13,36 @@ export class RegistrationService {
   }
 
   async register(username: string, email: string, password: string) {
-    const url1 = `${this.apiUrl}?email=${email}`
-    const url2 = `${this.apiUrl}?username=${username}`
-    const result: number[] = await Promise.all([
-      ...await this.getRequest<number[]>(url1),
-      ...await this.getRequest<number[]>(url2)
-    ]);
+    const url1 = `${this.apiUrl}?email=${email}`;
+    const url2 = `${this.apiUrl}?username=${username}`;
 
-    if (result.length == 0) {
-      let userData = {
-        email: email,
-        username: username,
-        password: password
+    try {
+      const emailResponse = await this.getRequest<number[]>(url1);
+      const usernameResponse = await this.getRequest<number[]>(url2);
+
+      if (emailResponse.length === 0 && usernameResponse.length === 0) {
+        const userData = {
+          email: email,
+          username: username,
+          password: password,
+          favorites: []
+        };
+
+        const registrationResult = await this.postRequest(this.apiUrl, userData);
+        return registrationResult ? "success" : "server_error";
+      } else if (emailResponse.length > 0) {
+        return "duplicate_email";
+      } else if (usernameResponse.length > 0) {
+        return "duplicate_username";
       }
-      return await this.postRequest(this.apiUrl, userData)
+    } catch (error) {
+      // Gestisci eventuali errori di richiesta qui
+      return "server_error";
     }
-    return false;
+
+    return "server_error";
   }
+
 
   private async getRequest<T>(url: string): Promise<T> {
     const observable = this.http.get<T>(url).pipe(take(1));

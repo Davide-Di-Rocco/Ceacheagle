@@ -2,54 +2,63 @@
   <ion-toolbar>
     <ion-title>Nuova Cache</ion-title>
   </ion-toolbar>
-  <form [formGroup]="cacheFormModule">
-    <ion-input id="title" type="text"
-               label="Titolo" labelPlacement="floating"
-               fill="outline"
-               formControlName="title"
-               class="formItem"/>
-    <ion-button (click)="addPhoto()">
-      <ion-icon name="camera-outline"/>
-      <div id="space"></div>
-      <ion-label>Scatta foto</ion-label>
-    </ion-button>
-    <ion-thumbnail *ngIf="!photo">
-      <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg"/>
-    </ion-thumbnail>
-    <ion-img class="photo" *ngIf="photo" [src]="'data:image/jpeg;base64, ' + photo.base64String"></ion-img>
-    <ion-textarea id="description" type="text"
-                  label="Descrizione" label-placement="floating"
-                  fill="outline"
-                  formControlName="description"
-                  class="formItem"/>
-    <div class="border">
-      <ion-label>Difficoltà</ion-label>
+  <div *ngIf="page === 1">
+    <form [formGroup]="cacheFormModule">
+      <ion-input id="title" type="text"
+                 label="Titolo*" labelPlacement="floating"
+                 fill="outline"
+                 formControlName="title"
+                 class="formItem"
+                 style="margin-top: 5px"/>
+      <ion-button (click)="addPhoto()" id="photoBtn">
+        <ion-icon name="camera-outline"/>
+        <div id="space"></div>
+        <ion-label>Scatta foto</ion-label>
+      </ion-button>
+      <ion-thumbnail *ngIf="!photo">
+        <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg"/>
+      </ion-thumbnail>
+      <ion-img class="photo" *ngIf="photo" [src]="'data:image/jpeg;base64, ' + photo.base64String"></ion-img>
+      <ion-textarea id="description" type="text"
+                    label="Descrizione*" label-placement="floating"
+                    fill="outline"
+                    formControlName="description"
+                    class="formItem"/>
+      <div class="border">
+        <ion-label>Difficoltà*</ion-label>
+        <div></div>
+        <app-rating [rating]="0" [icon_name]="'ellipse'" (ratingChange)="updateDifficulty($event)"></app-rating>
+        <div></div>
+      </div>
+
+      <ion-textarea id="hint1" type="text"
+                    label="Suggerimento 1*" label-placement="floating"
+                    fill="outline"
+                    formControlName="hint1"
+                    class="formItem"/>
+      <ion-textarea id="hint2" type="text"
+                    label="Suggerimento 2" label-placement="floating"
+                    fill="outline"
+                    formControlName="hint2"
+                    class="formItem"/>
+      <ion-textarea id="hint3" type="text"
+                    label="Suggerimento 3" label-placement="floating"
+                    fill="outline"
+                    formControlName="hint3"
+                    class="formItem"/>
+    </form>
+
+    <div class="buttons">
+      <ion-button fill="outline" (click)="navController.navigateRoot('section/mycaches')">ANNULLA</ion-button>
       <div></div>
-      <app-rating [rating]="3" [icon_name]="'ellipse'"></app-rating>
-      <div></div>
-      <!--(ratingChange)=""-->
+      <ion-button (click)="onSubmit()">AVANTI</ion-button>
     </div>
-
-    <ion-textarea id="hint1" type="text"
-                  label="Suggerimento 1" label-placement="floating"
-                  fill="outline"
-                  formControlName="hint1"
-                  class="formItem"/>
-    <ion-textarea id="hint2" type="text"
-                  label="Suggerimento 2" label-placement="floating"
-                  fill="outline"
-                  formControlName="hint2"
-                  class="formItem"/>
-    <ion-textarea id="hint3" type="text"
-                  label="Suggerimento 3" label-placement="floating"
-                  fill="outline"
-                  formControlName="hint3"
-                  class="formItem"/>
-  </form>
-
-  <div id="buttons">
-    <ion-button fill="outline" (click)="navController.navigateRoot('section/mycaches')">ANNULLA</ion-button>
-    <div></div>
-    <ion-button>AVANTI</ion-button>
+  </div>
+  <div *ngIf="page === 2">
+    <div class="buttons">
+      <ion-button fill="outline" (click)="page = 1">INDIETRO</ion-button>
+      <div></div>
+      <ion-button (click)="onSave()">SALVA</ion-button>
+    </div>
   </div>
 </ion-content>

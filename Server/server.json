@@ -155,7 +155,7 @@
       "longitude": 13.396636,
       "reviews": [
         {
-          "userid": 0,
+          "userId": 0,
           "rating": 5,
           "comment": "Una cache avvincente in una foresta magica!"
         },

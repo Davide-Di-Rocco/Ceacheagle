@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from "@angular/forms";
 import {AlertController, NavController} from "@ionic/angular";
 import {RegistrationService} from "../../services/registration.service";
 
@@ -13,46 +13,62 @@ export class RegistrationPage implements OnInit {
   protected registrationFormModule: FormGroup;
 
   constructor(
-    fb: FormBuilder,
+    private fb: FormBuilder,
     private navController: NavController,
     private alert: AlertController,
     private registrationService: RegistrationService
   ) {
-    this.registrationFormModule = fb.group({
-        email: ['', Validators.required],
-        username: ['', Validators.required],
-        password: ['', Validators.required],
-        passwordControl: ['', Validators.required],
-      }
-    )
+    this.registrationFormModule = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      passwordControl: ['', Validators.required],
+    }, {
+      validators: this.passwordMatchValidator()
+    });
   }
 
   ngOnInit() {
   }
 
   async onCreate() {
-    let email: string = this.registrationFormModule.value.email
-    let username: string = this.registrationFormModule.value.username
-    let password: string = this.registrationFormModule.value.password
-    let passwordControl: string = this.registrationFormModule.value.passwordControl
+    if (this.registrationFormModule.valid) {
+      const email = this.registrationFormModule.value.email;
+      const username = this.registrationFormModule.value.username;
+      const password = this.registrationFormModule.value.password;
 
-    console.log("email = '" + email + "'")
-    console.log("username = '" + username + "'")
-    console.log("password = '" + password + "'")
-    console.log("password control = '" + passwordControl + "'")
-    if (password === passwordControl) {
-      if (!(this.isBlanck(email) || this.isBlanck(username) || this.isBlanck(password))) {
-        if (await this.registrationService.register(username, email, password)) {
-          await this.navController.navigateRoot("login")
-          await this.popup("UTENTE CREATO", "Registrazione effettuata con successo")
+      try {
+        const registrationResult = await this.registrationService.register(username, email, password);
+        if (registrationResult === 'success') {
+          await this.navController.navigateRoot("login");
+          await this.popup("UTENTE CREATO", "Registrazione effettuata con successo");
+        } else if (registrationResult === 'duplicate_email') {
+          await this.popup("ERRORE", "Dati non validi. Email già esistente");
+        } else if (registrationResult === 'duplicate_username') {
+          await this.popup("ERRORE", "Dati non validi. Username già esistente");
         } else {
-          await this.popup("ERRORE", "Dati non validi. Username e/o email già esistenti")
+          await this.popup("ERRORE", "Errore durante la registrazione");
         }
-      } else {
-        await this.popup("ERRORE", "Dati non validi. Riempire tutti i campi correttamente")
+      } catch (error) {
+        await this.popup("ERRORE", "Errore durante la registrazione");
       }
     } else {
-      await this.popup("ERRORE", "Le password inserite devono coincidere")
+      const emailErrors = this.registrationFormModule.get('email')?.errors;
+      const usernameErrors = this.registrationFormModule.get('username')?.errors;
+      const passwordErrors = this.registrationFormModule.get('password')?.errors;
+      const passwordControlErrors = this.registrationFormModule.get('passwordControl')?.errors;
+
+      if (emailErrors?.['required']) {
+        await this.popup('ERRORE', 'L\'email è un campo obbligatorio');
+      } else if (emailErrors?.['email']) {
+        await this.popup('ERRORE', 'L\'email non è valida');
+      } else if (usernameErrors?.['required']) {
+        await this.popup('ERRORE', 'L\'username è un campo obbligatorio');
+      } else if (passwordErrors?.['required']) {
+        await this.popup('ERRORE', 'La password è un campo obbligatorio');
+      } else if (passwordControlErrors?.['passwordMismatch']) {
+        await this.popup('ERRORE', 'Le password non corrispondono');
+      }
     }
   }
 
@@ -61,17 +77,25 @@ export class RegistrationPage implements OnInit {
       header: title,
       message: message,
       buttons: ["OK"]
-    })
-    await popup.present()
+    });
+    await popup.present();
   }
 
-
-  onCancel() {
-    this.navController.navigateRoot("login")
+  async onCancel() {
+    await this.navController.navigateRoot("login");
   }
 
-  isBlanck(string: string) {
-    return string.trim().length == 0
-  }
+  passwordMatchValidator(): ValidatorFn {
+    return (control: AbstractControl) => {
+      const password = control.get('password')?.value;
+      const passwordControl = control.get('passwordControl')?.value;
 
+      if (password !== passwordControl) {
+        control.get('passwordControl')?.setErrors({passwordMismatch: true});
+      } else {
+        control.get('passwordControl')?.setErrors(null);
+      }
+      return null;
+    };
+  }
 }

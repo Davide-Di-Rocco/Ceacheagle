@@ -24,11 +24,11 @@ export class SearchPage implements OnInit {
   map!: GoogleMap;
 
   difficultValue: RangeValue = {lower: 0, upper: 5}
-  ratingValue = 3;
+  ratingValue = 0;
 
   private watchPositionListener: any
   private currentLocationMarker!: string
-  private markers: string[] = []
+  private markers: { [markerId: string]: number } = {}
 
   protected loggedUser!: User
   protected cacheList!: MyCache[]
@@ -79,15 +79,9 @@ export class SearchPage implements OnInit {
       })
     await this.addMarkerToMap(this.cacheList)
     await this.map.setOnMarkerClickListener(async marker => {
-      let markerId: number = -1
-      await this.cacheList.forEach(m => {
-        if (m.title == marker.title) {
-          markerId = m.id;
-        }
-      })
-      if (markerId != -1)
-        //mostra Modal con dettagli
-        console.log(markerId)
+      const markerId = marker.markerId
+      const cacheId = this.markers[markerId]
+      await this.openDetail(cacheId)
     })
   }
 
@@ -98,6 +92,11 @@ export class SearchPage implements OnInit {
   async onFilterSubmit() {
     if (typeof this.difficultValue !== "number")
       this.cacheList = await this.cacheService.getFilteredCaches(this.ratingValue, this.difficultValue.upper, this.difficultValue.lower, this.loggedUser.id)
+    await this.addMarkerToMap(this.cacheList)
+  }
+
+  async onFilterCancel() {
+    this.cacheList = await this.cacheService.getCaches(this.loggedUser.id)
     await this.addMarkerToMap(this.cacheList)
   }
 
@@ -142,7 +141,9 @@ export class SearchPage implements OnInit {
   }
 
   async startWatchingPosition() {
-    this.watchPositionListener = Geolocation.watchPosition({enableHighAccuracy: true}, (position: Position | null) => {
+    this.watchPositionListener = Geolocation.watchPosition({enableHighAccuracy: true}, (position: Position | null, err: any) => {
+      if (err) console.error(err)
+      console.log(position)
       if (!position) this.updateCurrentLocationMarker(null);
       else
         this.updateCurrentLocationMarker(
@@ -182,33 +183,33 @@ export class SearchPage implements OnInit {
 
   async addMarkerToMap(caches: MyCache[]) {
     if (this.markers) {
-      const length = this.markers.length;
-      for (let i = 0; i < length; i++) {
-        const id = this.markers.pop()
-        await this.map.removeMarker(<string>id);
+      for (let markersKey in this.markers) {
+        await this.map.removeMarker(markersKey)
+        delete this.markers[markersKey]
       }
     }
 
     for (const c of caches) {
-      this.markers.push(
-        await this.map.addMarker({
-          coordinate: {
-            lat: c.latitude,
-            lng: c.longitude,
-          },
-          title: c.title,
-          snippet: c.description,
-          iconUrl: this.loggedUser.favorites.includes(c.id) ? '../../../../assets/img/cross.png' : '../../../../assets/img/pin.png',
-          iconSize: {
-            height: 60,
-            width: 40
-          },
-          iconAnchor: {
-            x: 20,
-            y: 60
-          }
-        })
-      )
+      this.map.addMarker({
+        coordinate: {
+          lat: c.latitude,
+          lng: c.longitude,
+        },
+        title: c.title,
+        snippet: c.description,
+        iconUrl: this.loggedUser.favorites.includes(c.id) ? '../../../../assets/img/cross.png' : '../../../../assets/img/pin.png',
+        iconSize: {
+          height: 60,
+          width: 40
+        },
+        iconAnchor: {
+          x: 20,
+          y: 60
+        }
+      }).then(markerId => {
+        this.markers[markerId] = c.id
+
+      })
     }
   }
 
