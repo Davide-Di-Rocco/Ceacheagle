@@ -59,10 +59,20 @@ form {
 .buttons {
   display: flex;
   padding: 0 4vw;
+  height: 5vh;
 
   div {
     margin: auto;
     visibility: hidden;
   }
+
+  ion-button {
+    width: 30vw;
+  }
+}
+
+.gif {
+  height: calc(100vh - 5vh - 70px);
+  width: 100%;
 }
 

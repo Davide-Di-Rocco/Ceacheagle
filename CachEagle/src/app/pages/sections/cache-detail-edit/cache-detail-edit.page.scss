@@ -23,12 +23,19 @@ ion-img::part(image) {
   font-size: 14px;
 }
 
-.column {
-  align-content: center;
+.line {
+  width: 100%;
+  display: flex;
 
   p {
     text-align: center;
     font-weight: bold;
+    margin-left: 12vw;
+  }
+
+  app-rating {
+    margin-top: 2vh;
+    margin-left: 5vw;
   }
 }
 
@@ -45,7 +52,6 @@ ion-img::part(image) {
 /* Aggiungi margini al pulsante per spazio extra */
 ion-button {
   width: 100%;
-  margin-top: 10px;
   --border-radius: 10px;
   --padding-start: 10px;
   --padding-end: 10px;
@@ -70,7 +76,6 @@ ion-header {
       ion-button {
         --color: black; /* Colore nero per il testo dei pulsanti */
         margin-left: 8px; /* Aggiungi margine sinistro tra i pulsanti */
-        margin-bottom: 15px;
       }
 
       max-height: 30px;
@@ -80,7 +85,7 @@ ion-header {
       font-size: 18px; /* Dimensione del carattere del titolo */
       font-weight: bold; /* Grassetto per il titolo */
       color: black; /* Colore nero per il titolo */
-      max-width: 70%; /* Larghezza massima del titolo per garantire che il testo non superi i pulsanti */
+      max-width: 100%; /* Larghezza massima del titolo per garantire che il testo non superi i pulsanti */
       padding-inline: 0 !important;
     }
   }
@@ -88,5 +93,15 @@ ion-header {
   margin-bottom: 10px;
 }
 
+.animated-elements {
+  display: flex;
+  overflow-x: hidden; // Aggiungi questa proprietà per nascondere il contenuto che supera la larghezza del componente
+  width: 100%; // Riduci la larghezza per garantire che gli elementi scorrono in orizzontale
+}
+
+.slide-container {
+  width: 89vw; // Larghezza pari alla larghezza della viewport per occupare interamente lo spazio
+  flex-shrink: 0; // Impedisce al contenuto di restringersi quando c'è poco spazio
+}
 
 

@@ -1,0 +1,19 @@
+<div [style.height]="height" *ngIf=" reviews.length> 0" class="box">
+  <ion-list>
+    <ion-item class="review-item" lines="none" *ngFor="let r of reviews">
+      <div class="review-container">
+        <h5 class="review-title">{{ getUserName(r.userId) }}
+          <app-rating
+            [editable]="false"
+            [rating]="r.rating"
+            [icon_name]="'star'"
+            [colorSchema]="ColorSchemaType.GRYG"></app-rating>
+        </h5>
+        <p class="review-comment">{{ r.comment }}</p>
+      </div>
+    </ion-item>
+  </ion-list>
+</div>
+<div *ngIf="reviews.length <= 0" class="box">
+  <h3>Non ci sono ancora recensioni per questa cache!</h3>
+</div>

@@ -1,0 +1,32 @@
+.box {
+  border: 1px solid #ddd; /* Aggiungi bordino grigio */
+  border-radius: 10px; /* Angoli arrotondati */
+  overflow: scroll;
+  padding: 10px 20px 5px;
+}
+
+ion-icon {
+  width: 12%;
+  height: 12%;
+  margin-left: -10px;
+}
+
+.hint-box {
+  height: 55%;
+  width: 100%;
+  overflow: auto;
+}
+
+.buttons {
+  display: flex;
+  height: 15%;
+
+  div {
+    width: 100%;
+  }
+
+  ion-icon {
+    height: 20px;
+    aspect-ratio: 1/1;
+  }
+}

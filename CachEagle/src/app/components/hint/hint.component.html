@@ -1,0 +1,10 @@
+<div [style.height]="height" class="box">
+  <ion-icon name="bulb-outline"></ion-icon>
+  <p class="hint-box">{{ hints[selectedHint].hint }}</p>
+  <div class="buttons">
+    <ion-icon name="arrow-back-outline" (click)="backHint()" *ngIf="selectedHint !== 0"></ion-icon>
+    <div></div>
+    <ion-icon name="arrow-forward-outline" (click)="nextHint()" *ngIf="selectedHint !== hints.length-1"></ion-icon>
+
+  </div>
+</div>

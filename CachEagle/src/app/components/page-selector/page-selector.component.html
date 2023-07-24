@@ -1,0 +1,8 @@
+<div class="page-selector">
+  <div
+    class="page-dot"
+    *ngFor="let page of getPagesArray(); let i = index"
+    [ngClass]="{ 'active': currentPage === i + 1 }"
+    (click)="onPageSelected(i + 1)"
+  ></div>
+</div>

@@ -38,25 +38,30 @@ const routes: Routes = [
   },
   {
     path: 'section/creation',
-    loadChildren: () => import('./pages/sections/creation/creation.module').then( m => m.CreationPageModule),
+    loadChildren: () => import('./pages/sections/creation/creation.module').then(m => m.CreationPageModule),
     canActivate: [AuthGuard]
   },
   {
     path: 'cacheDetailWithReview',
-    loadChildren: () => import('./pages/sections/cache-detail-with-review/cache-detail-with-review.module').then( m => m.CacheDetailWithReviewPageModule)
+    loadChildren: () => import('./pages/sections/cache-detail-with-review/cache-detail-with-review.module').then(m => m.CacheDetailWithReviewPageModule)
   },
   {
     path: 'cacheDetailWithHints',
-    loadChildren: () => import('./pages/sections/cache-detail-with-hints/cache-detail-with-hints.module').then( m => m.CacheDetailWithHintsPageModule)
+    loadChildren: () => import('./pages/sections/cache-detail-with-hints/cache-detail-with-hints.module').then(m => m.CacheDetailWithHintsPageModule)
   },
   {
     path: 'cacheDetailWithStats',
-    loadChildren: () => import('./pages/sections/cache-detail-with-stats/cache-detail-with-stats.module').then( m => m.CacheDetailWithStatsPageModule)
+    loadChildren: () => import('./pages/sections/cache-detail-with-stats/cache-detail-with-stats.module').then(m => m.CacheDetailWithStatsPageModule)
   },
   {
     path: 'review',
-    loadChildren: () => import('./pages/sections/review/review.module').then( m => m.ReviewPageModule)
+    loadChildren: () => import('./pages/sections/review/review.module').then(m => m.ReviewPageModule)
   },
+  {
+    path: 'cacheDetailEdit',
+    loadChildren: () => import('./pages/sections/cache-detail-edit/cache-detail-edit.module').then(m => m.CacheDetailEditPageModule)
+  },
+
 ];
 
 @NgModule({

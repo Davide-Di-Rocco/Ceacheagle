@@ -55,10 +55,19 @@
     </div>
   </div>
   <div *ngIf="page === 2">
+    <ion-img class="gif" src="assets/img/earth.gif"></ion-img>
     <div class="buttons">
       <ion-button fill="outline" (click)="page = 1">INDIETRO</ion-button>
       <div></div>
-      <ion-button (click)="onSave()">SALVA</ion-button>
+      <ion-button (click)="page = 3; getPosition()">AVANTI</ion-button>
+    </div>
+  </div>
+  <div *ngIf="page === 3">
+    <ion-img class="gif" src="assets/img/earth.gif"></ion-img>
+    <div class="buttons">
+      <ion-button fill="outline" (click)="page = 2; ready = false">RICALCOLA</ion-button>
+      <div></div>
+      <ion-button (click)="onSave()" disabled="{{!ready}}">SALVA</ion-button>
     </div>
   </div>
 </ion-content>

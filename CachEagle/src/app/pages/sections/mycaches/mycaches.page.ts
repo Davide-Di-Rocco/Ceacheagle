@@ -3,7 +3,6 @@ import {NavController} from "@ionic/angular";
 import {CacheService} from "../../../services/cache.service";
 import {User} from "../../../models/user.model";
 import {MyCache} from "../../../models/cache.model";
-import {UserService} from "../../../services/user.service";
 import {AuthenticationService} from "../../../services/authentication.service";
 
 @Component({
@@ -12,7 +11,6 @@ import {AuthenticationService} from "../../../services/authentication.service";
   styleUrls: ['./mycaches.page.scss'],
 })
 export class MycachesPage implements OnInit {
-
 
 
   protected loggedUser!: User
@@ -29,8 +27,9 @@ export class MycachesPage implements OnInit {
     this.loggedUser = await this.authService.getLoggedUser()
     this.cacheList = await this.cacheService.getUserCaches(this.loggedUser.id)
   }
+
   async openDetail(id: number) {
-    await this.navController.navigateForward(['cacheDetailWithReview'], {
+    await this.navController.navigateForward(['cacheDetailEdit'], {
       queryParams: {
         id: id
       }

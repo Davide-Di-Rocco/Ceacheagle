@@ -36,7 +36,6 @@ export class RegistrationService {
         return "duplicate_username";
       }
     } catch (error) {
-      // Gestisci eventuali errori di richiesta qui
       return "server_error";
     }
 

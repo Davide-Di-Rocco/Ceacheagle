@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {firstValueFrom, map, Observable} from "rxjs";
+import {firstValueFrom, lastValueFrom, map, Observable} from "rxjs";
 import {MyCache} from "../models/cache.model";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
+import {Hint} from "../models/hint.model";
 
 @Injectable({
   providedIn: 'root'
@@ -80,4 +81,36 @@ export class CacheService {
       )
     )
   }
+
+  async createNewCache(
+    cacheData: {
+      title: string,
+      description: string,
+      difficulty: number,
+      hints: Hint[],
+      photo: string,
+      creatorId: number,
+      latitude: number,
+      longitude: number,
+      reviews: []
+    }
+  ) {
+    try {
+      return await this.postRequest(this.cacheUrl, cacheData)
+    } catch (error) {
+      return -1;
+    }
+  }
+
+
+  private async postRequest<T>(url: string, data: any): Promise<number> {
+    try {
+      const observable: Observable<MyCache> = this.http.post<MyCache>(url, data);
+      return ((await lastValueFrom(observable)).id) // L'operazione POST è andata a buon fine
+    } catch (error) {
+      console.error(error);
+      return -1; // Si è verificato un errore durante l'operazione POST
+    }
+  }
+
 }

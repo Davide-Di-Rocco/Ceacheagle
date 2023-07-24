@@ -44,28 +44,11 @@
           </app-rating>
         </div>
       </div>
-      <div class="reviews">
-        <ion-list *ngFor="let r of cache.reviews">
-          <ion-item class="review-item" lines="none">
-            <div class="review-container">
-              <h5 class="review-title">{{getUserName(r.userId)}}
-                <app-rating
-                  [editable]="false"
-                  [rating]="r.rating"
-                  [icon_name]="'star'"
-                  [colorSchema]="ColorSchemaType.GRYG"></app-rating>
-              </h5>
-              <p class="review-comment">{{ r.comment }}</p>
-            </div>
-          </ion-item>
-        </ion-list>
-      </div>
+      <app-review [reviews]="cache.reviews" height="260px"></app-review>
       <ion-button>ATTIVA CACHE</ion-button>
     </div>
   </div>
 
-  <div class="mappa" [ngClass]="{'visible': showMap}">
-    <capacitor-google-map #mapRef></capacitor-google-map>
-  </div>
+  <app-map [position]="{lat:cache.latitude, lng: cache.longitude}" *ngIf="showMap"></app-map>
 
 </ion-content>
