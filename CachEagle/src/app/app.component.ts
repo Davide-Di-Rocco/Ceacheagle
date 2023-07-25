@@ -10,10 +10,10 @@ import {User} from "./models/user.model";
 })
 export class AppComponent {
   public appPages = [
-    {title: 'Cerca', url: 'section/search', icon: 'search'},
-    {title: 'Preferiti', url: 'section/favorites', icon: 'bookmarks'},
-    {title: 'Completate', url: 'section/completed', icon: 'checkmark-circle'},
-    {title: 'Le mie cache', url: 'section/mycaches', icon: 'file-tray-full'},
+    {title: 'Cerca', url: 'sections/search', icon: 'search'},
+    {title: 'Preferiti', url: 'sections/favorites', icon: 'bookmarks'},
+    {title: 'Completate', url: 'sections/completed', icon: 'checkmark-circle'},
+    {title: 'Le mie cache', url: 'sections/mycaches', icon: 'file-tray-full'},
   ]
 
   public logout_button = {title: 'Logout', icon: 'log-out'}

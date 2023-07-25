@@ -14,30 +14,35 @@
     </ion-toolbar>
   </ion-header>
 
+  <div>
     <div class="container">
       <ion-img [src]="'data:image/jpeg;base64,' + cache.photo"></ion-img>
       <div class="description">
         <p>{{ cache.description }}</p>
       </div>
-      <div class="animated-elements">
-        <div class="container" >
-          <div class="details">
-            <div class="line">
-              <p>Difficoltà</p>
-              <app-rating
-                [editable]="false"
-                [rating]="cache.difficulty"
-                [icon_name]="'ellipse'"
-                [colorSchema]="ColorSchemaType.GGYR">
-              </app-rating>
-            </div>
-          </div>
-          <app-hint [hints]="cache.hints" height="260px"></app-hint>
+      <div class="stats">
+        <div class="column">
+          <h6>Passi</h6>
+          <p>00000
+            <ion-icon class="dim" name="footsteps-outline"></ion-icon>
+          </p>
+        </div>
+        <div class="space"></div>
+        <div class="column">
+          <h6>Tempo impiegato</h6>
+          <p>00:00
+            <ion-icon class="dim" name="stopwatch-outline"></ion-icon>
+          </p>
         </div>
       </div>
+      <app-hint [hints]="cache.hints" height="260px"></app-hint>
+      <div class="line">
+        <ion-button>DISATTIVA CACHE</ion-button>
+        <div></div>
+        <ion-button (click)="onFind()">CACHE TROVATA</ion-button>
+      </div>
     </div>
-
-
+  </div>
 
   <app-map [position]="{lat:cache.latitude, lng: cache.longitude}" *ngIf="showMap"></app-map>
 

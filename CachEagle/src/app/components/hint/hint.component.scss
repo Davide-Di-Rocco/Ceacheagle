@@ -5,14 +5,8 @@
   padding: 10px 20px 5px;
 }
 
-ion-icon {
-  width: 12%;
-  height: 12%;
-  margin-left: -10px;
-}
-
 .hint-box {
-  height: 55%;
+  height: 15.5vh;
   width: 100%;
   overflow: auto;
 }
@@ -26,7 +20,34 @@ ion-icon {
   }
 
   ion-icon {
-    height: 20px;
-    aspect-ratio: 1/1;
+    height: 6vw;
+    width: 6vw;
+  }
+}
+
+.line {
+  display: flex;
+
+  h4 {
+    font-weight: bold;
+  }
+
+
+  ion-icon {
+    margin-top: 1vh;
+    width: 8vw;
+    height: 8vw;
+  }
+}
+
+.align {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    text-align: center;
   }
 }

@@ -50,25 +50,28 @@
     </form>
 
     <div class="buttons">
-      <ion-button fill="outline" (click)="navController.navigateRoot('section/mycaches')">ANNULLA</ion-button>
+      <ion-button fill="outline" (click)="navController.navigateBack('sections/mycaches')">ANNULLA</ion-button>
       <div></div>
       <ion-button (click)="onSubmit()">{{cache ? 'SALVA' : 'AVANTI'}}</ion-button>
     </div>
   </div>
   <div *ngIf="page === 2">
-    <ion-img class="gif" src="assets/img/earth.gif"></ion-img>
+    <h5 class="instruction">Posiziona il telefono vicino alla cache e premi "AVANTI"</h5>
+    <ion-img class="gif" src="assets/gif/posizione1.gif"></ion-img>
     <div class="buttons">
       <ion-button fill="outline" (click)="page = 1">INDIETRO</ion-button>
       <div></div>
-      <ion-button (click)="page = 3; getPosition()">AVANTI</ion-button>
+      <ion-button (click)="page = 3; getPosition(); startGif1Timer()">AVANTI</ion-button>
     </div>
   </div>
   <div *ngIf="page === 3">
-    <ion-img class="gif" src="assets/img/earth.gif"></ion-img>
+    <h5 *ngIf="!enable" class="instruction">Rilevamento della posizione in corso.<br>Non spostare il dispositivo!</h5>
+    <h5 *ngIf="enable" class="instruction success">Posizione calcolata con successo</h5>
+    <ion-img class="gif" src="{{path}}"></ion-img>
     <div class="buttons">
       <ion-button fill="outline" (click)="page = 2; ready = false">RICALCOLA</ion-button>
       <div></div>
-      <ion-button (click)="onSave()" disabled="{{!ready}}">SALVA</ion-button>
+      <ion-button (click)="onSave()" disabled="{{!enable}}">SALVA</ion-button>
     </div>
   </div>
 </ion-content>

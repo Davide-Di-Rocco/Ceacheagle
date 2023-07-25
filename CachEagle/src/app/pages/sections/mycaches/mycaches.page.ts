@@ -33,7 +33,7 @@ export class MycachesPage implements OnInit {
   }
 
   async openDetail(id: number) {
-    await this.navController.navigateForward(['cacheDetailEdit'], {
+    await this.navController.navigateForward(['sections/edit'], {
       queryParams: {
         id: id
       }

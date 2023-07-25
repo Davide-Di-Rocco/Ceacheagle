@@ -1,13 +1,17 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>review</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">review</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" *ngIf="ready">
+  <div class="container">
+    <ion-title size="large">{{cache.title}}</ion-title>
+    <form [formGroup]="reviewFormModule">
+      <app-rating [colorSchema]="ColorSchemaType.GRYG" [rating]="rate" (ratingChange)="onEdit($event)"
+                  [editable]=true [icon_name]="'star'" [width]="'60vw'"></app-rating>
+      <div class="space"></div>
+      <ion-textarea id="descrizione" type="text"
+                    label="Recensione" label-placement="floating"
+                    fill="outline"
+                    formControlName="descrizione">
+      </ion-textarea>
+      <div class="space"></div>
+      <ion-button (click)="submit()">SALVA RECENSIONE</ion-button>
+    </form>
+  </div>
 </ion-content>

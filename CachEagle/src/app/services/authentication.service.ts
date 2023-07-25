@@ -26,7 +26,7 @@ export class AuthenticationService {
     try {
       // Costruisci l'URL con i parametri username e password
       const url = `${this.usersUrl}?username=${username}&password=${password}`
-      const users = await firstValueFrom(await this.http.get<User[]>(url))
+      const users = await firstValueFrom(this.http.get<User[]>(url))
 
       if (!users[0]) return "credential_error"
 

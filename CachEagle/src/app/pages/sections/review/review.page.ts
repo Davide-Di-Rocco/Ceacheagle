@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {CacheService} from "../../../services/cache.service";
+import {AuthenticationService} from "../../../services/authentication.service";
+import {AlertController, NavController} from "@ionic/angular";
+import {ActivatedRoute} from "@angular/router";
+import {MyCache} from "../../../models/cache.model";
+import {User} from "../../../models/user.model";
+import {ColorSchemaType} from "../../../components/rating/rating.component";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-review',
@@ -7,9 +15,47 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReviewPage implements OnInit {
 
-  constructor() { }
+  protected readonly ColorSchemaType = ColorSchemaType;
+  protected ready = false
+  protected cache!: MyCache
+  private user!: User
+  protected rate: number = 0
 
-  ngOnInit() {
+  protected reviewFormModule: FormGroup;
+
+  constructor(
+    private cacheService: CacheService,
+    private authService: AuthenticationService,
+    private navController: NavController,
+    private route: ActivatedRoute,
+    private alert: AlertController,
+    fb: FormBuilder,
+  ) {
+    this.reviewFormModule = fb.group({
+      descrizione: ['', Validators.required]
+    })
   }
 
+  async ngOnInit() {
+    const idParam = this.route.snapshot.queryParamMap.get('id');
+    const id = idParam ? parseInt(idParam, 0) : null;
+    if (id) {
+      this.user = await this.authService.getLoggedUser()
+      this.cache = await this.cacheService.getCacheById(id)
+      this.ready = true
+    }
+
+  }
+
+  onEdit(value: number) {
+    this.rate = value
+  }
+
+  submit() {
+    if (this.reviewFormModule.valid && this.rate > 0) {
+
+    } else {
+
+    }
+  }
 }

@@ -74,7 +74,18 @@ form {
 }
 
 .gif {
-  height: calc(100vh - 5vh - 70px);
+  height: 73vh;
   width: 100%;
 }
 
+.instruction {
+  padding: 5vw;
+  text-align: center;
+  font-weight: bold;
+  height:10vh;
+  color: var(--ion-color-medium);
+}
+
+.instruction .success {
+  color: var(--ion-color-primary);
+}

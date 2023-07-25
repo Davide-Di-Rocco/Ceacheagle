@@ -44,11 +44,15 @@ export class RatingComponent implements OnInit {
   @Input() icon_name!: string;
   @Input() rating!: number;
   @Output() ratingChange: EventEmitter<number> = new EventEmitter();
+  @Input() width: string = '30vw';
+
+  protected height!: string
 
   constructor() {
   }
 
   ngOnInit() {
+    this.height = this.calculateOneSixth(this.width)
   }
 
   rate(index: number) {
@@ -83,6 +87,20 @@ export class RatingComponent implements OnInit {
   getColorValue(colorSchema: ColorSchemaType, colorKey: keyof ColorSchema): string {
     const schema = colorSchemes[colorSchema];
     return schema[colorKey];
+  }
+
+  private calculateOneSixth(input: string): string {
+    const unitIndex = input.search(/[^\d.]/)
+    if (unitIndex === -1) {
+      throw new Error('Invalid input format. The input should contain a numeric value with a unit of measurement.')
+    }
+    const value = parseFloat(input.slice(0, unitIndex))
+    if (isNaN(value)) {
+      throw new Error('Invalid numeric value in the input.')
+    }
+    const unit = input.slice(unitIndex).trim()
+    const result = (value / 6).toFixed(2)
+    return `${result}${unit}`
   }
 }
 

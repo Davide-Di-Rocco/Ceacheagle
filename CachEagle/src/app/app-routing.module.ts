@@ -17,27 +17,27 @@ const routes: Routes = [
     loadChildren: () => import('./pages/registration/registration.module').then(m => m.RegistrationPageModule)
   },
   {
-    path: 'section/search',
+    path: 'sections/search',
     loadChildren: () => import('./pages/sections/search/search.module').then(m => m.SearchPageModule),
     canActivate: [AuthGuard]
   },
   {
-    path: 'section/completed',
+    path: 'sections/completed',
     loadChildren: () => import('./pages/sections/completed/completed.module').then(m => m.CompletedPageModule),
     canActivate: [AuthGuard]
   },
   {
-    path: 'section/favorites',
+    path: 'sections/favorites',
     loadChildren: () => import('./pages/sections/favorites/favorites.module').then(m => m.FavoritesPageModule),
     canActivate: [AuthGuard]
   },
   {
-    path: 'section/mycaches',
+    path: 'sections/mycaches',
     loadChildren: () => import('./pages/sections/mycaches/mycaches.module').then(m => m.MycachesPageModule),
     canActivate: [AuthGuard]
   },
   {
-    path: 'section/creation',
+    path: 'sections/creation',
     loadChildren: () => import('./pages/sections/creation/creation.module').then(m => m.CreationPageModule),
     canActivate: [AuthGuard]
   },
@@ -46,21 +46,20 @@ const routes: Routes = [
     loadChildren: () => import('./pages/sections/cache-detail-with-review/cache-detail-with-review.module').then(m => m.CacheDetailWithReviewPageModule)
   },
   {
-    path: 'sections/review',
+    path: 'found',
     loadChildren: () => import('./pages/sections/review/review.module').then(m => m.ReviewPageModule)
   },
   {
     path: 'sections/edit',
     loadChildren: () => import('./pages/sections/cache-detail-edit/cache-detail-edit.module').then(m => m.CacheDetailEditPageModule)
   },
-
   {
     path: 'sections/activated',
-    loadChildren: () => import('./pages/sections/cache-detail-activated/cache-detail-activated.module').then( m => m.CacheDetailActivatedPageModule)
+    loadChildren: () => import('./pages/sections/cache-detail-activated/cache-detail-activated.module').then(m => m.CacheDetailActivatedPageModule)
   },
   {
     path: 'sections/completed',
-    loadChildren: () => import('./pages/sections/cache-detail-completed/cache-detail-completed.module').then( m => m.CacheDetailCompletedPageModule)
+    loadChildren: () => import('./pages/sections/cache-detail-completed/cache-detail-completed.module').then(m => m.CacheDetailCompletedPageModule)
   },
 
 

@@ -6,6 +6,8 @@ import {ActivatedRoute} from "@angular/router";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {User} from "../../../models/user.model";
 import {UserService} from "../../../services/user.service";
+import {NavController} from "@ionic/angular";
+import {Preferences} from "@capacitor/preferences";
 
 @Component({
   selector: 'app-cache-detail-with-review',
@@ -24,7 +26,8 @@ export class CacheDetailWithReviewPage implements OnInit {
     private cacheService: CacheService,
     private authService: AuthenticationService,
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    private navController: NavController
   ) {
   }
 
@@ -44,6 +47,11 @@ export class CacheDetailWithReviewPage implements OnInit {
   async onStarClick(id: number) {
     await this.userService.editFavorite(id)
     this.user = await this.authService.getLoggedUser()
+  }
+
+  async active() {
+    await Preferences.set({key: 'active', value: this.cache.id.toString()})
+    await this.navController.navigateForward("sections/activated")
   }
 }
 

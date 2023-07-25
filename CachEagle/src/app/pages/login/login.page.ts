@@ -35,7 +35,7 @@ export class LoginPage implements OnInit {
       let password = this.loginFormModule.value.password.trim()
       const response = await this.authService.login(username, password)
       if (response === "success")
-        await this.navController.navigateRoot("section/search")
+        await this.navController.navigateRoot("sections/search")
       else if (response === "credential_error")
         await this.popup("Impossibile accedere", "Credenziali sbagliate! Controlla le credenziali e riprova")
       else if (response === "server_error")

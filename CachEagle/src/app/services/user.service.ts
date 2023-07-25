@@ -35,13 +35,13 @@ export class UserService {
 
   private async updateUser(user: User) {
     const url = `${this.usersUrl}/${user.id}`;
-    if (await firstValueFrom(await this.http.put(url, user))) {
+    if (await firstValueFrom(this.http.put(url, user))) {
       await Preferences.set({key: 'user', value: JSON.stringify(user)})
     }
   }
 
   async getUserById(id: number): Promise<User> {
-    return firstValueFrom(await this.http.get<User>(`${this.usersUrl}\\${id}`)
+    return firstValueFrom(this.http.get<User>(`${this.usersUrl}\\${id}`)
       .pipe(
         map(
           user => new User(user)

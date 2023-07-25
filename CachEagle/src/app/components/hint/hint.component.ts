@@ -10,6 +10,7 @@ export class HintComponent implements OnInit {
 
   @Input() hints: Hint[] = [];
   @Input() height: string = 'auto';
+  @Input() visible: boolean = false
 
   protected selectedHint = 0
 

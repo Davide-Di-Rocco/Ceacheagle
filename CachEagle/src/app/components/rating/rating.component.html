@@ -1,9 +1,11 @@
-<div *ngIf="editable">
-  <ion-icon [name]="icon_name" *ngFor="let num of [1,2,3,4,5]" (click)="rate(num)"
-            [ngStyle]="{'color': getColor(num)}"/>
+<div *ngIf="editable" class="rating-container" [style.width]="width" [style.height]="height">
+  <ion-icon class="rating-icon" *ngFor="let index of [1, 2, 3, 4, 5]" [style.color]="getColor(index)"
+            (click)="rate(index)" name="{{icon_name}}">
+  </ion-icon>
 </div>
 
-<div *ngIf="!editable">
-  <ion-icon [name]="icon_name" *ngFor="let num of [1,2,3,4,5]"
-            [ngStyle]="{'color': getColor(num)}"/>
+<div *ngIf="!editable" class="rating-container" [style.width]="width" [style.height]="height">
+  <ion-icon class="rating-icon" *ngFor="let index of [1, 2, 3, 4, 5]" [style.color]="getColor(index)"
+            name="{{icon_name}}">
+  </ion-icon>
 </div>

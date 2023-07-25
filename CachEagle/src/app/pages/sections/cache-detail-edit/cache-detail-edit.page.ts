@@ -60,7 +60,7 @@ export class CacheDetailEditPage implements OnInit {
   }
 
   async onEdit(id: number) {
-    await this.navController.navigateBack(['section/creation'], {
+    await this.navController.navigateForward(['sections/creation'], {
       queryParams: {
         id: id
       }

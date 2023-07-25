@@ -133,7 +133,7 @@ export class SearchPage implements OnInit {
   }
 
   async openDetail(id: number) {
-    await this.navController.navigateForward(['cacheDetailWithReview'], {
+    await this.navController.navigateForward(['sections/detail'], {
       queryParams: {
         id: id
       }

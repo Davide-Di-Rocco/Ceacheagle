@@ -4,6 +4,7 @@ import {MyCache} from "../models/cache.model";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Hint} from "../models/hint.model";
+import {User} from "../models/user.model";
 
 @Injectable({
   providedIn: 'root'
@@ -118,14 +119,8 @@ export class CacheService {
     return undefined;
   }
 
-  private async putRequest<T>(url: string, data: any): Promise<boolean> {
-    try {
-      const observable: Observable<MyCache> = this.http.put<MyCache>(url, data);
-      return (await lastValueFrom(observable)) !== null  // L'operazione POST è andata a buon fine
-    } catch (error) {
-      console.error(error);
-      return false; // Si è verificato un errore durante l'operazione POST
-    }
+  private async updateUser(user: User) {
+
   }
 
   async updateCache(
@@ -141,11 +136,8 @@ export class CacheService {
       reviews: []
     }, id: number
   ) {
-    try {
-      return await this.postRequest(this.cacheUrl, cacheData)
-    } catch (error) {
-      return -1;
-    }
+    const url = `${this.cacheUrl}/${id}`;
+    return await firstValueFrom(this.http.put(url, cacheData))
   }
 
 

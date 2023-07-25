@@ -42,10 +42,12 @@ export class CreationPage implements OnInit {
     reviews: []
   }
 
-  protected cacheFormModule: FormGroup;
-  protected page: number = 1;
-  protected ready = false;
+  protected cacheFormModule: FormGroup
+  protected page: number = 1
+  protected ready = false
   protected cache!: MyCache | null
+  protected path!: string
+  protected enable: boolean = false
 
   constructor(
     fb: FormBuilder,
@@ -117,11 +119,11 @@ export class CreationPage implements OnInit {
       else {
         this.cacheService.updateCache(this.cacheData, this.cache.id).then(
           async response => {
-            if (response > 0) {
+            if (response) {
               await this.popup("Operazione riuscita", "Chache modificata correttamente!")
-              await this.navController.navigateBack(['cacheDetailEdit'], {
+              await this.navController.navigateRoot(['sections/edit'], {
                 queryParams: {
-                  id: response
+                  id: this.cache?.id
                 }
               })
             } else {
@@ -168,7 +170,7 @@ export class CreationPage implements OnInit {
       async response => {
         if (response > 0) {
           await this.popup("Operazione riuscita", "Chache salvata correttamente!")
-          await this.navController.navigateBack(['cacheDetailEdit'], {
+          await this.navController.navigateRoot(['sections/edit'], {
             queryParams: {
               id: response
             }
@@ -186,16 +188,31 @@ export class CreationPage implements OnInit {
   }
 
   getDifficulty() {
-    return this.cache ? this.cache.difficulty : 0;
+    return this.cache ? this.cache.difficulty : 0
   }
 
   getHint(level: number): string {
     if (this.cache) {
-      const hint = this.cache.hints.find(hint => hint.level === level);
+      const hint = this.cache.hints.find(hint => hint.level === level)
       if (hint) {
-        return hint.hint;
+        return hint.hint
       }
     }
-    return "";
+    return ""
+  }
+
+  startGif1Timer() {
+    this.path = "assets/gif/posizione2.gif"
+    setTimeout(() => {
+      this.ready ? this.startGif2Timer() : this.startGif1Timer()
+    }, 2000);
+  }
+
+  startGif2Timer() {
+    this.path = "assets/gif/posizione3.gif"
+    setTimeout(() => {
+      this.path = "assets/img/posizione.jpg"
+      this.enable = true
+    }, 3040);
   }
 }
