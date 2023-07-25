@@ -14,7 +14,6 @@ export class PhotoService {
       resultType: CameraResultType.Base64,
       source: CameraSource.Camera,
       quality: 50,
-      allowEditing: true,
     })
     console.log(capturedPhoto)
     return capturedPhoto
