@@ -7,14 +7,15 @@ import {PageSelectorComponent} from "./page-selector/page-selector.component";
 import {ReviewComponent} from "./review/review.component";
 import {HintComponent} from "./hint/hint.component";
 import {MapComponent} from "./map/map.component";
+import {ActiveCacheComponent} from "./active-cache/active-cache.component";
 
 @NgModule({
   imports: [
     CommonModule,
     IonicModule,
   ],
-  declarations: [RatingComponent, CacheItemListComponent, PageSelectorComponent, ReviewComponent, HintComponent, MapComponent],
-  exports: [RatingComponent, CacheItemListComponent, PageSelectorComponent, ReviewComponent, HintComponent, MapComponent],
+  declarations: [RatingComponent, CacheItemListComponent, PageSelectorComponent, ReviewComponent, HintComponent, MapComponent, ActiveCacheComponent],
+  exports: [RatingComponent, CacheItemListComponent, PageSelectorComponent, ReviewComponent, HintComponent, MapComponent, ActiveCacheComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 

@@ -9,14 +9,14 @@ ion-img {
 }
 
 ion-img::part(image) {
-  background-color: black;
+  background-color: var(--ion-color-light-contrast);
   border-radius: 10px;
 }
 
 .description {
   height: 150px;
   overflow-y: auto;
-  border: 1px solid #ddd; /* Aggiungi una sottile bordatura intorno alla descrizione */
+  border: 1px solid var(--ion-color-medium); /* Aggiungi una sottile bordatura intorno alla descrizione */
   padding: 10px; /* Aggiungi spazio interno alla descrizione per un aspetto migliore */
   border-radius: 10px;
   vertical-align: top;
@@ -44,8 +44,8 @@ ion-img::part(image) {
   justify-content: space-between;
   align-items: center;
   padding: 5px 20px;
-  border-top: 1px solid #ddd; /* Aggiungi una sottile linea superiore per separare i dettagli dalla descrizione */
-  border-bottom: 1px solid #ddd; /* Aggiungi una sottile linea superiore per separare i dettagli dalla descrizione */
+  border-top: 1px solid var(--ion-color-medium); /* Aggiungi una sottile linea superiore per separare i dettagli dalla descrizione */
+  border-bottom: 1px solid var(--ion-color-medium); /* Aggiungi una sottile linea superiore per separare i dettagli dalla descrizione */
   margin: 10px 0;
 }
 
@@ -68,13 +68,13 @@ ion-header {
 
     ion-buttons {
       ion-back-button {
-        --icon-color: black; /* Colore nero per la freccia di ritorno */
-        --color: black; /* Colore nero per il testo */
+        --icon-color: var(--ion-color-light-contrast); /* Colore nero per la freccia di ritorno */
+        --color: var(--ion-color-light-contrast); /* Colore nero per il testo */
         max-height: 30px;
       }
 
       ion-button {
-        --color: black; /* Colore nero per il testo dei pulsanti */
+        --color: var(--ion-color-light-contrast); /* Colore nero per il testo dei pulsanti */
         margin-left: 8px; /* Aggiungi margine sinistro tra i pulsanti */
       }
 
@@ -84,7 +84,7 @@ ion-header {
     ion-title {
       font-size: 18px; /* Dimensione del carattere del titolo */
       font-weight: bold; /* Grassetto per il titolo */
-      color: black; /* Colore nero per il titolo */
+      color: var(--ion-color-light-contrast); /* Colore nero per il titolo */
       max-width: 100%; /* Larghezza massima del titolo per garantire che il testo non superi i pulsanti */
       padding-inline: 0 !important;
     }

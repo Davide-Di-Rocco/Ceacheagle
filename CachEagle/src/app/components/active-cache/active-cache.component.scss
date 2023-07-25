@@ -1,0 +1,56 @@
+.box{
+  margin-left:8vw;
+  resize: none;
+  border-radius: 10px;
+  border:2px solid black;
+  outline:none;
+  line-height: 1.4;
+  position:absolute;
+  bottom:5%;
+  width: 80%;
+  height: auto;
+  display: flex;
+}
+
+.box .header .cash-name{
+  margin-left: 10%
+}
+
+.box .img{
+margin-left: 3%;
+  margin-top: 5%;
+}
+
+.box  .active{
+  color:var(--ion-color-primary);
+  margin-left: 10%;
+  margin-top: 3%;
+}
+
+.box .stats{
+  display: flex;
+  align-items: center;
+}
+
+.box .stats .space{
+  width:5%;
+}
+
+.box .stats .dim{
+  height: 3vh;
+  width: 3vh;
+}
+
+
+.box .body .cash-name h6{
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width:35%
+}
+
+ion-avatar {
+  margin-right: 4vw;
+  --border-radius: 4px;
+}

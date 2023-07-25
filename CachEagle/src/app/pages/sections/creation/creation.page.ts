@@ -9,6 +9,7 @@ import {AuthenticationService} from "../../../services/authentication.service";
 import {CacheService} from "../../../services/cache.service";
 import {User} from "../../../models/user.model";
 import {ActivatedRoute} from "@angular/router";
+import {MyCache} from "../../../models/cache.model";
 
 @Component({
   selector: 'app-creation',
@@ -44,6 +45,7 @@ export class CreationPage implements OnInit {
   protected cacheFormModule: FormGroup;
   protected page: number = 1;
   protected ready = false;
+  protected cache!: MyCache | null
 
   constructor(
     fb: FormBuilder,
@@ -64,9 +66,28 @@ export class CreationPage implements OnInit {
   }
 
   async ngOnInit() {
-    
     this.user = await this.authService.getLoggedUser()
+    const idParam = this.route.snapshot.queryParamMap.get('id');
+    const id = idParam ? parseInt(idParam, 0) : null;
     this.cacheData.creatorId = this.user.id
+    if (id) {
+      this.cache = await this.cacheService.getCacheById(id)
+      this.cacheData.creatorId = this.cache.creatorId
+      this.cacheData.latitude = this.cache.latitude
+      this.cacheData.longitude = this.cache.longitude
+      this.difficulty = this.cache.difficulty
+      this.photo = {
+        base64String: this.cache.photo,
+        saved: false,
+        format: 'jpg'
+      }
+      this.photo.base64String = this.cache.photo
+      this.cacheFormModule.controls["title"].setValue(this.cache.title);
+      this.cacheFormModule.controls["description"].setValue(this.cache.description);
+      this.cacheFormModule.controls["hint1"].setValue(this.getHint(1));
+      this.cacheFormModule.controls["hint2"].setValue(this.getHint(2));
+      this.cacheFormModule.controls["hint3"].setValue(this.getHint(3));
+    }
   }
 
   async addPhoto() {
@@ -91,15 +112,32 @@ export class CreationPage implements OnInit {
       this.cacheData.difficulty = this.difficulty
       this.cacheData.hints = hints
 
-      console.log(this.cacheData)
-
-      this.page = 2
-
+      if (!this.cache)
+        this.page = 2
+      else {
+        this.cacheService.updateCache(this.cacheData, this.cache.id).then(
+          async response => {
+            if (response > 0) {
+              await this.popup("Operazione riuscita", "Chache modificata correttamente!")
+              await this.navController.navigateBack(['cacheDetailEdit'], {
+                queryParams: {
+                  id: response
+                }
+              })
+            } else {
+              await this.popup("Operazione non riuscita", "Qualcosa è andato storto durante la modifica della cache!", "ESCI")
+              this.navController.setDirection('back');
+            }
+          }
+        )
+      }
     } else {
+      console.log(this.photo)
+      console.log(this.difficulty)
       await this.popup(
         "Dati non corretti",
         "Completa tutti i campi necessari correttamente prima di proseguire"
-      );
+      )
     }
   }
 
@@ -107,11 +145,11 @@ export class CreationPage implements OnInit {
     this.difficulty = value
   }
 
-  async popup(title: string, message: string) {
+  async popup(title: string, message: string, button: string = "OK") {
     const popup = await this.alert.create({
       header: title,
       message: message,
-      buttons: ["OK"]
+      buttons: [button]
     })
     await popup.present()
   }
@@ -129,19 +167,35 @@ export class CreationPage implements OnInit {
     this.cacheService.createNewCache(this.cacheData).then(
       async response => {
         if (response > 0) {
-          await this.popup("POPUP", "SALVATAGGIO")
-          await this.navController.navigateForward(['cacheDetailEdit'], {
+          await this.popup("Operazione riuscita", "Chache salvata correttamente!")
+          await this.navController.navigateBack(['cacheDetailEdit'], {
             queryParams: {
               id: response
             }
           })
+        } else {
+          await this.popup("Operazione non riuscita", "Qualcosa è andato storto durante il salvataggio della cache!", "ESCI")
+          this.navController.setDirection('back');
         }
       }
     )
-    await this.popup("POPUP", "SALVATAGGIO")
   }
 
   isBlank(text: string) {
     return text.trim().length < 1
+  }
+
+  getDifficulty() {
+    return this.cache ? this.cache.difficulty : 0;
+  }
+
+  getHint(level: number): string {
+    if (this.cache) {
+      const hint = this.cache.hints.find(hint => hint.level === level);
+      if (hint) {
+        return hint.hint;
+      }
+    }
+    return "";
   }
 }

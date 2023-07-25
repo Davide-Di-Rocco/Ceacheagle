@@ -6,6 +6,7 @@ import {AuthenticationService} from "../../../services/authentication.service";
 import {ActivatedRoute} from "@angular/router";
 import {ColorSchemaType} from "../../../components/rating/rating.component";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {NavController} from "@ionic/angular";
 
 @Component({
   selector: 'app-cache-detail-edit',
@@ -37,6 +38,7 @@ export class CacheDetailEditPage implements OnInit {
     private cacheService: CacheService,
     private authService: AuthenticationService,
     private route: ActivatedRoute,
+    private navController: NavController
   ) {
   }
 
@@ -55,5 +57,13 @@ export class CacheDetailEditPage implements OnInit {
 
   onPageSelected(page: number) {
     this.showReview = page != 1;
+  }
+
+  async onEdit(id: number) {
+    await this.navController.navigateBack(['section/creation'], {
+      queryParams: {
+        id: id
+      }
+    })
   }
 }

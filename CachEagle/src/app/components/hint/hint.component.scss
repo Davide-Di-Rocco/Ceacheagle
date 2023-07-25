@@ -1,5 +1,5 @@
 .box {
-  border: 1px solid #ddd; /* Aggiungi bordino grigio */
+  border: 1px solid var(--ion-color-medium); /* Aggiungi bordino grigio */
   border-radius: 10px; /* Angoli arrotondati */
   overflow: scroll;
   padding: 10px 20px 5px;

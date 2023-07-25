@@ -52,7 +52,7 @@
       </div>
       <app-page-selector [pages]="2" [currentPage]="showReview ? 2 : 1"
                          (pageSelected)="onPageSelected($event)"></app-page-selector>
-      <ion-button>MODIFICA CACHE</ion-button>
+      <ion-button (click)="onEdit(cache.id)">MODIFICA CACHE</ion-button>
     </div>
   </div>
 

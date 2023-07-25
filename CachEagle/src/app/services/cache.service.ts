@@ -19,7 +19,7 @@ export class CacheService {
 
   async getCaches(userId: number): Promise<MyCache[]> {
     const url = `${this.cacheUrl}?creatorId_ne=${userId}`
-    return firstValueFrom(await this.http.get<MyCache[]>(url)
+    return firstValueFrom(this.http.get<MyCache[]>(url)
       .pipe(
         map(
           cacheList => cacheList.map(
@@ -31,7 +31,7 @@ export class CacheService {
 
   async getFilteredCaches(minRating: number, maxDifficulty: number, minDifficulty: number, userId: number) {
     const url = `${this.cacheUrl}?difficulty_lte=${maxDifficulty}&difficulty_gte=${minDifficulty}&creatorId_ne=${userId}`;
-    return firstValueFrom(await this.http.get<MyCache[]>(url)
+    return firstValueFrom(this.http.get<MyCache[]>(url)
       .pipe(
         map(cacheList => {
           const list = cacheList.map(cache => new MyCache(cache));
@@ -47,7 +47,7 @@ export class CacheService {
   }
 
   async getCacheById(id: number): Promise<MyCache> {
-    return firstValueFrom(await this.http.get<MyCache>(`${this.cacheUrl}\\${id}`)
+    return firstValueFrom(this.http.get<MyCache>(`${this.cacheUrl}\\${id}`)
       .pipe(
         map(
           cache => new MyCache(cache)
@@ -58,7 +58,7 @@ export class CacheService {
 
   async getUserCaches(userId: number): Promise<MyCache[]> {
     const url = `${this.cacheUrl}?creatorId=${userId}`
-    return firstValueFrom(await this.http.get<MyCache[]>(url)
+    return firstValueFrom(this.http.get<MyCache[]>(url)
       .pipe(
         map(
           cacheList => cacheList.map(
@@ -70,13 +70,13 @@ export class CacheService {
 
   async getFavoritesCaches(favorites: number[]) {
     const url = `${this.cacheUrl}`;
-    return firstValueFrom(await this.http.get<MyCache[]>(url)
+    return firstValueFrom(this.http.get<MyCache[]>(url)
       .pipe(
         map(cacheList => {
           const list = cacheList.map(cache => new MyCache(cache));
           return list.filter(cache => {
-            return favorites.includes(cache.id)
-          })
+            return favorites.includes(cache.id);
+          });
         })
       )
     )
@@ -113,7 +113,40 @@ export class CacheService {
     }
   }
 
+
   async getActiveCache() {
     return undefined;
   }
+
+  private async putRequest<T>(url: string, data: any): Promise<boolean> {
+    try {
+      const observable: Observable<MyCache> = this.http.put<MyCache>(url, data);
+      return (await lastValueFrom(observable)) !== null  // L'operazione POST è andata a buon fine
+    } catch (error) {
+      console.error(error);
+      return false; // Si è verificato un errore durante l'operazione POST
+    }
+  }
+
+  async updateCache(
+    cacheData: {
+      title: string,
+      description: string,
+      difficulty: number,
+      hints: Hint[],
+      photo: string,
+      creatorId: number,
+      latitude: number,
+      longitude: number,
+      reviews: []
+    }, id: number
+  ) {
+    try {
+      return await this.postRequest(this.cacheUrl, cacheData)
+    } catch (error) {
+      return -1;
+    }
+  }
+
+
 }

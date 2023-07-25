@@ -1,6 +1,6 @@
 ion-item.review-item {
   .review-container {
-    border: 1px solid #ddd; /* Aggiungi bordino grigio */
+    border: 1px solid var(--ion-color-medium); /* Aggiungi bordino grigio */
     border-radius: 10px; /* Angoli arrotondati */
     padding: 10px; /* Spaziatura interna del container */
     width: 100%;
@@ -25,7 +25,7 @@ ion-item.review-item {
 }
 
 .box {
-  border: 1px solid #ddd; /* Aggiungi bordino grigio */
+  border: 1px solid var(--ion-color-medium); /* Aggiungi bordino grigio */
   border-radius: 10px; /* Angoli arrotondati */
   overflow: scroll;
 
