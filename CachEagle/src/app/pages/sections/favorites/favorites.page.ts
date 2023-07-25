@@ -14,6 +14,7 @@ import {UserService} from "../../../services/user.service";
 export class FavoritesPage implements OnInit {
   protected cachesList!: MyCache[]
   private loggedUser!: User
+  protected ready = false;
 
   constructor(
     private navController: NavController,
@@ -23,9 +24,13 @@ export class FavoritesPage implements OnInit {
   ) {
   }
 
+  async ionViewWillEnter() {
+    await this.loadData()
+  }
+
   async ngOnInit() {
-    this.loggedUser = await this.authService.getLoggedUser()
-    this.cachesList = await this.cacheService.getFavoritesCaches(this.loggedUser.favorites)
+    await this.loadData()
+    this.ready = true;
   }
 
   async openDetail(id: number) {
@@ -49,5 +54,10 @@ export class FavoritesPage implements OnInit {
     if (index !== -1) {
       this.cachesList.splice(index, 1);
     }
+  }
+
+  private async loadData(){
+    this.loggedUser = await this.authService.getLoggedUser()
+    this.cachesList = await this.cacheService.getFavoritesCaches(this.loggedUser.favorites)
   }
 }

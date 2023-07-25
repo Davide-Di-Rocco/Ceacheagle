@@ -1,4 +1,4 @@
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" *ngIf="ready">
   <ion-toolbar>
     <ion-title size="large"><strong>Le mia cache</strong></ion-title>
   </ion-toolbar>
@@ -15,19 +15,19 @@
     </ion-fab-button>
   </ion-fab>
   <div *ngIf="cacheList.length>0">
-  <ion-list *ngFor="let cache of cacheList; let i = index">
-    <ion-item (click)="openDetail(cache.id)">
-      <ion-avatar>
-        <ion-img *ngIf="!cache.photo" alt="Silhouette of a person's head"
-                 src="https://ionicframework.com/docs/img/demos/avatar.svg"/>
-        <ion-img class="photo" *ngIf="cache.photo" [src]="'data:image/jpeg;base64,' + cache.photo"/>
-      </ion-avatar>
-      <ion-label>{{cache.title}}</ion-label>
-      <ion-button fill="clear" (click)="openDetail(cache.id)">
-        <ion-icon name="information-circle-outline" color="dark"></ion-icon>
-      </ion-button>
-    </ion-item>
-  </ion-list>
+    <ion-list *ngFor="let cache of cacheList; let i = index">
+      <ion-item (click)="openDetail(cache.id)">
+        <ion-avatar>
+          <ion-img *ngIf="!cache.photo" alt="Silhouette of a person's head"
+                   src="https://ionicframework.com/docs/img/demos/avatar.svg"/>
+          <ion-img class="photo" *ngIf="cache.photo" [src]="'data:image/jpeg;base64,' + cache.photo"/>
+        </ion-avatar>
+        <ion-label>{{cache.title}}</ion-label>
+        <ion-button fill="clear" (click)="openDetail(cache.id)">
+          <ion-icon name="information-circle-outline" color="dark"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
   </div>
   <div class="box" *ngIf="cacheList.length<=0">
     <h3>Nessuna cache creata</h3>

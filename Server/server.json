@@ -5,10 +5,7 @@
       "username": "Matteo",
       "email": "tatonimatteo@gmail.com",
       "password": "12345",
-      "favorites": [
-        4,
-        2
-      ]
+      "favorites": []
     },
     {
       "id": 1,

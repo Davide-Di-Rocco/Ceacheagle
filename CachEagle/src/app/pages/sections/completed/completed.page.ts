@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {MyCache} from "../../../models/cache.model";
 
 @Component({
   selector: 'app-completed',
@@ -6,18 +7,24 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./completed.page.scss'],
 })
 export class CompletedPage implements OnInit {
-  
-  cachesList = [
-    {title: "Cache 1"},
-    {title: "Cache 2"},
-    {title: "Cache 3"},
-    {title: "Cache 4"},
-  ]
+
+  protected ready = false
+
+  protected cachesList: MyCache[] = []
 
   constructor() {
   }
 
-  ngOnInit() {
+  async ionViewWillEnter() {
+    await this.loadData()
   }
 
+  async ngOnInit() {
+    await this.loadData()
+    this.ready = true
+  }
+
+  private async loadData() {
+
+  }
 }

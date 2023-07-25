@@ -12,7 +12,7 @@ import {AuthenticationService} from "../../../services/authentication.service";
 })
 export class MycachesPage implements OnInit {
 
-
+  protected ready = false
   protected loggedUser!: User
   protected cacheList!: MyCache[]
 
@@ -23,9 +23,13 @@ export class MycachesPage implements OnInit {
   ) {
   }
 
+  async ionViewWillEnter() {
+    await this.loadData()
+  }
+
   async ngOnInit() {
-    this.loggedUser = await this.authService.getLoggedUser()
-    this.cacheList = await this.cacheService.getUserCaches(this.loggedUser.id)
+    await this.loadData()
+    this.ready = true
   }
 
   async openDetail(id: number) {
@@ -36,4 +40,8 @@ export class MycachesPage implements OnInit {
     });
   }
 
+  private async loadData() {
+    this.loggedUser = await this.authService.getLoggedUser()
+    this.cacheList = await this.cacheService.getUserCaches(this.loggedUser.id)
+  }
 }
