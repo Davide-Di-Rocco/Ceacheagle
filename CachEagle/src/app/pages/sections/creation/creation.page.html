@@ -27,7 +27,8 @@
       <div class="border">
         <ion-label>Difficoltà*</ion-label>
         <div></div>
-        <app-rating [rating]="0" [icon_name]="'ellipse'" (ratingChange)="updateDifficulty($event)"></app-rating>
+        <app-rating [rating]="getDifficulty()" [icon_name]="'ellipse'"
+                    (ratingChange)="updateDifficulty($event)"></app-rating>
         <div></div>
       </div>
 
@@ -51,7 +52,7 @@
     <div class="buttons">
       <ion-button fill="outline" (click)="navController.navigateRoot('section/mycaches')">ANNULLA</ion-button>
       <div></div>
-      <ion-button (click)="onSubmit()">AVANTI</ion-button>
+      <ion-button (click)="onSubmit()">{{cache ? 'SALVA' : 'AVANTI'}}</ion-button>
     </div>
   </div>
   <div *ngIf="page === 2">

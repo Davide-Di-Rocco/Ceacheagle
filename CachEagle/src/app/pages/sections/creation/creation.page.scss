@@ -25,8 +25,10 @@ form {
 
   ion-img {
     aspect-ratio: 16/9;
+    background: var(--ion-color-light-contrast);
     width: 100%;
     height: auto;
+    border-radius: 10px;
   }
 
   ion-img::part(image) {
@@ -43,7 +45,7 @@ form {
     display: flex;
     height: 5vh;
     border-radius: 2px;
-    border: solid 0.5px #b3b3b3;
+    border: solid 0.5px var(--ion-color-medium);
 
     div {
       margin: auto;

@@ -9,11 +9,13 @@
     height: 10px;
     margin: 0 5px;
     border-radius: 50%;
-    background-color: gray;
+    background-color: var(--ion-color-medium);
+    opacity: .7;
     cursor: pointer;
 
     &.active {
-      background-color: #00bf63; /* Cambia il colore del pallino attivo qui */
+      background-color: var(--ion-color-primary); /* Cambia il colore del pallino attivo qui */
+      opacity: 1;
     }
   }
 }

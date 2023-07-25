@@ -1,5 +1,5 @@
 .container {
-  border: 1px solid black;
+  border: 1px solid var(--ion-color-light-contrast);
   border-radius: 8px;
   padding: 10px;
 }
@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--ion-color-light-contrast);
   padding-bottom: 5px;
 }
 
