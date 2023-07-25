@@ -22,23 +22,23 @@ export class AuthenticationService {
   ) {
   }
 
-  async login(username: string, password: string): Promise<boolean> {
+  async login(username: string, password: string): Promise<string> {
     try {
       // Costruisci l'URL con i parametri username e password
       const url = `${this.usersUrl}?username=${username}&password=${password}`
-      const user = await firstValueFrom(await this.http.get<User[]>(url))
+      const users = await firstValueFrom(await this.http.get<User[]>(url))
 
-      if (!user[0]) return false
+      if (!users[0]) return "credential_error"
 
-      await Preferences.set({key: 'user', value: JSON.stringify(user[0])})
+      const user: User = users[0]
+      await Preferences.set({key: 'user', value: JSON.stringify(user)})
       const now = new Date().getTime();
       await Preferences.set({key: "loginTime", value: now.toString()})
-      this.loggedUser = user[0]
-      return true
+      this.loggedUser = user
+      return "success"
 
     } catch (error) {
-      console.error("Erorre in fase di autenticazione:", error)
-      return false
+      return "server_error";
     }
   }
 

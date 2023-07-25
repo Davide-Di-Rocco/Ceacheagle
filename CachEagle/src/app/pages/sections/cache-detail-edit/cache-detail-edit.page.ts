@@ -40,12 +40,12 @@ export class CacheDetailEditPage implements OnInit {
   ) {
   }
 
-  async ngOnInit() {
-    await this.route.queryParams.subscribe(async params => {
-      const id = parseInt(params['id'], 0)
-      this.user = await this.authService.getLoggedUser()
-      this.cache = await this.cacheService.getCacheById(id)
-      this.ready = true
+  ngOnInit() {
+    this.route.queryParams.subscribe(async (params) => {
+      const id = parseInt(params['id'], 0);
+      this.user = await this.authService.getLoggedUser();
+      this.cache = await this.cacheService.getCacheById(id);
+      this.ready = true;
     })
   }
 

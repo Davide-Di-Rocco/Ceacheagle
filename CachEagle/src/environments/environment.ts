@@ -8,7 +8,7 @@ export const environment = {
   latAquila: 42.350,
   lngAquila: 13.399,
   defaultZoom: 12,
-  hostname: 'http://localhost:3000/',
+  hostname: 'http://192.168.178.142:3000/',
   userDir: 'users',
   cacheDir: 'caches'
 };

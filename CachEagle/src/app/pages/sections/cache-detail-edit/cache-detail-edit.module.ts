@@ -8,6 +8,7 @@ import {CacheDetailEditPageRoutingModule} from './cache-detail-edit-routing.modu
 
 import {CacheDetailEditPage} from './cache-detail-edit.page';
 import {AppComponentsModule} from "../../../components/app.components.module";
+import {HammerModule} from "@angular/platform-browser";
 
 @NgModule({
   imports: [

@@ -8,6 +8,7 @@ import {Hint} from "../../../models/hint.model";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {CacheService} from "../../../services/cache.service";
 import {User} from "../../../models/user.model";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-creation',
@@ -50,7 +51,8 @@ export class CreationPage implements OnInit {
     private authService: AuthenticationService,
     private cacheService: CacheService,
     protected navController: NavController,
-    private alert: AlertController
+    private alert: AlertController,
+    private route: ActivatedRoute
   ) {
     this.cacheFormModule = fb.group({
       title: ['', Validators.required],
@@ -62,6 +64,7 @@ export class CreationPage implements OnInit {
   }
 
   async ngOnInit() {
+    
     this.user = await this.authService.getLoggedUser()
     this.cacheData.creatorId = this.user.id
   }
