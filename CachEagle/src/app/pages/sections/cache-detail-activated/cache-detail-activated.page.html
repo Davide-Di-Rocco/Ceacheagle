@@ -1,0 +1,44 @@
+<ion-content *ngIf="ready">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/"></ion-back-button>
+      </ion-buttons>
+      <ion-title>{{ cache.title }}</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="onMapClick()" id="map-btn">
+          <ion-icon *ngIf="showMap" name="map"></ion-icon>
+          <ion-icon *ngIf="!showMap" name="map-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+    <div class="container">
+      <ion-img [src]="'data:image/jpeg;base64,' + cache.photo"></ion-img>
+      <div class="description">
+        <p>{{ cache.description }}</p>
+      </div>
+      <div class="animated-elements">
+        <div class="container" >
+          <div class="details">
+            <div class="line">
+              <p>Difficoltà</p>
+              <app-rating
+                [editable]="false"
+                [rating]="cache.difficulty"
+                [icon_name]="'ellipse'"
+                [colorSchema]="ColorSchemaType.GGYR">
+              </app-rating>
+            </div>
+          </div>
+          <app-hint [hints]="cache.hints" height="260px"></app-hint>
+        </div>
+      </div>
+    </div>
+
+
+
+  <app-map [position]="{lat:cache.latitude, lng: cache.longitude}" *ngIf="showMap"></app-map>
+
+</ion-content>

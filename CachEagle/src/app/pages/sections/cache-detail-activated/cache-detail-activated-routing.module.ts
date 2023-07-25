@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { CacheDetailWithStatsPage } from './cache-detail-with-stats.page';
+import { CacheDetailActivatedPage } from './cache-detail-activated.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: CacheDetailWithStatsPage
+    component: CacheDetailActivatedPage
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CacheDetailWithStatsPageRoutingModule {}
+export class CacheDetailActivatedPageRoutingModule {}

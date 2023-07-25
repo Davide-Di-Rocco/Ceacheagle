@@ -113,4 +113,7 @@ export class CacheService {
     }
   }
 
+  async getActiveCache() {
+    return undefined;
+  }
 }

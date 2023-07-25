@@ -42,25 +42,27 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'cacheDetailWithReview',
+    path: 'sections/detail',
     loadChildren: () => import('./pages/sections/cache-detail-with-review/cache-detail-with-review.module').then(m => m.CacheDetailWithReviewPageModule)
   },
   {
-    path: 'cacheDetailWithHints',
-    loadChildren: () => import('./pages/sections/cache-detail-with-hints/cache-detail-with-hints.module').then(m => m.CacheDetailWithHintsPageModule)
-  },
-  {
-    path: 'cacheDetailWithStats',
-    loadChildren: () => import('./pages/sections/cache-detail-with-stats/cache-detail-with-stats.module').then(m => m.CacheDetailWithStatsPageModule)
-  },
-  {
-    path: 'review',
+    path: 'sections/review',
     loadChildren: () => import('./pages/sections/review/review.module').then(m => m.ReviewPageModule)
   },
   {
-    path: 'cacheDetailEdit',
+    path: 'sections/edit',
     loadChildren: () => import('./pages/sections/cache-detail-edit/cache-detail-edit.module').then(m => m.CacheDetailEditPageModule)
   },
+
+  {
+    path: 'sections/activated',
+    loadChildren: () => import('./pages/sections/cache-detail-activated/cache-detail-activated.module').then( m => m.CacheDetailActivatedPageModule)
+  },
+  {
+    path: 'sections/completed',
+    loadChildren: () => import('./pages/sections/cache-detail-completed/cache-detail-completed.module').then( m => m.CacheDetailCompletedPageModule)
+  },
+
 
 ];
 
