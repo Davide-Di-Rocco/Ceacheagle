@@ -14,6 +14,6 @@
     </ion-item>
   </ion-list>
 </div>
-<div *ngIf="reviews.length <= 0" class="box">
+<div [style.height]="height" *ngIf="reviews.length <= 0" class="box">
   <h3>Non ci sono ancora recensioni per questa cache!</h3>
 </div>

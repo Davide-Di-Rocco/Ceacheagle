@@ -33,9 +33,9 @@ export class RegistrationPage implements OnInit {
 
   async onCreate() {
     if (this.registrationFormModule.valid) {
-      const email = this.registrationFormModule.value.email;
-      const username = this.registrationFormModule.value.username;
-      const password = this.registrationFormModule.value.password;
+      const email = this.registrationFormModule.value.email.trim();
+      const username = this.registrationFormModule.value.username.trim();
+      const password = this.registrationFormModule.value.password.trim();
 
       try {
         const registrationResult = await this.registrationService.register(username, email, password);
@@ -87,8 +87,8 @@ export class RegistrationPage implements OnInit {
 
   passwordMatchValidator(): ValidatorFn {
     return (control: AbstractControl) => {
-      const password = control.get('password')?.value;
-      const passwordControl = control.get('passwordControl')?.value;
+      const password = control.get('password')?.value
+      const passwordControl = control.get('passwordControl')?.value
 
       if (password !== passwordControl) {
         control.get('passwordControl')?.setErrors({passwordMismatch: true});
