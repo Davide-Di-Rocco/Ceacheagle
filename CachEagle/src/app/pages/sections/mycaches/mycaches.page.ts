@@ -3,7 +3,7 @@ import {NavController} from "@ionic/angular";
 import {CacheService} from "../../../services/cache.service";
 import {User} from "../../../models/user.model";
 import {MyCache} from "../../../models/cache.model";
-import {AuthenticationService} from "../../../services/authentication.service";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-mycaches',
@@ -19,7 +19,7 @@ export class MycachesPage implements OnInit {
   constructor(
     protected navController: NavController,
     private cacheService: CacheService,
-    private authService: AuthenticationService,
+    private userService: UserService,
   ) {
   }
 
@@ -41,7 +41,7 @@ export class MycachesPage implements OnInit {
   }
 
   private async loadData() {
-    this.loggedUser = await this.authService.getLoggedUser()
+    this.loggedUser = await this.userService.getLoggedUser()
     this.cacheList = await this.cacheService.getUserCaches(this.loggedUser.id)
   }
 }

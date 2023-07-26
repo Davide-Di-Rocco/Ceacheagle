@@ -2,28 +2,36 @@
   "users": [
     {
       "id": 0,
-      "username": "Matteo",
       "email": "tatonimatteo@gmail.com",
-      "password": "12345",
+      "username": "Matteo",
       "favorites": [
         4
+      ],
+      "completed": [
+        {
+          "startTime": "2023-07-26T11:11:30.223Z",
+          "endTime": null,
+          "hint": false,
+          "distance": 0,
+          "cacheId": 1
+        }
       ]
     },
     {
       "id": 1,
-      "username": "Davide",
       "email": "davidedirocco88@gmail.com",
-      "password": "12345",
-      "favorites": []
+      "username": "Davide",
+      "favorites": [],
+      "completed": []
     },
     {
       "id": 2,
-      "username": "Alessio",
       "email": "alessiomartinelli@gmail.com",
-      "password": "12345",
+      "username": "Alessio",
       "favorites": [
         6
-      ]
+      ],
+      "completed": []
     }
   ],
   "caches": [

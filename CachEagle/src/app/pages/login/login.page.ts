@@ -26,7 +26,8 @@ export class LoginPage implements OnInit {
     this.authService.logout()
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.authService.fixCompleted()
   }
 
   async onSubmit() {

@@ -19,7 +19,6 @@ export class FavoritesPage implements OnInit {
   constructor(
     private navController: NavController,
     private cacheService: CacheService,
-    private authService: AuthenticationService,
     private userService: UserService
   ) {
   }
@@ -57,7 +56,7 @@ export class FavoritesPage implements OnInit {
   }
 
   private async loadData(){
-    this.loggedUser = await this.authService.getLoggedUser()
+    this.loggedUser = await this.userService.getLoggedUser()
     this.cachesList = await this.cacheService.getFavoritesCaches(this.loggedUser.favorites)
   }
 }

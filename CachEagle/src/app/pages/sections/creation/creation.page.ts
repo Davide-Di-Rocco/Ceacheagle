@@ -5,11 +5,11 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AlertController, NavController} from "@ionic/angular";
 import {Geolocation} from "@capacitor/geolocation";
 import {Hint} from "../../../models/hint.model";
-import {AuthenticationService} from "../../../services/authentication.service";
 import {CacheService} from "../../../services/cache.service";
 import {User} from "../../../models/user.model";
 import {ActivatedRoute} from "@angular/router";
 import {MyCache} from "../../../models/cache.model";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-creation',
@@ -43,7 +43,7 @@ export class CreationPage implements OnInit {
   }
 
   protected cacheFormModule: FormGroup
-  protected page: number = 2
+  protected page: number = 1
   protected ready = false
   protected cache!: MyCache | null
   protected path!: string
@@ -52,7 +52,7 @@ export class CreationPage implements OnInit {
   constructor(
     fb: FormBuilder,
     private photoService: PhotoService,
-    private authService: AuthenticationService,
+    private userService: UserService,
     private cacheService: CacheService,
     protected navController: NavController,
     private alert: AlertController,
@@ -68,7 +68,7 @@ export class CreationPage implements OnInit {
   }
 
   async ngOnInit() {
-    this.user = await this.authService.getLoggedUser()
+    this.user = await this.userService.getLoggedUser()
     const idParam = this.route.snapshot.queryParamMap.get('id');
     const id = idParam ? parseInt(idParam, 0) : null;
     this.cacheData.creatorId = this.user.id

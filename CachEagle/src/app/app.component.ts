@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {MenuController} from "@ionic/angular";
 import {AuthenticationService} from "./services/authentication.service";
 import {User} from "./models/user.model";
+import {UserService} from "./services/user.service";
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,8 @@ export class AppComponent {
 
   constructor(
     private menuController: MenuController,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private userService: UserService,
   ) {
   }
 
@@ -34,6 +36,6 @@ export class AppComponent {
   }
 
   setUser() {
-    this.user = this.authenticationService.getLoggedUser()
+    this.user = this.userService.getLoggedUser()
   }
 }

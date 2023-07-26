@@ -1,3 +1,5 @@
+import {Stats} from "./stats.model";
+
 export class User {
   constructor(user?: User) {
     if (user) {
@@ -5,6 +7,7 @@ export class User {
       this.email = user.email
       this.username = user.username
       this.favorites = user.favorites
+      this.completed = user.completed
     }
   }
 
@@ -12,4 +15,5 @@ export class User {
   email!: string
   username!: string
   favorites!: number[]
+  completed!: Stats[]
 }

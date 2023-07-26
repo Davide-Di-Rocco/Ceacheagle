@@ -4,7 +4,6 @@ import {MyCache} from "../models/cache.model";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Hint} from "../models/hint.model";
-import {User} from "../models/user.model";
 
 @Injectable({
   providedIn: 'root'
@@ -103,7 +102,6 @@ export class CacheService {
     }
   }
 
-
   private async postRequest<T>(url: string, data: any): Promise<number> {
     try {
       const observable: Observable<MyCache> = this.http.post<MyCache>(url, data);
@@ -114,13 +112,8 @@ export class CacheService {
     }
   }
 
-
   async getActiveCache() {
     return undefined;
-  }
-
-  private async updateUser(user: User) {
-
   }
 
   async updateCache(

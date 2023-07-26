@@ -25,6 +25,9 @@ ion-img::part(image) {
 
 .column {
   align-content: center;
+  justify-content: space-between;
+  align-items: center;
+  height: 9.5vh;
 
   h6 {
     text-align: center;
@@ -40,7 +43,7 @@ ion-img::part(image) {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 20px;
+  padding: 0 20px;
   border-top: 1px solid var(--ion-color-medium); /* Aggiungi una sottile linea superiore per separare i dettagli dalla descrizione */
   border-bottom: 1px solid var(--ion-color-medium); /* Aggiungi una sottile linea superiore per separare i dettagli dalla descrizione */
   margin: 10px 0;

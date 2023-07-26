@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {ColorSchemaType} from "../../../components/rating/rating.component";
 import {CacheService} from "../../../services/cache.service";
-import {AuthenticationService} from "../../../services/authentication.service";
 import {MyCache} from "../../../models/cache.model";
 import {User} from "../../../models/user.model";
 import {Preferences} from "@capacitor/preferences";
 import {NavController} from "@ionic/angular";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-cache-detail-activated',
@@ -21,7 +21,7 @@ export class CacheDetailActivatedPage implements OnInit {
 
   constructor(
     private cacheService: CacheService,
-    private authService: AuthenticationService,
+    private userService: UserService,
     private navController: NavController
   ) {
 
@@ -33,7 +33,7 @@ export class CacheDetailActivatedPage implements OnInit {
       console.log(value)
       if (typeof value.value === "string") {
         const id = parseInt(value.value)
-        this.user = await this.authService.getLoggedUser();
+        this.user = await this.userService.getLoggedUser();
         this.cache = await this.cacheService.getCacheById(id);
         this.ready = true;
       }

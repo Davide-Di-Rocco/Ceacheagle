@@ -2,11 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {MyCache} from "../../../models/cache.model";
 import {User} from "../../../models/user.model";
 import {CacheService} from "../../../services/cache.service";
-import {AuthenticationService} from "../../../services/authentication.service";
 import {ActivatedRoute} from "@angular/router";
 import {ColorSchemaType} from "../../../components/rating/rating.component";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {NavController} from "@ionic/angular";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-cache-detail-edit',
@@ -36,7 +36,7 @@ export class CacheDetailEditPage implements OnInit {
 
   constructor(
     private cacheService: CacheService,
-    private authService: AuthenticationService,
+    private userService: UserService,
     private route: ActivatedRoute,
     private navController: NavController
   ) {
@@ -45,7 +45,7 @@ export class CacheDetailEditPage implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(async (params) => {
       const id = parseInt(params['id'], 0);
-      this.user = await this.authService.getLoggedUser();
+      this.user = await this.userService.getLoggedUser();
       this.cache = await this.cacheService.getCacheById(id);
       this.ready = true;
     })
