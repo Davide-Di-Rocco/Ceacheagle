@@ -19,7 +19,7 @@ import {MyCache} from "../../../models/cache.model";
 export class CreationPage implements OnInit {
   protected photo!: Photo;
   private user!: User
-  private difficulty: number = 0;
+  protected difficulty: number = 0;
   private cacheData: {
     title: string,
     description: string,
@@ -43,7 +43,7 @@ export class CreationPage implements OnInit {
   }
 
   protected cacheFormModule: FormGroup
-  protected page: number = 1
+  protected page: number = 2
   protected ready = false
   protected cache!: MyCache | null
   protected path!: string
@@ -187,10 +187,6 @@ export class CreationPage implements OnInit {
     return text.trim().length < 1
   }
 
-  getDifficulty() {
-    return this.cache ? this.cache.difficulty : 0
-  }
-
   getHint(level: number): string {
     if (this.cache) {
       const hint = this.cache.hints.find(hint => hint.level === level)
@@ -213,6 +209,6 @@ export class CreationPage implements OnInit {
     setTimeout(() => {
       this.path = "assets/img/posizione.jpg"
       this.enable = true
-    }, 3040);
+    }, 3190);
   }
 }
