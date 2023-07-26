@@ -2,17 +2,16 @@
     <ion-menu contentId="main-content" type="overlay" swipe-gesture="false" *ngIf="user" (ionWillOpen)="loadData()">
         <ion-content>
             <div class="menu-header-bg">
-                <ion-button slot="end" color="dark"
-                            fill="clear" size="default"
-                            (click)="closeMenu()">
-                    <ion-icon name="close-sharp"></ion-icon>
-                </ion-button>
+                <div class="header-toolbar">
+                    <ion-button slot="end" color="dark" fill="clear" size="default" (click)="closeMenu()">
+                        <ion-icon name="close-sharp"></ion-icon>
+                    </ion-button>
+                    <div class="space"></div>
+                    <ion-img class="header-img" src="assets/img/named_logo.svg" slot="end"></ion-img>
+                </div>
                 <div class="header-content">
-                    <div>
-                        <h5>{{user.username | uppercase}}</h5>
-                        <p>{{user.email}}</p>
-                    </div>
-                    <ion-img class="header-img" src="assets/img/named_logo.svg" slot="end"/>
+                    <h5>{{ user.username | uppercase }}</h5>
+                    <p>{{ user.email }}</p>
                 </div>
             </div>
             <div class="menu-body">
@@ -27,18 +26,19 @@
                     </ion-menu-toggle>
                     <ion-menu-toggle auto-hide="false" (click)="logout()">
                         <ion-item lines="none" detail="false">
-                            <ion-icon aria-hidden="true" slot="start" [ios]="logout_button.icon +'-outline'"
-                                      [md]="logout_button.icon +'-sharp'"></ion-icon>
-                            <ion-label>{{logout_button.title}}</ion-label>
+                            <ion-icon aria-hidden="true" slot="start" [ios]="logout_button.icon + '-outline'"
+                                      [md]="logout_button.icon + '-sharp'"></ion-icon>
+                            <ion-label>{{ logout_button.title }}</ion-label>
                         </ion-item>
                     </ion-menu-toggle>
                 </ion-list>
 
-                <ion-item lines="none">
-                </ion-item>
+                <!-- Add other menu items if needed -->
+
             </div>
             <app-active-cache *ngIf="activeCache"></app-active-cache>
         </ion-content>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
 </ion-app>
+
