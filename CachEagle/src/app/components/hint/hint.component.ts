@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Hint} from "../../models/hint.model";
 
 @Component({
@@ -11,7 +11,7 @@ export class HintComponent implements OnInit {
   @Input() hints: Hint[] = [];
   @Input() height: string = 'auto';
   @Input() visible: boolean = false
-
+  @Output() visibilityChange: EventEmitter<boolean> = new EventEmitter();
   protected selectedHint = 0
 
   constructor() {
@@ -27,5 +27,10 @@ export class HintComponent implements OnInit {
 
   nextHint() {
     this.selectedHint += 1
+  }
+
+  showHints() {
+    this.visible = true
+    this.visibilityChange.emit(true)
   }
 }
