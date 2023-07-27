@@ -27,9 +27,12 @@ export class CacheService {
         return firstValueFrom(this.http.get<MyCache[]>(url)
             .pipe(
                 map(
-                    cacheList => cacheList.map(
-                        cache => new MyCache(cache)
-                    )
+                    cacheList => {
+                        const list = cacheList.map(cache => new MyCache(cache));
+                        return list.filter(cache => {
+                            return cache.reviews.find(review => review.userId == userId)
+                        })
+                    }
                 )
             ))
     }
@@ -41,7 +44,10 @@ export class CacheService {
         return firstValueFrom(this.http.get<MyCache[]>(url)
             .pipe(
                 map(cacheList => {
-                    const list = cacheList.map(cache => new MyCache(cache));
+                    let list = cacheList.map(cache => new MyCache(cache));
+                    list = list.filter(cache => {
+                        return cache.reviews.find(review => review.userId == userId)
+                    })
                     return list.filter(cache => {
                         const reviews = cache.reviews;
                         const totalReviews = reviews.length;
@@ -49,7 +55,8 @@ export class CacheService {
                         const averageRating = Math.round(totalRating / totalReviews);
                         return averageRating >= minRating;
                     });
-                }))
+                })
+            )
         )
     }
 
@@ -134,5 +141,10 @@ export class CacheService {
             return {cache: await this.getCacheById(id), stats: <Stats>user.completed.find(stat => stat.cacheId === id)}
         }
         return null
+    }
+
+    async updateCache2(cache: MyCache) {
+        const url = `${this.cacheUrl}/${cache.id}`;
+        return await firstValueFrom(this.http.put(url, cache))
     }
 }
