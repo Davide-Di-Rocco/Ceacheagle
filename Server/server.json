@@ -11,8 +11,8 @@
         {
           "startTime": "2023-07-26T16:12:47.419Z",
           "endTime": null,
-          "hint": false,
-          "distance": 0,
+          "hint": true,
+          "distance": 1.019,
           "cacheId": 1
         }
       ]

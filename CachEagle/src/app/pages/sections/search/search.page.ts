@@ -166,14 +166,14 @@ export class SearchPage implements OnInit {
             this.currentLocationMarker = await this.map.addMarker({
                 coordinate: coordinates,
                 title: "Current Location",
-                iconUrl: '../../../../assets/img/current.png',
+                iconUrl: '../../../../assets/img/currentPositionMarker.png',
                 iconSize: {
-                    height: 40,
-                    width: 40
+                    height: 26,
+                    width: 26
                 },
                 iconAnchor: {
-                    x: 20,
-                    y: 20
+                    x: 13,
+                    y: 13
                 }
             });
         }
@@ -195,14 +195,14 @@ export class SearchPage implements OnInit {
                 },
                 title: c.title,
                 snippet: c.description,
-                iconUrl: this.loggedUser.favorites.includes(c.id) ? '../../../../assets/img/cross.png' : '../../../../assets/img/pin.png',
+                iconUrl: this.loggedUser.favorites.includes(c.id) ? '../../../../assets/img/starredMarker.png' : '../../../../assets/img/cacheMarker.png',
                 iconSize: {
-                    height: 60,
-                    width: 40
+                    height: 42,
+                    width: 28
                 },
                 iconAnchor: {
-                    x: 20,
-                    y: 60
+                    x: 14,
+                    y: 42
                 }
             }).then(markerId => {
                 this.markers[markerId] = c.id

@@ -1,21 +1,25 @@
-<div class="box">
-  <div class="img">
-    <ion-avatar>
-      <ion-img *ngIf="!photo" alt="Silhouette of a person's head"
-               src="https://ionicframework.com/docs/img/demos/avatar.svg"/>
-      <ion-img class="photo" *ngIf="photo" [src]="'data:image/jpeg;base64,' + photo"/>
-    </ion-avatar>
+<div class="box" (click)="onClick()">
+  <div class="cash-name">
+    <h6>{{ cache.title }}</h6>
+    <ion-icon name="ellipse"></ion-icon>
   </div>
   <div class="body">
-    <div class="cash-name">
-      <h6>Titolo cache</h6>
+    <div class="img">
+      <ion-avatar>
+        <ion-img *ngIf="!cache.photo" alt="Silhouette of a person's head"
+                 src="https://ionicframework.com/docs/img/demos/avatar.svg"></ion-img>
+        <ion-img class="photo" *ngIf="cache.photo" [src]="'data:image/jpeg;base64,' + cache.photo"></ion-img>
+      </ion-avatar>
     </div>
     <div class="stats">
-      <h6>00000</h6>
-      <ion-icon class="dim" name="footsteps-outline"></ion-icon>
-      <div class="space"></div>
-      <h6>00:00</h6>
-      <ion-icon class="dim" name="stopwatch-outline"></ion-icon>
+      <h6>
+        <ion-icon class="dim" name="footsteps-outline"></ion-icon>
+        {{ statistiche.distance.toFixed(3) }} km
+      </h6>
+      <h6>
+        <ion-icon class="dim" name="stopwatch-outline"></ion-icon>
+        {{ formatElapsedTime() }}
+      </h6>
     </div>
   </div>
 </div>

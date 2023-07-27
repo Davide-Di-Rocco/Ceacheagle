@@ -5,7 +5,6 @@ import {User} from "./models/user.model";
 import {UserService} from "./services/user.service";
 import {MyCache} from "./models/cache.model";
 import {CacheService} from "./services/cache.service";
-import {Preferences} from "@capacitor/preferences";
 import {Stats} from "./models/stats.model";
 
 @Component({
@@ -43,22 +42,19 @@ export class AppComponent implements OnInit {
         await this.menuController.close()
     }
 
-
     async logout() {
         await this.authenticationService.logout()
     }
 
     async loadData() {
         this.user = await this.userService.getLoggedUser()
-        Preferences.get({key: 'active'}).then(async value => {
-            if (value.value && !Number.isNaN(value.value)) {
-                const id = parseInt(value.value)
-                this.activeCache = await this.cacheService.getCacheById(id);
-                this.statistiche = <Stats>this.user.completed.find(stat => stat.cacheId === id)
-            } else {
-                this.activeCache = null
-                this.statistiche = null
-            }
-        })
+        const response = await this.cacheService.getActiveCache(this.user)
+        if (response) {
+            this.activeCache = response.cache
+            this.statistiche = response.stats
+        } else {
+            this.activeCache = null
+            this.statistiche = null
+        }
     }
 }

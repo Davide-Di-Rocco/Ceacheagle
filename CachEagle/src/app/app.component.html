@@ -1,44 +1,45 @@
 <ion-app>
-    <ion-menu contentId="main-content" type="overlay" swipe-gesture="false" *ngIf="user" (ionWillOpen)="loadData()">
-        <ion-content>
-            <div class="menu-header-bg">
-                <div class="header-toolbar">
-                    <ion-button slot="end" color="dark" fill="clear" size="default" (click)="closeMenu()">
-                        <ion-icon name="close-sharp"></ion-icon>
-                    </ion-button>
-                    <div class="space"></div>
-                    <ion-img class="header-img" src="assets/img/named_logo.svg" slot="end"></ion-img>
-                </div>
-                <div class="header-content">
-                    <h5>{{ user.username | uppercase }}</h5>
-                    <p>{{ user.email }}</p>
-                </div>
-            </div>
-            <div class="menu-body">
-                <ion-list id="inbox-list">
-                    <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-                        <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
-                                  routerLinkActive="selected">
-                            <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'"
-                                      [md]="p.icon + '-sharp'"></ion-icon>
-                            <ion-label>{{ p.title }}</ion-label>
-                        </ion-item>
-                    </ion-menu-toggle>
-                    <ion-menu-toggle auto-hide="false" (click)="logout()">
-                        <ion-item lines="none" detail="false">
-                            <ion-icon aria-hidden="true" slot="start" [ios]="logout_button.icon + '-outline'"
-                                      [md]="logout_button.icon + '-sharp'"></ion-icon>
-                            <ion-label>{{ logout_button.title }}</ion-label>
-                        </ion-item>
-                    </ion-menu-toggle>
-                </ion-list>
+  <ion-menu contentId="main-content" type="overlay" swipe-gesture="false" *ngIf="user" (ionWillOpen)="loadData()">
+    <ion-content>
+      <div class="menu-header-bg">
+        <div class="header-toolbar">
+          <ion-button slot="end" color="dark" fill="clear" size="default" (click)="closeMenu()">
+            <ion-icon name="close-sharp"></ion-icon>
+          </ion-button>
+          <div class="space"></div>
+          <ion-img class="header-img" src="assets/img/named_logo.svg" slot="end"></ion-img>
+        </div>
+        <div class="header-content">
+          <h5>{{ user.username | uppercase }}</h5>
+          <p>{{ user.email }}</p>
+        </div>
+      </div>
+      <div class="menu-body">
+        <ion-list id="inbox-list">
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
+                      routerLinkActive="selected">
+              <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'"
+                        [md]="p.icon + '-sharp'"></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false" (click)="logout()">
+            <ion-item lines="none" detail="false">
+              <ion-icon aria-hidden="true" slot="start" [ios]="logout_button.icon + '-outline'"
+                        [md]="logout_button.icon + '-sharp'"></ion-icon>
+              <ion-label>{{ logout_button.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
 
-                <!-- Add other menu items if needed -->
+        <!-- Add other menu items if needed -->
 
-            </div>
-            <app-active-cache *ngIf="activeCache"></app-active-cache>
-        </ion-content>
-    </ion-menu>
-    <ion-router-outlet id="main-content"></ion-router-outlet>
+      </div>
+      <app-active-cache *ngIf="activeCache && statistiche" [cache]="activeCache"
+                        [statistiche]="statistiche"></app-active-cache>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main-content"></ion-router-outlet>
 </ion-app>
 

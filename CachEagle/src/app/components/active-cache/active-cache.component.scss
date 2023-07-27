@@ -1,56 +1,80 @@
-.box{
-  margin-left:8vw;
-  resize: none;
+.box {
+  margin-left: 3.5vw;
   border-radius: 10px;
-  border:2px solid black;
-  outline:none;
-  line-height: 1.4;
-  position:absolute;
-  bottom:5%;
-  width: 80%;
-  height: auto;
+  border: 2px solid var(--ion-color-medium);
+  outline: none;
+  position: absolute;
+  bottom: 3vh;
+  width: 90%;
   display: flex;
-}
-
-.box .header .cash-name{
-  margin-left: 10%
-}
-
-.box .img{
-margin-left: 3%;
-  margin-top: 5%;
-}
-
-.box  .active{
-  color:var(--ion-color-primary);
-  margin-left: 10%;
-  margin-top: 3%;
-}
-
-.box .stats{
-  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-.box .stats .space{
-  width:5%;
+.box .cash-name {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  width: 100%;
+
+  ion-icon {
+    padding-top: 1.5vh;
+    padding-right: 2vw;
+    color: var(--ion-color-success);
+  }
 }
 
-.box .stats .dim{
-  height: 3vh;
-  width: 3vh;
-}
-
-
-.box .body .cash-name h6{
+.box .cash-name h6 {
   font-weight: bold;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width:35%
+  width: 80%;
 }
 
-ion-avatar {
-  margin-right: 4vw;
+.box .body {
+  display: flex;
+  align-items: center;
+  flex: 2;
+  width: 100%;
+}
+
+.box .img {
+  flex: 1;
+  margin-right: 2vw;
+}
+
+.box .img ion-avatar {
+  width: 8vh;
+  min-height: 8vh;
   --border-radius: 4px;
+  object-fit: cover;
+}
+
+.box .stats {
+  display: flex;
+  flex-direction: column;
+  flex: 2;
+}
+
+.box .stats h6 {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.box .stats .dim {
+  height: 2vh;
+  width: 2vh;
+  margin-right: 1vw;
+}
+
+/* Optional: Add some spacing between elements */
+.box {
+  padding: 0 2vw;
+}
+
+.box .cash-name {
+  margin-left: 2%;
+  margin-right: 2%;
 }
