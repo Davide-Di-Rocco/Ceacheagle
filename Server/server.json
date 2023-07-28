@@ -54,18 +54,7 @@
       "creatorId": 1,
       "latitude": 42.337854,
       "longitude": 13.449442,
-      "reviews": [
-        {
-          "userId": 0,
-          "rating": 4,
-          "comment": "Un luogo incantevole per una caccia al tesoro!"
-        },
-        {
-          "userId": 2,
-          "rating": 5,
-          "comment": "Abbiamo avuto un sacco di divertimento a cercare questa cache!"
-        }
-      ]
+      "reviews": []
     },
     {
       "id": 2,
@@ -151,18 +140,7 @@
       "creatorId": 1,
       "latitude": 42.352317,
       "longitude": 13.396636,
-      "reviews": [
-        {
-          "userId": 0,
-          "rating": 5,
-          "comment": "Una cache avvincente in una foresta magica!"
-        },
-        {
-          "userId": 2,
-          "rating": 4,
-          "comment": "Una grande avventura tra gli alberi!"
-        }
-      ]
+      "reviews": []
     },
     {
       "id": 5,
@@ -183,18 +161,7 @@
       "creatorId": 2,
       "latitude": 42.361958,
       "longitude": 13.376366,
-      "reviews": [
-        {
-          "userId": 0,
-          "rating": 3,
-          "comment": "Una cache affascinante per un'intrigante passeggiata sulla spiaggia."
-        },
-        {
-          "userId": 1,
-          "rating": 4,
-          "comment": "Un luogo tranquillo per una caccia al tesoro!"
-        }
-      ]
+      "reviews": []
     },
     {
       "id": 6,
@@ -222,10 +189,7 @@
       "reviews": [
         {
           "rating": 5,
-          "userId": 2
-        },
-        {
-          "rating": 5,
+          "comment": "Ho avuto un'esperienza meravigliosa con questa cache a Ripi! L'avventura è stata emozionante sin dal primo momento. Il percorso mi ha portato in posti incantevoli con viste panoramiche mozzafiato. I suggerimenti mi hanno tenuto impegnato e mi hanno fatto sentire come un vero esploratore alla ricerca di un tesoro. ",
           "userId": 2
         }
       ]

@@ -22,19 +22,18 @@ export class CacheService {
 
     async getCaches(userId: number): Promise<MyCache[]> {
         const activeId = (await Preferences.get({key: 'active'})).value
+        console.log(activeId)
         let url = `${this.cacheUrl}?creatorId_ne=${userId}`;
         if (activeId) url += `&id_ne=${activeId}`
         return firstValueFrom(this.http.get<MyCache[]>(url)
             .pipe(
                 map(
-                    cacheList => {
-                        const list = cacheList.map(cache => new MyCache(cache));
-                        return list.filter(cache => {
-                            return cache.reviews.find(review => review.userId == userId)
-                        })
-                    }
+                    cacheList =>
+                        cacheList.map(cache => new MyCache(cache))
+                            .filter(cache => !cache.reviews.find(review => review.userId == userId))
                 )
-            ))
+            )
+        )
     }
 
     async getFilteredCaches(minRating: number, maxDifficulty: number, minDifficulty: number, userId: number) {

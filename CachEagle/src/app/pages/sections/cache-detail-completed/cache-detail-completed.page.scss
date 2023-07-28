@@ -1,0 +1,136 @@
+.container {
+  padding: 0 20px;
+}
+
+ion-img {
+  aspect-ratio: 16/9;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+ion-img::part(image) {
+  background-color: var(--ion-color-light-contrast);
+  border-radius: 10px;
+}
+
+.description {
+  height: 150px;
+  overflow-y: auto;
+  border: 1px solid var(--ion-color-medium);
+  padding: 10px;
+  border-radius: 10px;
+  vertical-align: top;
+  font-size: 14px;
+}
+
+
+.details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--ion-color-medium);
+  border-bottom: 1px solid var(--ion-color-medium);
+  margin: 10px 0;
+
+  h6 {
+    font-weight: bold;
+  }
+
+  .line {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .margin {
+      margin-right: 20px;
+    }
+  }
+
+  .column {
+    flex: 2;
+    text-align: center;
+
+    ion-icon.dim {
+      font-size: 16px;
+      color: var(--ion-color-medium);
+      margin-left: 5px;
+    }
+  }
+
+  .space {
+    flex: .75;
+  }
+}
+
+
+ion-header {
+  ion-toolbar {
+    display: flex;
+    justify-content: space-between; /* Allinea titolo e pulsanti verticalmente */
+    align-items: center;
+    max-height: 50px;
+
+    ion-buttons {
+      ion-back-button {
+        --icon-color: var(--ion-color-light-contrast); /* Colore nero per la freccia di ritorno */
+        --color: var(--ion-color-light-contrast); /* Colore nero per il testo */
+        max-height: 30px;
+      }
+
+      ion-button {
+        --color: var(--ion-color-light-contrast); /* Colore nero per il testo dei pulsanti */
+        margin-left: 8px; /* Aggiungi margine sinistro tra i pulsanti */
+      }
+
+      max-height: 30px;
+    }
+
+    ion-title {
+      font-size: 18px; /* Dimensione del carattere del titolo */
+      font-weight: bold; /* Grassetto per il titolo */
+      color: var(--ion-color-light-contrast); /* Colore nero per il titolo */
+      max-width: 100%; /* Larghezza massima del titolo per garantire che il testo non superi i pulsanti */
+      padding-inline: 0 !important;
+    }
+  }
+
+  margin-bottom: 10px;
+}
+
+
+.review-container {
+  border: 1px solid var(--ion-color-medium); /* Aggiungi bordino grigio */
+  border-radius: 10px; /* Angoli arrotondati */
+  padding: 10px; /* Spaziatura interna del container */
+  width: 100%;
+  height: 30vh;
+
+  .line {
+    display: flex;
+    justify-content: space-between;
+
+    h5 {
+      flex: 1;
+    }
+
+    app-rating {
+      flex: 1;
+      margin-left: 13vw;
+    }
+  }
+
+  h5.review-title {
+    font-weight: bold; /* Titolo in grassetto */
+    margin: 0; /* Rimuovi margini per il titolo */
+    font-size: 16px;
+  }
+
+  p.review-comment {
+    margin-top: 20px; /* Spazio tra il titolo e il commento */
+    font-size: 14px;
+  }
+}
+
+

@@ -62,7 +62,7 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'sections/completed',
+        path: 'sections/completedDetail',
         loadChildren: () => import('./pages/sections/cache-detail-completed/cache-detail-completed.module').then(m => m.CacheDetailCompletedPageModule),
         canActivate: [AuthGuard]
     }

@@ -1,13 +1,71 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>cache-detail-completed</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content *ngIf="ready">
+    <ion-header>
+        <ion-toolbar>
+            <ion-buttons slot="start">
+                <ion-back-button defaultHref="/"></ion-back-button>
+            </ion-buttons>
+            <ion-title>{{ cache.title }}</ion-title>
+            <ion-buttons slot="end">
+                <ion-button (click)="onStarClick(cache.id)">
+                    <ion-icon *ngIf="user.favorites.includes(cache.id)" name="star"></ion-icon>
+                    <ion-icon *ngIf="!user.favorites.includes(cache.id)" name="star-outline"></ion-icon>
+                </ion-button>
+                <ion-button (click)="onMapClick()" id="map-btn">
+                    <ion-icon *ngIf="showMap" name="map"></ion-icon>
+                    <ion-icon *ngIf="!showMap" name="map-outline"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+        </ion-toolbar>
+    </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">cache-detail-completed</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <div>
+        <div class="container">
+            <ion-img [src]="'data:image/jpeg;base64,' + cache.photo"></ion-img>
+            <div class="description">
+                <p>{{ cache.description }}</p>
+            </div>
+            <div class="details">
+                <div class="line">
+                    <h6 class="margin">Difficoltà</h6>
+                    <app-rating
+                            [editable]="false"
+                            [rating]="cache.difficulty"
+                            [icon_name]="'ellipse'"
+                            [colorSchema]="ColorSchemaType.GGYR">
+                    </app-rating>
+                </div>
+                <div class="line">
+                    <div class="column">
+                        <h6>Distanza</h6>
+                        <p>{{statistiche.distance | number: '0.3-3'}} km
+                            <ion-icon class="dim" name="footsteps-outline"></ion-icon>
+                        </p>
+                    </div>
+                    <div class="space"></div>
+                    <div class="column">
+                        <h6>Tempo impiegato</h6>
+                        <p>{{ formatElapsedTime() }}
+                            <ion-icon class="dim" name="stopwatch-outline"></ion-icon>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="review-container">
+                <div class="line">
+                    <h5 class="review-title">La mia recensione</h5>
+                    <app-rating
+                            [editable]="false"
+                            [rating]="5"
+                            [icon_name]="'star'"
+                            [colorSchema]="ColorSchemaType.GRYG"></app-rating>
+                </div>
+                <p class="review-comment">{{ recensione.comment }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="showMap">
+        <app-map [position]="{lat: cache.latitude, lng:cache.longitude}"></app-map>
+    </div>
+
 </ion-content>

@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { CacheDetailCompletedPageRoutingModule } from './cache-detail-completed-routing.module';
 
 import { CacheDetailCompletedPage } from './cache-detail-completed.page';
+import {AppComponentsModule} from "../../../components/app.components.module";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    CacheDetailCompletedPageRoutingModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        CacheDetailCompletedPageRoutingModule,
+        AppComponentsModule
+    ],
   declarations: [CacheDetailCompletedPage]
 })
 export class CacheDetailCompletedPageModule {}
