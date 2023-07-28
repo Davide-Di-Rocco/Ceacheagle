@@ -18,6 +18,15 @@ ion-item {
 ion-avatar {
   margin-right: 4vw;
   --border-radius: 4px;
+
+  .check {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10vw;
+    height: 10vw;
+    margin-top: 1vh;
+  }
 }
 
 .box {

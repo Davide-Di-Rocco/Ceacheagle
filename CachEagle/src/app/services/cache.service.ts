@@ -37,27 +37,22 @@ export class CacheService {
     }
 
     async getFilteredCaches(minRating: number, maxDifficulty: number, minDifficulty: number, userId: number) {
-        const activeId = (await Preferences.get({key: 'active'})).value
-        let url = `${this.cacheUrl}?difficulty_lte=${maxDifficulty}&difficulty_gte=${minDifficulty}&creatorId_ne=${userId}`
-        if (activeId) url += `&id_ne=${activeId}`
-        return firstValueFrom(this.http.get<MyCache[]>(url)
-            .pipe(
-                map(cacheList => {
-                    let list = cacheList.map(cache => new MyCache(cache));
-                    list = list.filter(cache => {
-                        return cache.reviews.find(review => review.userId == userId)
-                    })
-                    return list.filter(cache => {
-                        const reviews = cache.reviews;
-                        const totalReviews = reviews.length;
-                        const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
-                        const averageRating = Math.round(totalRating / totalReviews);
-                        return averageRating >= minRating;
-                    });
+        const activeId = (await Preferences.get({key: 'active'})).value;
+        const url = `${this.cacheUrl}?difficulty_lte=${maxDifficulty}&difficulty_gte=${minDifficulty}&creatorId_ne=${userId}${activeId ? `&id_ne=${activeId}` : ''}`;
+
+        return firstValueFrom(this.http.get<MyCache[]>(url)).then(cacheList =>
+            cacheList
+                .map(cache => new MyCache(cache))
+                .filter(cache => !cache.reviews.find(review => review.userId === userId))
+                .filter(cache => {
+                    if (cache.reviews.length == 0) return 0 >= minRating
+                    const totalRating = cache.reviews.reduce((sum, review) => sum + review.rating, 0);
+                    const averageRating = Math.round(totalRating / cache.reviews.length);
+                    return averageRating >= minRating;
                 })
-            )
-        )
+        );
     }
+
 
     async getCacheById(id: number): Promise<MyCache> {
         return firstValueFrom(this.http.get<MyCache>(`${this.cacheUrl}\\${id}`)

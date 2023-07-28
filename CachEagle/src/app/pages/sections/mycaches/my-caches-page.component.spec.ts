@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MycachesPage } from './mycaches.page';
+import { MyCachesPage } from './my-caches-page.component';
 
 describe('MycachesPage', () => {
-  let component: MycachesPage;
-  let fixture: ComponentFixture<MycachesPage>;
+  let component: MyCachesPage;
+  let fixture: ComponentFixture<MyCachesPage>;
 
   beforeEach((() => {
-    fixture = TestBed.createComponent(MycachesPage);
+    fixture = TestBed.createComponent(MyCachesPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

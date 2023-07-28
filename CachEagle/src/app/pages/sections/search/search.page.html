@@ -1,80 +1,85 @@
 <ion-content [fullscreen]="true">
-  <ion-fab slot="fixed" vertical="top" horizontal="start" (click)="closeBottomList()">
-    <ion-fab-button>
-      <ion-menu-button color="dark"/>
-    </ion-fab-button>
-  </ion-fab>
-  <ion-fab slot="fixed" vertical="top" horizontal="end">
-    <ion-fab-button id="filter-btn">
-      <ion-icon name="filter" color="dark"/>
-    </ion-fab-button>
-  </ion-fab>
+    <ion-fab slot="fixed" vertical="top" horizontal="start" (click)="closeBottomList()">
+        <ion-fab-button>
+            <ion-menu-button color="dark"/>
+        </ion-fab-button>
+    </ion-fab>
+    <ion-fab slot="fixed" vertical="top" horizontal="end">
+        <ion-fab-button id="filter-btn">
+            <ion-icon name="filter" color="dark"/>
+        </ion-fab-button>
+    </ion-fab>
 
-  <ion-fab slot="fixed" vertical="bottom" horizontal="start">
-    <ion-fab-button id="list-btn">
-      <ion-icon name="list-outline" color="dark"/>
-    </ion-fab-button>
-  </ion-fab>
+    <ion-fab slot="fixed" vertical="bottom" horizontal="start">
+        <ion-fab-button id="list-btn">
+            <ion-icon name="list-outline" color="dark"/>
+        </ion-fab-button>
+    </ion-fab>
 
-  <ion-popover trigger="filter-btn" triggerAction="click" #filter_popover>
-    <ng-template>
-      <ion-header class="ion-padding">
-        <ion-title><strong>Imposta filtri di ricerca</strong></ion-title>
-        <ion-button (click)="filter_popover.dismiss()">
-          <ion-icon name="close-outline"></ion-icon>
-        </ion-button>
-      </ion-header>
-      <ion-content class="ion-padding">
-        <ion-item lines="none">
-          <ion-label>Valutazione minima</ion-label>
-          <app-rating [rating]="ratingValue" (ratingChange)="onRatingChange($event)" [icon_name]="'star'"/>
-        </ion-item>
-        <ion-item>
-          <ion-label>Difficoltà</ion-label>
-          <ion-range aria-label=""
-                     [dualKnobs]="true"
-                     [value]="difficultValue"
-                     [ticks]="true"
-                     [snaps]="true"
-                     [min]="1"
-                     [max]="5"
-                     [pin]="true" [pinFormatter]="pinFormatter"
-                     (ionChange)="onDifficultyChange($event)">
-          </ion-range>
-        </ion-item>
-        <div class="filter-btn">
-          <ion-button fill="outline" (click)="filter_popover.dismiss(); onFilterCancel()">Rimuovi filtri</ion-button>
-          <div id="space"></div>
-          <ion-button (click)="filter_popover.dismiss(); onFilterSubmit()">Applica Filtri</ion-button>
-        </div>
-      </ion-content>
-    </ng-template>
-  </ion-popover>
-  <capacitor-google-map #map></capacitor-google-map>
-  <ion-modal
-    trigger="list-btn"
-    [isOpen]="false"
-    [breakpoints]="[0, 0.25, 0.5, 0.75, 0.90, 1]"
-    [backdropDismiss]="true"
-    [initialBreakpoint]="0.25"
-    [backdropBreakpoint]="0.5">
-    <ng-template>
-      <ion-content class="ion-padding">
-        <ion-list *ngFor="let cache of cacheList; let i = index">
-          <ion-item *ngIf="loggedUser.id !== cache.creatorId" lines="none">
-            <app-cache-item-list
-              [title]="cache.title"
-              [rate]="cache.getRating()"
-              [difficulty]="cache.difficulty"
-              [starred]="loggedUser.favorites.includes(cache.id)"
-              [photo]="cache.photo"
-              (locateClick)="onLocateClick(cache.latitude, cache.longitude)"
-              (starClick)="onStarClick(cache.id)"
-              (elementClick)="openDetail(cache.id)">
-            </app-cache-item-list>
-          </ion-item>
-        </ion-list>
-      </ion-content>
-    </ng-template>
-  </ion-modal>
+    <ion-popover trigger="filter-btn" triggerAction="click" #filter_popover>
+        <ng-template>
+            <ion-header class="ion-padding">
+                <ion-title><strong>Imposta filtri di ricerca</strong></ion-title>
+                <ion-button (click)="filter_popover.dismiss()">
+                    <ion-icon name="close-outline"></ion-icon>
+                </ion-button>
+            </ion-header>
+            <ion-content class="ion-padding">
+                <ion-item lines="none">
+                    <ion-label>Valutazione minima</ion-label>
+                    <app-rating [rating]="ratingValue" (ratingChange)="onRatingChange($event)" [icon_name]="'star'"/>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Difficoltà</ion-label>
+                    <ion-range aria-label=""
+                               [dualKnobs]="true"
+                               [value]="difficultValue"
+                               [ticks]="true"
+                               [snaps]="true"
+                               [min]="1"
+                               [max]="5"
+                               [pin]="true" [pinFormatter]="pinFormatter"
+                               (ionChange)="onDifficultyChange($event)">
+                    </ion-range>
+                </ion-item>
+                <div class="filter-btn">
+                    <ion-button fill="outline" (click)="filter_popover.dismiss(); onFilterCancel()">Rimuovi filtri
+                    </ion-button>
+                    <div id="space"></div>
+                    <ion-button (click)="filter_popover.dismiss(); onFilterSubmit()">Applica Filtri</ion-button>
+                </div>
+            </ion-content>
+        </ng-template>
+    </ion-popover>
+    <capacitor-google-map #map></capacitor-google-map>
+    <ion-modal
+            trigger="list-btn"
+            [isOpen]="false"
+            [breakpoints]="[0, 0.25, 0.5, 0.75, 0.90, 1]"
+            [backdropDismiss]="true"
+            [initialBreakpoint]="0.25"
+            [backdropBreakpoint]="0.5">
+        <ng-template>
+            <ion-content class="ion-padding">
+                <ion-list *ngFor="let cache of cacheList; let i = index">
+                    <ion-item *ngIf="loggedUser.id !== cache.creatorId" lines="none">
+                        <app-cache-item-list
+                                [title]="cache.title"
+                                [rate]="cache.getRating()"
+                                [difficulty]="cache.difficulty"
+                                [starred]="loggedUser.favorites.includes(cache.id)"
+                                [photo]="cache.photo"
+                                (locateClick)="onLocateClick(cache.latitude, cache.longitude)"
+                                (starClick)="onStarClick(cache.id)"
+                                (elementClick)="openDetail(cache.id)">
+                        </app-cache-item-list>
+                    </ion-item>
+                </ion-list>
+            </ion-content>
+        </ng-template>
+    </ion-modal>
 </ion-content>
+<div class="charging overlay" *ngIf="!map">
+    <ion-spinner name="dots"></ion-spinner>
+</div>
+

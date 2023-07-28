@@ -15,6 +15,7 @@
                         <ion-img *ngIf="!cache.photo" alt="Silhouette of a person's head"
                                  src="https://ionicframework.com/docs/img/demos/avatar.svg"/>
                         <ion-img class="photo" *ngIf="cache.photo" [src]="'data:image/jpeg;base64,' + cache.photo"/>
+                        <ion-img class="check" *ngIf="isCompleted(cache.id)" src="assets/img/completed.png"></ion-img>
                     </ion-avatar>
                     <ion-label (click)="openDetail(cache.id)">{{cache.title}}</ion-label>
                     <ion-button fill="clear" (click)="removeFavorite(cache.id)">
@@ -27,7 +28,16 @@
             <h3>Non ci sono cache preferite</h3>
         </div>
     </div>
-    <div *ngIf="!ready" class="charging">
-        <ion-spinner name="dots"></ion-spinner>
+    <div *ngIf="!ready" class="charging-top">
+        <ion-list>
+            <ion-item lines="none" *ngFor="let index of [1, 2, 3]">
+                <ion-avatar>
+                    <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+                </ion-avatar>
+                <ion-label>
+                    <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+                </ion-label>
+            </ion-item>
+        </ion-list>
     </div>
 </ion-content>

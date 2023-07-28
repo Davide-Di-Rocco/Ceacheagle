@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MycachesPageRoutingModule } from './mycaches-routing.module';
+import { MycachesPageRoutingModule } from './my-caches-page-routing.module';
 
-import { MycachesPage } from './mycaches.page';
+import { MyCachesPage } from './my-caches-page.component';
 
 @NgModule({
   imports: [
@@ -15,6 +15,6 @@ import { MycachesPage } from './mycaches.page';
     IonicModule,
     MycachesPageRoutingModule
   ],
-  declarations: [MycachesPage]
+  declarations: [MyCachesPage]
 })
 export class MycachesPageModule {}

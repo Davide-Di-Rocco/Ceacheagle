@@ -33,7 +33,7 @@ const routes: Routes = [
     },
     {
         path: 'sections/mycaches',
-        loadChildren: () => import('./pages/sections/mycaches/mycaches.module').then(m => m.MycachesPageModule),
+        loadChildren: () => import('./pages/sections/mycaches/my-caches-page.module').then(m => m.MycachesPageModule),
         canActivate: [AuthGuard]
     },
     {

@@ -7,10 +7,10 @@ import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-mycaches',
-  templateUrl: './mycaches.page.html',
-  styleUrls: ['./mycaches.page.scss'],
+  templateUrl: './my-caches-page.component.html',
+  styleUrls: ['./my-caches-page.component.scss'],
 })
-export class MycachesPage implements OnInit {
+export class MyCachesPage implements OnInit {
 
   protected ready = false
   protected loggedUser!: User

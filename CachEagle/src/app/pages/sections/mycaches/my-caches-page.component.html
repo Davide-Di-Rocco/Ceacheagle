@@ -34,7 +34,16 @@
             <h3>Nessuna cache creata</h3>
         </div>
     </div>
-    <div *ngIf="!ready" class="charging">
-        <ion-spinner name="dots"></ion-spinner>
+    <div *ngIf="!ready" class="charging-top">
+        <ion-list>
+            <ion-item lines="none" *ngFor="let index of [1, 2, 3]">
+                <ion-avatar>
+                    <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+                </ion-avatar>
+                <ion-label>
+                    <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+                </ion-label>
+            </ion-item>
+        </ion-list>
     </div>
 </ion-content>

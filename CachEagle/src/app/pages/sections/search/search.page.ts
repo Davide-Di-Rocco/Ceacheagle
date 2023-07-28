@@ -19,11 +19,11 @@ import {UserService} from "../../../services/user.service";
 export class SearchPage implements OnInit {
 
     @ViewChild('map')
-    mapRef!: ElementRef<HTMLElement>;
-    map!: GoogleMap;
+    mapRef!: ElementRef<HTMLElement>
+    map!: GoogleMap | null
 
-    difficultValue: RangeValue = {lower: 0, upper: 5}
-    ratingValue = 0;
+    protected difficultValue: RangeValue = {lower: 0, upper: 5}
+    protected ratingValue = 0;
     protected loggedUser!: User
     protected cacheList!: MyCache[]
     private watchPositionListener: any
@@ -47,7 +47,8 @@ export class SearchPage implements OnInit {
     async ionViewWillLeave() {
         await this.closeBottomList()
         if (this.permission) await this.stopWatchingPosition()
-        await this.map.destroy()
+        this.map?.destroy()
+        this.map = null
     }
 
     async ionViewDidEnter() {
@@ -93,6 +94,8 @@ export class SearchPage implements OnInit {
     }
 
     async onFilterCancel() {
+        this.difficultValue = {lower: 0, upper: 5}
+        this.ratingValue = 0
         this.cacheList = await this.cacheService.getCaches(this.loggedUser.id)
         await this.addMarkerToMap(this.cacheList)
     }
@@ -112,7 +115,7 @@ export class SearchPage implements OnInit {
 
     async onLocateClick(latitude: number, longitude: number) {
         await this.modalController.dismiss()
-        await this.map.setCamera({
+        await this.map?.setCamera({
                 coordinate: {
                     lat: latitude,
                     lng: longitude
@@ -160,7 +163,7 @@ export class SearchPage implements OnInit {
     }
 
     async updateCurrentLocationMarker(coordinates: LatLng | null) {
-        if (coordinates) {
+        if (coordinates && this.map) {
             if (this.currentLocationMarker) await this.map.removeMarker(this.currentLocationMarker)
             this.currentLocationMarker = await this.map.addMarker({
                 coordinate: coordinates,
@@ -179,7 +182,7 @@ export class SearchPage implements OnInit {
     }
 
     async addMarkerToMap(caches: MyCache[]) {
-        if (this.markers) {
+        if (this.markers && this.map) {
             for (let markersKey in this.markers) {
                 await this.map.removeMarker(markersKey)
                 delete this.markers[markersKey]
@@ -187,7 +190,7 @@ export class SearchPage implements OnInit {
         }
 
         for (const c of caches) {
-            this.map.addMarker({
+            this.map?.addMarker({
                 coordinate: {
                     lat: c.latitude,
                     lng: c.longitude,

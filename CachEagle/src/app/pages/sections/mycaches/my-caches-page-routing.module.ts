@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { MycachesPage } from './mycaches.page';
+import { MyCachesPage } from './my-caches-page.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: MycachesPage
+    component: MyCachesPage
   }
 ];
 
