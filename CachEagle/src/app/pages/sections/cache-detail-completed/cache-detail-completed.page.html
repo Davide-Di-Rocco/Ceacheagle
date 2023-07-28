@@ -67,5 +67,10 @@
     <div *ngIf="showMap">
         <app-map [position]="{lat: cache.latitude, lng:cache.longitude}"></app-map>
     </div>
+</ion-content>
 
+<ion-content *ngIf="!ready">
+    <div class="charging">
+        <ion-spinner name="dots"></ion-spinner>
+    </div>
 </ion-content>

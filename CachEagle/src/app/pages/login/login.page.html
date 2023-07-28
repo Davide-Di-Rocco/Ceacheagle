@@ -1,18 +1,22 @@
+<ion-backdrop *ngIf="loading"></ion-backdrop>
+<div class="loading" *ngIf="loading">
+    <ion-spinner name="bubbles"></ion-spinner>
+</div>
 <ion-content [fullscreen]="true">
-  <ion-img src="assets/img/logo.svg"></ion-img>
-  <h1>CACH<span class="bicolor">EAGLE</span></h1>
-  <form [formGroup]="loginFormModule">
-    <ion-input id="username" type="username"
-               label="Username" labelPlacement="floating"
-               fill="outline"
-               formControlName="username"
-               class="formItem"/>
-    <ion-input id="password" type="password"
-               label="Password" label-placement="floating"
-               fill="outline"
-               formControlName="password"
-               class="formItem"/>
-    <ion-button (click)="onSubmit()" class="formItem">ACCEDI</ion-button>
-    <ion-button (click)="onRegister()" class="formItem">REGISTRATI</ion-button>
-  </form>
+    <ion-img src="assets/img/logo.svg"></ion-img>
+    <h1>CACH<span class="bicolor">EAGLE</span></h1>
+    <form [formGroup]="loginFormModule">
+        <ion-input id="username" type="username"
+                   label="Username" labelPlacement="floating"
+                   fill="outline"
+                   formControlName="username"
+                   class="formItem"/>
+        <ion-input id="password" type="password"
+                   label="Password" label-placement="floating"
+                   fill="outline"
+                   formControlName="password"
+                   class="formItem"/>
+        <ion-button (click)="onSubmit()" class="formItem">ACCEDI</ion-button>
+        <ion-button (click)="onRegister()" class="formItem">REGISTRATI</ion-button>
+    </form>
 </ion-content>

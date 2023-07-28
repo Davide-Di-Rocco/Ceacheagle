@@ -179,12 +179,17 @@ export class CreationPage implements OnInit {
     }
 
     async getPosition() {
-        console.log("CALCOLO POSIZIONE")
-        const coordinates = await Geolocation.getCurrentPosition({enableHighAccuracy: true})
-        console.log("POSIZIONE CALCOLATA:\nlat: " + coordinates.coords.latitude, "\nlng: " + coordinates.coords.longitude)
-        this.cacheData.latitude = coordinates.coords.latitude
-        this.cacheData.longitude = coordinates.coords.longitude
-        this.ready = true
+        try {
+            console.log("CALCOLO POSIZIONE")
+            const coordinates = await Geolocation.getCurrentPosition({enableHighAccuracy: true})
+            console.log("POSIZIONE CALCOLATA:\nlat: " + coordinates.coords.latitude, "\nlng: " + coordinates.coords.longitude)
+            this.cacheData.latitude = coordinates.coords.latitude
+            this.cacheData.longitude = coordinates.coords.longitude
+            this.ready = true
+        } catch (error) {
+            await this.popup("ERRORE", "Impossibile caclolare la posizione della cache! Controlla di aver attivato la geolocalizzazione e riprova!")
+            this.page = 2
+        }
     }
 
     async onSave() {

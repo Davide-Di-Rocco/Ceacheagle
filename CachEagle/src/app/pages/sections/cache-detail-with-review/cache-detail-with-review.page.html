@@ -1,54 +1,58 @@
 <ion-content *ngIf="ready">
-  <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref="/"></ion-back-button>
-      </ion-buttons>
-      <ion-title>{{ cache.title }}</ion-title>
-      <ion-buttons slot="end">
-        <ion-button (click)="onStarClick(cache.id)">
-          <ion-icon *ngIf="user.favorites.includes(cache.id)" name="star"></ion-icon>
-          <ion-icon *ngIf="!user.favorites.includes(cache.id)" name="star-outline"></ion-icon>
-        </ion-button>
-        <ion-button (click)="onMapClick()" id="map-btn">
-          <ion-icon *ngIf="showMap" name="map"></ion-icon>
-          <ion-icon *ngIf="!showMap" name="map-outline"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
+    <ion-header>
+        <ion-toolbar>
+            <ion-buttons slot="start">
+                <ion-back-button defaultHref="/"></ion-back-button>
+            </ion-buttons>
+            <ion-title>{{ cache.title }}</ion-title>
+            <ion-buttons slot="end">
+                <ion-button (click)="onStarClick(cache.id)">
+                    <ion-icon *ngIf="user.favorites.includes(cache.id)" name="star"></ion-icon>
+                    <ion-icon *ngIf="!user.favorites.includes(cache.id)" name="star-outline"></ion-icon>
+                </ion-button>
+                <ion-button (click)="onMapClick()" id="map-btn">
+                    <ion-icon *ngIf="showMap" name="map"></ion-icon>
+                    <ion-icon *ngIf="!showMap" name="map-outline"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+        </ion-toolbar>
+    </ion-header>
 
-  <div>
-    <div class="container">
-      <ion-img [src]="'data:image/jpeg;base64,' + cache.photo"></ion-img>
-      <div class="description">
-        <p>{{ cache.description }}</p>
-      </div>
-      <div class="details">
-        <div class="column">
-          <p style="padding-right: 10px">Valutazione</p>
-          <app-rating
-            [editable]="false"
-            [rating]="cache.getRating()"
-            [icon_name]="'star'"
-            [colorSchema]="ColorSchemaType.GRYG">
-          </app-rating>
+    <div>
+        <div class="container">
+            <ion-img [src]="'data:image/jpeg;base64,' + cache.photo"></ion-img>
+            <div class="description">
+                <p>{{ cache.description }}</p>
+            </div>
+            <div class="details">
+                <div class="column">
+                    <p style="padding-right: 10px">Valutazione</p>
+                    <app-rating
+                            [editable]="false"
+                            [rating]="cache.getRating()"
+                            [icon_name]="'star'"
+                            [colorSchema]="ColorSchemaType.GRYG">
+                    </app-rating>
+                </div>
+                <div class="column">
+                    <p>Difficoltà</p>
+                    <app-rating
+                            [editable]="false"
+                            [rating]="cache.difficulty"
+                            [icon_name]="'ellipse'"
+                            [colorSchema]="ColorSchemaType.GGYR">
+                    </app-rating>
+                </div>
+            </div>
+            <app-review [reviews]="cache.reviews" height="260px"></app-review>
+            <ion-button (click)="active()">ATTIVA CACHE</ion-button>
         </div>
-        <div class="column">
-          <p>Difficoltà</p>
-          <app-rating
-            [editable]="false"
-            [rating]="cache.difficulty"
-            [icon_name]="'ellipse'"
-            [colorSchema]="ColorSchemaType.GGYR">
-          </app-rating>
-        </div>
-      </div>
-      <app-review [reviews]="cache.reviews" height="260px"></app-review>
-      <ion-button (click)="active()">ATTIVA CACHE</ion-button>
     </div>
-  </div>
 
-  <app-map [position]="{lat:cache.latitude, lng: cache.longitude}" *ngIf="showMap"></app-map>
-
+    <app-map [position]="{lat:cache.latitude, lng: cache.longitude}" *ngIf="showMap"></app-map>
+</ion-content>
+<ion-content *ngIf="!ready">
+    <div class="charging">
+        <ion-spinner name="dots"></ion-spinner>
+    </div>
 </ion-content>

@@ -1,63 +1,67 @@
 <ion-content *ngIf="ready">
-  <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref="/"></ion-back-button>
-      </ion-buttons>
-      <ion-title>{{ cache.title }}</ion-title>
-      <ion-buttons slot="end">
-        <ion-button (click)="onMapClick()" id="map-btn">
-          <ion-icon *ngIf="showMap" name="map"></ion-icon>
-          <ion-icon *ngIf="!showMap" name="map-outline"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
+    <ion-header>
+        <ion-toolbar>
+            <ion-buttons slot="start">
+                <ion-back-button defaultHref="/"></ion-back-button>
+            </ion-buttons>
+            <ion-title>{{ cache.title }}</ion-title>
+            <ion-buttons slot="end">
+                <ion-button (click)="onMapClick()" id="map-btn">
+                    <ion-icon *ngIf="showMap" name="map"></ion-icon>
+                    <ion-icon *ngIf="!showMap" name="map-outline"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+        </ion-toolbar>
+    </ion-header>
 
-  <div>
-    <div class="container">
-      <ion-img [src]="'data:image/jpeg;base64,' + cache.photo"></ion-img>
-      <div class="description">
-        <p>{{ cache.description }}</p>
-      </div>
-      <div class="animated-elements">
-        <div class="slide-container" [@slideAnimation2]="showReview.toString()">
-          <div class="details">
-            <div class="line">
-              <p>Difficoltà</p>
-              <app-rating
-                [editable]="false"
-                [rating]="cache.difficulty"
-                [icon_name]="'ellipse'"
-                [colorSchema]="ColorSchemaType.GGYR">
-              </app-rating>
+    <div>
+        <div class="container">
+            <ion-img [src]="'data:image/jpeg;base64,' + cache.photo"></ion-img>
+            <div class="description">
+                <p>{{ cache.description }}</p>
             </div>
-          </div>
-          <app-hint [hints]="cache.hints" height="260px" [visible]="true"></app-hint>
-        </div>
-        <div class="slide-container" [@slideAnimation1]="showReview.toString()">
-          <div class="details">
-            <div class="line">
-              <p>Valutazione</p>
-              <app-rating
-                [editable]="false"
-                [rating]="cache.getRating()"
-                [icon_name]="'star'"
-                [colorSchema]="ColorSchemaType.GRYG">
-              </app-rating>
+            <div class="animated-elements">
+                <div class="slide-container" [@slideAnimation2]="showReview.toString()">
+                    <div class="details">
+                        <div class="line">
+                            <p>Difficoltà</p>
+                            <app-rating
+                                    [editable]="false"
+                                    [rating]="cache.difficulty"
+                                    [icon_name]="'ellipse'"
+                                    [colorSchema]="ColorSchemaType.GGYR">
+                            </app-rating>
+                        </div>
+                    </div>
+                    <app-hint [hints]="cache.hints" height="260px" [visible]="true"></app-hint>
+                </div>
+                <div class="slide-container" [@slideAnimation1]="showReview.toString()">
+                    <div class="details">
+                        <div class="line">
+                            <p>Valutazione</p>
+                            <app-rating
+                                    [editable]="false"
+                                    [rating]="cache.getRating()"
+                                    [icon_name]="'star'"
+                                    [colorSchema]="ColorSchemaType.GRYG">
+                            </app-rating>
+                        </div>
+                    </div>
+                    <app-review [reviews]="cache.reviews" height="260px"></app-review>
+                </div>
             </div>
-          </div>
-          <app-review [reviews]="cache.reviews" height="260px"></app-review>
+            <app-page-selector [pages]="2" [currentPage]="showReview ? 2 : 1"
+                               (pageSelected)="onPageSelected($event)"></app-page-selector>
+            <ion-button (click)="onEdit(cache.id)">MODIFICA CACHE</ion-button>
         </div>
-      </div>
-      <app-page-selector [pages]="2" [currentPage]="showReview ? 2 : 1"
-                         (pageSelected)="onPageSelected($event)"></app-page-selector>
-      <ion-button (click)="onEdit(cache.id)">MODIFICA CACHE</ion-button>
     </div>
-  </div>
 
-  <div *ngIf="showMap">
-    <app-map [position]="{lat: cache.latitude, lng:cache.longitude}"></app-map>
-  </div>
-
+    <div *ngIf="showMap">
+        <app-map [position]="{lat: cache.latitude, lng:cache.longitude}"></app-map>
+    </div>
+</ion-content>
+<ion-content *ngIf="!ready">
+    <div class="charging">
+        <ion-spinner name="dots"></ion-spinner>
+    </div>
 </ion-content>

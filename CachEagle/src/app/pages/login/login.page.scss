@@ -25,3 +25,19 @@ form {
 ion-button {
   width: 100%;
 }
+
+ion-backdrop {
+  opacity: 0.4;
+  background: var(--ion-color-light);
+}
+
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
