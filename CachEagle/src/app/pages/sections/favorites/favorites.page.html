@@ -1,28 +1,33 @@
-<ion-content [fullscreen]="true" *ngIf="ready">
-  <ion-toolbar>
-    <ion-title size="large"><strong>Preferiti</strong></ion-title>
-  </ion-toolbar>
-  <ion-fab slot="fixed" vertical="top" horizontal="start">
-    <ion-fab-button>
-      <ion-menu-button color="dark"/>
-    </ion-fab-button>
-  </ion-fab>
-  <div *ngIf="cachesList.length > 0">
-    <ion-list *ngFor="let cache of cachesList; let i = index">
-      <ion-item>
-        <ion-avatar (click)="openDetail(cache.id)">
-          <ion-img *ngIf="!cache.photo" alt="Silhouette of a person's head"
-                   src="https://ionicframework.com/docs/img/demos/avatar.svg"/>
-          <ion-img class="photo" *ngIf="cache.photo" [src]="'data:image/jpeg;base64,' + cache.photo"/>
-        </ion-avatar>
-        <ion-label (click)="openDetail(cache.id)">{{cache.title}}</ion-label>
-        <ion-button fill="clear" (click)="removeFavorite(cache.id)">
-          <ion-icon name="remove-circle-outline" color="dark"></ion-icon>
-        </ion-button>
-      </ion-item>
-    </ion-list>
-  </div>
-  <div class="box" *ngIf="cachesList.length<=0">
-    <h3>Non ci sono cache preferite</h3>
-  </div>
+<ion-content [fullscreen]="true">
+    <ion-toolbar>
+        <ion-title size="large"><strong>Preferiti</strong></ion-title>
+    </ion-toolbar>
+    <ion-fab slot="fixed" vertical="top" horizontal="start">
+        <ion-fab-button>
+            <ion-menu-button color="dark"/>
+        </ion-fab-button>
+    </ion-fab>
+    <div *ngIf="ready">
+        <div *ngIf="cachesList.length > 0">
+            <ion-list *ngFor="let cache of cachesList; let i = index">
+                <ion-item>
+                    <ion-avatar (click)="openDetail(cache.id)">
+                        <ion-img *ngIf="!cache.photo" alt="Silhouette of a person's head"
+                                 src="https://ionicframework.com/docs/img/demos/avatar.svg"/>
+                        <ion-img class="photo" *ngIf="cache.photo" [src]="'data:image/jpeg;base64,' + cache.photo"/>
+                    </ion-avatar>
+                    <ion-label (click)="openDetail(cache.id)">{{cache.title}}</ion-label>
+                    <ion-button fill="clear" (click)="removeFavorite(cache.id)">
+                        <ion-icon name="remove-circle-outline" color="dark"></ion-icon>
+                    </ion-button>
+                </ion-item>
+            </ion-list>
+        </div>
+        <div class="box" *ngIf="cachesList.length<=0">
+            <h3>Non ci sono cache preferite</h3>
+        </div>
+    </div>
+    <div *ngIf="!ready" class="charging">
+        <ion-spinner name="dots"></ion-spinner>
+    </div>
 </ion-content>

@@ -1,13 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {CacheService} from "../../../services/cache.service";
 import {AlertController, NavController} from "@ionic/angular";
-import {ActivatedRoute} from "@angular/router";
 import {MyCache} from "../../../models/cache.model";
 import {User} from "../../../models/user.model";
 import {ColorSchemaType} from "../../../components/rating/rating.component";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../../services/user.service";
-import {Stats} from "../../../models/stats.model";
 import {Review} from "../../../models/review.modal";
 
 @Component({
@@ -23,13 +21,11 @@ export class ReviewPage implements OnInit {
     protected rate: number = 0
     protected reviewFormModule: FormGroup;
     private user!: User
-    private statistiche!: Stats
 
     constructor(
         private cacheService: CacheService,
         private userService: UserService,
         private navController: NavController,
-        private route: ActivatedRoute,
         private alert: AlertController,
         fb: FormBuilder,
     ) {
@@ -43,7 +39,6 @@ export class ReviewPage implements OnInit {
         const data = await this.cacheService.getActiveCache(this.user = await this.userService.getLoggedUser())
         if (data) {
             this.cache = data.cache
-            this.statistiche = data.stats
             this.ready = true
         } else {
             await this.navController.navigateRoot("sections/search")

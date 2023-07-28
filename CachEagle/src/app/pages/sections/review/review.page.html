@@ -1,17 +1,21 @@
 <ion-content [fullscreen]="true" *ngIf="ready">
-  <div class="container">
-    <ion-title size="large">{{cache.title}}</ion-title>
-    <form [formGroup]="reviewFormModule">
-      <app-rating [colorSchema]="ColorSchemaType.GRYG" [rating]="rate" (ratingChange)="onEdit($event)"
-                  [editable]=true [icon_name]="'star'" [width]="'60vw'"></app-rating>
-      <div class="space"></div>
-      <ion-textarea id="descrizione" type="text"
-                    label="Recensione" label-placement="floating"
-                    fill="outline"
-                    formControlName="descrizione">
-      </ion-textarea>
-      <div class="space"></div>
-      <ion-button (click)="submit()">SALVA RECENSIONE</ion-button>
-    </form>
-  </div>
+    <div class="container">
+        <ion-title size="large">{{cache.title}}</ion-title>
+        <form [formGroup]="reviewFormModule">
+            <app-rating [colorSchema]="ColorSchemaType.GRYG" [rating]="rate" (ratingChange)="onEdit($event)"
+                        [editable]=true [icon_name]="'star'" [width]="'60vw'"></app-rating>
+            <div class="space"></div>
+            <ion-textarea id="descrizione" type="text"
+                          label="Recensione" label-placement="floating"
+                          fill="outline"
+                          formControlName="descrizione">
+            </ion-textarea>
+            <div class="space"></div>
+            <ion-button (click)="submit()">SALVA RECENSIONE</ion-button>
+        </form>
+    </div>
+</ion-content>
+
+<ion-content *ngIf="!ready" class="charging">
+    <ion-spinner name="dots"></ion-spinner>
 </ion-content>

@@ -24,13 +24,11 @@ export class SearchPage implements OnInit {
 
     difficultValue: RangeValue = {lower: 0, upper: 5}
     ratingValue = 0;
-
+    protected loggedUser!: User
+    protected cacheList!: MyCache[]
     private watchPositionListener: any
     private currentLocationMarker!: string
     private markers: { [markerId: string]: number } = {}
-
-    protected loggedUser!: User
-    protected cacheList!: MyCache[]
     private permission: boolean = false
 
     constructor(
@@ -49,6 +47,7 @@ export class SearchPage implements OnInit {
     async ionViewWillLeave() {
         await this.closeBottomList()
         if (this.permission) await this.stopWatchingPosition()
+        await this.map.destroy()
     }
 
     async ionViewDidEnter() {
