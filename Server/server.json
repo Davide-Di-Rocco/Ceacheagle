@@ -7,7 +7,15 @@
       "favorites": [
         4
       ],
-      "completed": []
+      "completed": [
+        {
+          "startTime": "2023-07-29T09:18:14.697Z",
+          "endTime": null,
+          "hint": false,
+          "distance": 0.043,
+          "cacheId": 1
+        }
+      ]
     },
     {
       "id": 1,
@@ -31,6 +39,13 @@
           "hint": false,
           "distance": 0.314,
           "cacheId": 6
+        },
+        {
+          "startTime": "2023-07-29T09:37:43.617Z",
+          "endTime": null,
+          "hint": false,
+          "distance": 0,
+          "cacheId": 3
         }
       ]
     }

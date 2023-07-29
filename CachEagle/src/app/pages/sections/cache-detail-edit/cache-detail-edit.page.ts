@@ -66,4 +66,8 @@ export class CacheDetailEditPage implements OnInit {
       }
     })
   }
+
+  async onBack() {
+    await this.navController.navigateRoot(['sections/mycaches'])
+  }
 }

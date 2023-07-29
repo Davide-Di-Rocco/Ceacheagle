@@ -1,54 +1,56 @@
 <ion-content *ngIf="ready">
-    <ion-header>
-        <ion-toolbar>
-            <ion-buttons slot="start">
-                <ion-back-button defaultHref="/"></ion-back-button>
-            </ion-buttons>
-            <ion-title>{{ cache.title }}</ion-title>
-            <ion-buttons slot="end">
-                <ion-button (click)="onMapClick()" id="map-btn">
-                    <ion-icon *ngIf="showMap" name="map"></ion-icon>
-                    <ion-icon *ngIf="!showMap" name="map-outline"></ion-icon>
-                </ion-button>
-            </ion-buttons>
-        </ion-toolbar>
-    </ion-header>
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button (click)="navBack()">
+          <ion-icon name="arrow-back-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>{{ cache.title }}</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="onMapClick()" id="map-btn">
+          <ion-icon *ngIf="showMap" name="map"></ion-icon>
+          <ion-icon *ngIf="!showMap" name="map-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
 
-    <div>
-        <div class="container">
-            <ion-img [src]="'data:image/jpeg;base64,' + cache.photo"></ion-img>
-            <div class="description">
-                <p>{{ cache.description }}</p>
-            </div>
-            <div class="stats">
-                <div class="column">
-                    <h6>Distanza</h6>
-                    <p>{{statistiche.distance | number: '0.3-3'}} km
-                        <ion-icon class="dim" name="footsteps-outline"></ion-icon>
-                    </p>
-                </div>
-                <div class="space"></div>
-                <div class="column">
-                    <h6>Tempo impiegato</h6>
-                    <p>{{ time }}
-                        <ion-icon class="dim" name="stopwatch-outline"></ion-icon>
-                    </p>
-                </div>
-            </div>
-            <app-hint [hints]="cache.hints" height="260px" [visible]="statistiche.hint"
-                      (visibilityChange)="updateVisibility($event)"></app-hint>
-            <div class="line">
-                <ion-button (click)="deactivate()">DISATTIVA CACHE</ion-button>
-                <div></div>
-                <ion-button (click)="onFind()">CACHE TROVATA</ion-button>
-            </div>
+  <div>
+    <div class="container">
+      <ion-img [src]="'data:image/jpeg;base64,' + cache.photo"></ion-img>
+      <div class="description">
+        <p>{{ cache.description }}</p>
+      </div>
+      <div class="stats">
+        <div class="column">
+          <h6>Distanza</h6>
+          <p>{{statistiche.distance | number: '0.3-3'}} km
+            <ion-icon class="dim" name="footsteps-outline"></ion-icon>
+          </p>
         </div>
+        <div class="space"></div>
+        <div class="column">
+          <h6>Tempo impiegato</h6>
+          <p>{{ time }}
+            <ion-icon class="dim" name="stopwatch-outline"></ion-icon>
+          </p>
+        </div>
+      </div>
+      <app-hint [hints]="cache.hints" height="260px" [visible]="statistiche.hint"
+                (visibilityChange)="updateVisibility($event)"></app-hint>
+      <div class="line">
+        <ion-button (click)="deactivate()">DISATTIVA CACHE</ion-button>
+        <div></div>
+        <ion-button (click)="onFind()">CACHE TROVATA</ion-button>
+      </div>
     </div>
+  </div>
 
-    <app-map [position]="{lat:cache.latitude, lng: cache.longitude}" *ngIf="showMap"></app-map>
+  <app-map [position]="{lat:cache.latitude, lng: cache.longitude}" *ngIf="showMap"></app-map>
 </ion-content>
 <ion-content *ngIf="!ready">
-    <div class="charging">
-        <ion-spinner name="dots"></ion-spinner>
-    </div>
+  <div class="charging">
+    <ion-spinner name="dots"></ion-spinner>
+  </div>
 </ion-content>
